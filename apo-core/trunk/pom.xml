@@ -1,0 +1,106 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.uqbar</groupId>
+	<artifactId>apo-core</artifactId>
+	<version>1.0</version>
+	<name>Aspected Pure Object Project</name>
+	<packaging>jar</packaging>
+
+	<parent>
+		<groupId>uqbar</groupId>
+		<artifactId>uqbar-parent-project</artifactId>
+		<version>1.2</version>
+	</parent>
+
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<scm-xpdev-apo>projects/apo</scm-xpdev-apo>
+		<scm.svnPath>${scm-xpdev-apo}/apo-core/trunk</scm.svnPath>
+	</properties>
+
+	<scm>
+		<connection>scm:svn:http://xp-dev.com/svn/uqbar/projects/apo/apo-core/trunk</connection>
+		<developerConnection>scm:svn:http://xp-dev.com/svn/uqbar/projects/apo/apo-core/trunk</developerConnection>
+		<url>http://xp-dev.com/svn/uqbar/projects/apo/apo-core/trunk</url>
+	</scm>
+
+	<dependencies>
+		<!-- UQBAR DEPENDENCIES -->
+		<dependency>
+			<groupId>com.uqbar</groupId>
+			<artifactId>uqbar-commons</artifactId>
+			<version>1.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.uqbar</groupId>
+			<artifactId>uqbar-commons-collections</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>uqbar</groupId>
+			<artifactId>util-commons</artifactId>
+			<version>3.0-SNAPSHOT</version>
+		</dependency>
+
+		<!-- /UQBAR DEPENDENCIES -->
+		<!-- <dependency> <groupId>com.uqbar</groupId> <artifactId>renascent.commons</artifactId> 
+			<version>1.0-SNAPSHOT</version> </dependency> -->
+
+
+
+		<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.8.0.GA</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.3</version>
+			<type>jar</type>
+		</dependency>
+
+		<!-- ADDED TO FIX DEPENDENCIES ISSUES -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.uqbar</groupId>
+			<artifactId>uqbar-commons-exceptions</artifactId>
+			<version>1.5-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.7.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.2</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.2.1</version>
+				<configuration>
+					<tagBase>${scm.svnServer.xpdev}/${scm-xpdev-apo}/tags</tagBase>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

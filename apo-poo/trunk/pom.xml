@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.uqbar</groupId>
+	<artifactId>poo</artifactId>
+	<version>1.0</version>
+	<packaging>jar</packaging>
+	<name>Pure Obervable Object</name>
+
+	<url>http://maven.apache.org</url>
+
+	<parent>
+		<groupId>uqbar</groupId>
+		<artifactId>uqbar-parent-project</artifactId>
+		<version>1.2</version>
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<scm-xpdev-apo>projects/apo</scm-xpdev-apo>
+		<scm.svnPath>${scm-xpdev-apo}/apo-poo/trunk</scm.svnPath>
+	</properties>
+
+	<scm>
+		<connection>scm:svn:http://xp-dev.com/svn/uqbar/projects/apo/apo-poo/trunk</connection>
+		<developerConnection>scm:svn:http://xp-dev.com/svn/uqbar/projects/apo/apo-poo/trunk</developerConnection>
+		<url>http://xp-dev.com/svn/uqbar/projects/apo/apo-poo/trunk</url>
+	</scm>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.uqbar</groupId>
+			<artifactId>apo-core</artifactId>
+			<version>1.0</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.2.1</version>
+				<configuration>
+					<tagBase>${scm.svnServer.xpdev}/${scm-xpdev-apo}/tags</tagBase>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
