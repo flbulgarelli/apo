@@ -10,13 +10,6 @@ import javassist.CtClass;
 import javassist.expr.ExprEditor;
 
 import com.uqbar.commons.collections.Predicate;
-import com.uqbar.renascent.aop.pointcut.predicate.HasAnnotationPredicate;
-import com.uqbar.renascent.aop.pointcut.predicate.OrPredicate;
-import com.uqbar.renascent.aop.pointcut.predicate.SuperClassPredicate;
-import com.uqbar.renascent.framework.aop.DirtyFlagFieldAccessInterceptor;
-import com.uqbar.renascent.framework.aop.GenericObjectReferenceFieldAccessInterceptor;
-import com.uqbar.renascent.framework.aop.IAdviceWeaver;
-import com.uqbar.renascent.framework.aop.LazyRelationResolverFieldAccessInterceptor;
 
 /**
  * Colabora con el FrameworkClassLoader para construir los Aspectos que fueron declarados. Solo aspectea los

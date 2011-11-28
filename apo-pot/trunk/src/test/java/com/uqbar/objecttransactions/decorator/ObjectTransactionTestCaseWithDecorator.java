@@ -1,9 +1,10 @@
 package com.uqbar.objecttransactions.decorator;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Test;
 
 import com.uqbar.objecttransactions.House;
 import com.uqbar.objecttransactions.ObjectTransactionTestCase;
@@ -13,11 +14,11 @@ import com.uqbar.renascent.framework.aop.transaction.ObjectTransactionManager;
 import com.uqbar.renascent.framework.aop.transaction.utils.BasicTaskOwner;
 
 /**
- * -Djava.system.class.loader=com.uqbar.objecttransactions.loader.ObjectTransactionClassLoader
+ * -Djava.system.class.loader=com.uqbar.pot.aop.ObjectTransactionClassLoader
  * 
  * @author jfernandes
  */
-public class ObjectTransactionTestCaseWithDecorator extends TestCase {
+public class ObjectTransactionTestCaseWithDecorator {
 	private static Log logger = LogFactory.getLog(ObjectTransactionTestCase.class);
 
 	/**
@@ -25,11 +26,10 @@ public class ObjectTransactionTestCaseWithDecorator extends TestCase {
 	 * the isolation between parent & child transaction.
 	 * With a commit at the end of the nested transaction.
 	 */
+	@Test
 	public void testWithJustOneDoorKeeper() {
 		TaskOwner testCaseOwner = new BasicTaskOwner("testCaseOwner");
 		House house = new House();
-		
-		ObjectTransactionManager.beginNullTransaction(testCaseOwner);
 		
 		DoorKeeper doorKeeper = new BlockingThreadDoorKeeper(new DefaultDoorKeeper(house));
 		
@@ -52,6 +52,7 @@ public class ObjectTransactionTestCaseWithDecorator extends TestCase {
 	 * the isolation between parent & child transaction.
 	 * With a commit at the end of the nested transaction.
 	 */
+	@Test
 	public void testOneDoorKeeperChangingCollectionAttribute() {
 		TaskOwner testCaseOwner = new BasicTaskOwner("testCaseOwner");
 		ObjectTransactionManager.begin(testCaseOwner);

@@ -1,4 +1,4 @@
-package com.uqbar.renascent.framework.aop;
+package com.uqbar.pot.aop;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -16,6 +16,7 @@ import com.uqbar.renascent.framework.aop.AdviceWeaver;
 import com.uqbar.renascent.framework.aop.DirtyFlagFieldAccessInterceptor;
 import com.uqbar.renascent.framework.aop.IBehaviorAdviceWeaverStrategy;
 import com.uqbar.renascent.framework.aop.LazyRelationResolverFieldAccessInterceptor;
+import com.uqbar.renascent.framework.aop.WeavingInstrumentor;
 
 public class TransactionalBehaviorAdviceWeaverStrategy implements
 		IBehaviorAdviceWeaverStrategy {

@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Test;
 
 import com.uqbar.renascent.common.transaction.TaskOwner;
 import com.uqbar.renascent.framework.aop.transaction.ObjectTransactionManager;
@@ -17,7 +18,7 @@ import com.uqbar.renascent.framework.aop.transaction.utils.BasicTaskOwner;
  * @author jfernandes
  * @author npasserini
  */
-public class ObjectTransactionTestCase extends TestCase {
+public class ObjectTransactionTestCase  {
 	private Object monitor = new Object();
 	private RuntimeException failure;
 	private static Log logger = LogFactory.getLog(ObjectTransactionTestCase.class);
@@ -25,6 +26,7 @@ public class ObjectTransactionTestCase extends TestCase {
 	/**
 	 * 
 	 */
+	@Test
 	public void testDifferentTransactionsSameObjectAccess() {
 		TaskOwner testCaseOwner = new BasicTaskOwner("testCaseOwner");
 		ObjectTransactionManager.begin(testCaseOwner);

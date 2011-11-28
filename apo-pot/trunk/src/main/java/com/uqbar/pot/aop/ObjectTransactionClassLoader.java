@@ -1,4 +1,4 @@
-package com.uqbar.renascent.framework.aop;
+package com.uqbar.pot.aop;
 
 import javassist.ClassPool;
 

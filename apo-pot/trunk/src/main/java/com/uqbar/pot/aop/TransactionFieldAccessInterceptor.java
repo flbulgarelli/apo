@@ -1,4 +1,4 @@
-package com.uqbar.renascent.framework.aop;
+package com.uqbar.pot.aop;
 
 import javassist.NotFoundException;
 import javassist.expr.FieldAccess;
@@ -6,6 +6,7 @@ import javassist.expr.FieldAccess;
 import org.apache.commons.lang.StringUtils;
 
 import com.uqbar.aop.javassit.parser.Tokens;
+import com.uqbar.renascent.framework.aop.FieldAccessInterceptor;
 
 
 /**
