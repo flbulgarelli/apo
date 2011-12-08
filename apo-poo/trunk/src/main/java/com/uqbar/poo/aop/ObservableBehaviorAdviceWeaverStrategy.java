@@ -3,15 +3,15 @@ package com.uqbar.poo.aop;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.expr.ExprEditor;
 
+import org.uqbar.commons.utils.Observable;
+
 import com.uqbar.commons.collections.Predicate;
 import com.uqbar.renascent.aop.pointcut.predicate.HasAnnotationPredicate;
 import com.uqbar.renascent.aop.pointcut.predicate.OrPredicate;
-import com.uqbar.renascent.aop.pointcut.predicate.SuperClassPredicate;
 import com.uqbar.renascent.framework.aop.IBehaviorAdviceWeaverStrategy;
 import com.uqbar.renascent.framework.aop.WeavingInstrumentor;
 
@@ -21,16 +21,11 @@ public class ObservableBehaviorAdviceWeaverStrategy implements IBehaviorAdviceWe
 	private ObservableBehavior observableBehavior = new ObservableBehavior();
 
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public void addInstrumentors(ClassPool classPool, Map<Predicate<CtClass>, ExprEditor> weavingInstrumentors) {
 		// persistence - collections
-		weavingInstrumentors.put(new OrPredicate<CtClass>(
-			new SuperClassPredicate(classPool, "com.uqbar.renascent.common.collections.Itr"),
-			new SuperClassPredicate(classPool, "com.uqbar.renascent.common.collections.AbstractCollection"),
-			new SuperClassPredicate(classPool, "com.uqbar.renascent.common.collections.SubListListIterator"),
-			new SuperClassPredicate(classPool, "com.uqbar.renascent.common.collections.BasicList"),
-			new HasAnnotationPredicate(classPool, "org.uqbar.commons.utils.Transactional")),
+		weavingInstrumentors.put(
+			new HasAnnotationPredicate(classPool, Observable.class.getName()),
 			new WeavingInstrumentor()
 					.addFieldAccessInterceptor(observableFieldAccessInterceptor));
 

@@ -15,10 +15,12 @@ public class ObservableFieldAccessInterceptor extends FieldAccessInterceptor {
 	@Override
 	protected void modifyWriterFieldAccess(StringBuffer statement, FieldAccess fieldAccess) throws NotFoundException {
 		if(!Modifier.isTransient(fieldAccess.getField().getModifiers())){
+			String saveOldValue = Object.class.getName() + " oldValue = $oldValue;";
+			statement.replace(0, statement.length(), saveOldValue + statement.toString());
 			String newExpresion = 
-				"$this.firePropertyChange('$fieldName', $oldValue, $newValue);";
+				"$this.firePropertyChange('$fieldName', oldValue, $newValue);";
 	
-			statement.replace(0, statement.length(), newExpresion + statement.toString());
+			statement.append(newExpresion);
 
 		}
 	}
