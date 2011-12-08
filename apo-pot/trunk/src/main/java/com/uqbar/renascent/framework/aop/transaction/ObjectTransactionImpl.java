@@ -5,13 +5,13 @@ import java.util.Map.Entry;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.uqbar.commons.utils.ReflectionUtils;
 
 import com.uqbar.commons.collections.CollectionFactory;
 import com.uqbar.commons.exceptions.ApplicationException;
 import com.uqbar.commons.exceptions.ProgramException;
 import com.uqbar.renascent.common.transaction.ObjectTransaction;
 import com.uqbar.renascent.common.transaction.TaskOwner;
-import com.uqbar.renascent.framework.aop.transaction.utils.RefactormeUtils;
 
 /**
  * {@link ObjectTransaction} default implementation.
@@ -173,7 +173,8 @@ public class ObjectTransactionImpl implements ObjectTransaction {
     		synchronized (keyWrapper.getKey()) {
     			for (Entry<String, Object> entry : this.getValueMap(keyWrapper).entrySet()) {
     				try {
-    					RefactormeUtils.forceFieldValue(keyWrapper.getKey(), entry.getKey(), entry.getValue());
+//    					RefactormeUtils.forceFieldValue(keyWrapper.getKey(), entry.getKey(), entry.getValue());
+    					ReflectionUtils.invokeSetter(keyWrapper.getKey(), entry.getKey(), entry.getValue());
     				}
     				catch (Exception exception) {
     					throw ((ProgramException) ApplicationException.unchecked(exception)) //
