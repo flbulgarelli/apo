@@ -1,0 +1,94 @@
+% ========================================================================================
+% ITESM - Campus Monterrey
+%
+% Clon de las especificaciones para la plantilla de tesis del grupo vision.
+% Versi�n compacta para evitar los conflictos con hyperref.
+%
+% Autor: Hugo Ortega H. hugorteg@yahoo.com 17/12/2003
+%=========================================================================================
+
+
+% redefinicion de algunas titulos:
+
+\addto{\captionsspanish}{\def\tablename{Tabla}}
+\addto{\captionsspanish}{\def\figurename{Figura}}
+\addto{\captionsspanish}{\def\listtablename{Índice de tablas}}
+\addto{\captionsspanish}{\def\contentsname{Contenido}}
+\addto{\captionsspanish}{\def\bibliographyname{Fuentes consultadas}}
+\spanishdecimal{.}
+
+% numeracion romana en minusculas (ok, falta de ortografia, pero estoy clonando el estilo oficial :S)
+
+\makeatletter
+\addto\layoutspanish{\def\@roman#1{\romannumeral #1}}
+\makeatother
+
+% detalles de encabezados:
+
+% ancho de encabezado
+\setlength{\textwidth}{15.5cm}
+\setlength{\headwidth}{\textwidth}
+
+\pagestyle{fancy}
+
+% pone el nombre de los capitulos en el encabezado sin punto al final, y en minusculas.
+\renewcommand{\chaptermark}[1]{
+   \markboth{\chaptername\ \thechapter\ \ #1}{}
+}
+
+% idem para secciones
+\renewcommand{\sectionmark}[1]{
+  \markright{\thesection\ \ #1}}
+
+% contenido de encabezados
+\fancyhead{}
+\fancyhead[LE,RO]{\rm \bf \thepage}  % numero de pagina
+\fancyhead[RE]{\sl \leftmark}        % el nombre del capitulo
+\fancyhead[LO]{\sl \rightmark}       % el nombre de la seccion
+\fancyfoot{}                         % nada en el pie de pagina
+
+% el grosor de la linea decorativa
+\renewcommand{\headrulewidth}{0.3pt}
+
+% la linea decorativa un poco mas abajo.
+\renewcommand{\headrule}{
+   \vspace*{-0.25cm} \vbox to 0pt{\hbox to\headwidth{\hrulefill}}
+}
+
+% redefine cleardoublepage para que las paginas pares vacias al final de cada capitulo
+% queden realmente vacias:
+\makeatletter
+\def\cleardoublepage{
+   \clearpage\if@twoside
+   \ifodd\c@page\else \hbox{}
+   \vspace*{\fill}
+   \vspace{\fill}
+   \thispagestyle{empty}
+   \newpage \if@twocolumn\hbox{}\newpage\fi\fi\fi
+}
+\makeatother
+
+% otras definiciones
+
+\setlength{\textheight}{22.5cm}
+\setlength{\textwidth}{15.5cm}
+\setlength{\topmargin}{-0.8cm}
+\setlength{\evensidemargin}{0cm}
+\setlength{\oddsidemargin}{1.02cm}
+\setlength{\headsep}{0.5in}
+\setlength{\floatsep}{12pt plus 2pt minus 4pt}
+\setlength{\textfloatsep}{20pt plus 2pt minus 4pt}
+\setlength{\intextsep}{10pt plus 2pt minus 3pt}
+
+% espaciado entre linea y linea, mover si no gusta el espaciado por default.
+%\setlength{\baselineskip}{24pt}
+
+
+% mas definiciones :-|
+
+\newtheorem{propiedad}{Propiedad}[chapter]
+\newtheorem{lema}{Lema}[chapter]
+\newtheorem{teorema}{Teorema}[chapter]
+\newtheorem{definicion}{Definición}[chapter]
+
+\pagestyle{fancy}

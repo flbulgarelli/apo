@@ -1,0 +1,45 @@
+\documentclass[12pt,reqno,oneside]{book}
+
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{fancyhdr}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{fancybox}
+\usepackage{graphics}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage[centerlast,small,bf]{caption2}
+
+\usepackage{styles}
+
+\newcommand{\PROJECTNAME}{
+{\bf Objetos Puros observables y transaccionales.} \\
+{\bf Con Monitoreo de transacciones}}
+\newcommand{\AUTHOR}{Ronny De Jesus}
+\newcommand{\DIRECTOR}{Nicolas Passerini}
+\newcommand{\CODIRECTOR}{Javier Fernandes}
+\newcommand{\DATE}{Diciembre 2011}
+%-----------------------------------------------------------------------------------------
+\title{\PROJECTNAME}
+\date{\DATE}
+
+\setcaptionwidth{13cm}
+
+% ----------------------------------------------------------------------------
+\begin{document}
+
+\include{cover}
+
+% ----------------------------------------------------------------------------
+\tableofcontents                   %% Genera indice general.
+% ----------------------------------------------------------------------------
+
+\include{chapters}
+
+\include{finally}
+
+% ----------------------------------------------------------------------------
+
+\end{document}
