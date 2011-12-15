@@ -1,0 +1,179 @@
+\ProvidesPackage{mystyle}
+
+%\usepackage{times}
+%\usepackage{pslatex}
+\usepackage{newcent}
+
+\usepackage{ucs}
+\usepackage[ansinew]{inputenc}
+\usepackage[spanish]{babel}
+
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage[fixlanguage]{babelbib}
+\selectbiblanguage{spanish}
+\usepackage{fullpage}
+\usepackage{array}
+\usepackage{amssymb, amsmath}
+\usepackage{color}
+\usepackage{tabularx}
+\usepackage{fancybox}
+\usepackage{fancyhdr}
+\usepackage{longtable}
+\usepackage{acronym}
+\usepackage{listings}
+\usepackage[htt]{hyphenat}
+
+%\usepackage{natbib}
+\usepackage{makeidx}  % allows for indexgeneration
+
+%\usepackage[colorlinks]{hyperref}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\renewcommand{\tablename}{Tabla}
+
+\newenvironment{myitemize}{%
+     \begin{itemize} \setlength{\itemsep}{0cm}}
+     {\end{itemize}}
+
+\newenvironment{myenumerate}{%
+     \begin{enumerate} \setlength{\itemsep}{0cm}}
+     {\end{enumerate}}
+
+\usepackage[pdftex]{graphicx}
+
+
+\clubpenalty=10000
+\widowpenalty=10000
+%\raggedbottom
+
+
+\setlongtables
+
+%\lstset{language=Java}
+\lstset{ %
+language=Java,                % choose the language of the code
+basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+%numbers=left,                   % where to put the line-numbers
+%numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+%stepnumber=1,                   % the step between two line-numbers. If it's 1 each line will be numbered
+%numbersep=5pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,                   % adds a frame around the code
+tabsize=2,                      % sets default tabsize to 2 spaces
+captionpos=b,                   % sets the caption-position to bottom
+breaklines=true,                % sets automatic line breaking
+breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+escapeinside={\%*}{*)}          % if you want to add a comment within your code
+}
+
+\newif\ifshowfigs
+\ifx\hideFigs\undefined
+  \showfigstrue         % show figures for complete document
+\else
+  \showfigsfalse        % hide figures for fast preview
+\fi
+\newif\ifpdf
+\ifx\pdfoutput\undefined
+  \pdffalse         % we are not running PDFLaTeX
+\else
+  \pdfoutput=1          % we are running PDFLaTeX
+  \pdftrue
+\fi \ifpdf
+  \pdfcompresslevel=9
+  \DeclareGraphicsExtensions{.png,.jpg,.pdf,.mps,.eps,.gif,.ps}
+\else
+  \DeclareGraphicsExtensions{.eps,.ps}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\def\EmailURL#1{\href{mailto:#1}{\email{#1}}}
+
+% otras definiciones
+
+% redefinicion de algunas titulos:
+
+\addto{\captionsspanish}{\def\tablename{Tabla}}
+\addto{\captionsspanish}{\def\figurename{Figura}}
+\addto{\captionsspanish}{\def\listtablename{Índice de tablas}}
+\addto{\captionsspanish}{\def\contentsname{Índice}}
+\addto{\captionsspanish}{\def\bibliographyname{Fuentes consultadas}}
+\spanishdecimal{.}
+
+% numeracion romana en minusculas (ok, falta de ortografia, pero estoy clonando el estilo oficial :S)
+
+\makeatletter
+\addto\layoutspanish{\def\@roman#1{\romannumeral #1}}
+\makeatother
+
+% detalles de encabezados:
+
+% ancho de encabezado
+\setlength{\textwidth}{15.5cm}
+\setlength{\headwidth}{\textwidth}
+
+\pagestyle{fancy}
+
+% pone el nombre de los capitulos en el encabezado sin punto al final, y en minusculas.
+%\renewcommand{\chaptermark}[1]{
+%   \markboth{\chaptername\ \thechapter\ \ #1}{}
+%}
+
+% idem para secciones
+\renewcommand{\sectionmark}[1]{
+  \markright{\thesection\ \ #1}}
+
+% contenido de encabezados
+\fancyhead{}
+\fancyhead[LE,RO]{\rm \bf \thepage}  % numero de pagina
+\fancyhead[RE]{\sl \leftmark}        % el nombre del capitulo
+\fancyhead[LO]{\sl \rightmark}       % el nombre de la seccion
+\fancyfoot{}                         % nada en el pie de pagina
+
+% el grosor de la linea decorativa
+\renewcommand{\headrulewidth}{0.3pt}
+
+% la linea decorativa un poco mas abajo.
+\renewcommand{\headrule}{
+   \vspace*{-0.25cm} \vbox to 0pt{\hbox to\headwidth{\hrulefill}}
+}
+
+% redefine cleardoublepage para que las paginas pares vacias al final de cada capitulo
+% queden realmente vacias:
+\makeatletter
+\def\cleardoublepage{
+   \clearpage\if@twoside
+   \ifodd\c@page\else \hbox{}
+   \vspace*{\fill}
+   \vspace{\fill}
+   \thispagestyle{empty}
+   \newpage \if@twocolumn\hbox{}\newpage\fi\fi\fi
+}
+\makeatother
+
+% otras definiciones
+
+\setlength{\textheight}{22.5cm}
+\setlength{\textwidth}{15.5cm}
+\setlength{\topmargin}{-0.8cm}
+\setlength{\evensidemargin}{0cm}
+\setlength{\oddsidemargin}{1.02cm}
+\setlength{\headsep}{0.5in}
+\setlength{\floatsep}{12pt plus 2pt minus 4pt}
+\setlength{\textfloatsep}{20pt plus 2pt minus 4pt}
+\setlength{\intextsep}{10pt plus 2pt minus 3pt}
+
+\pagestyle{fancy}
+

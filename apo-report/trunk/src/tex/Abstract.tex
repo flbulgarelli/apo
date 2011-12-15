@@ -1,0 +1,33 @@
+\begin{abstract}
+Del tiempo necesario para desarrollar una interfaz de usuario, gran
+parte se destina a la tarea rutinaria de traspasar los datos de los
+objetos de dominio hacia los componentes de la interfaz gráfica y
+viceversa. A este proceso de vincular y convertir los datos entre la
+interfaz y el dominio se lo denomina binding.
+Otro problema que aparece frecuentemente es que el binding en su versión
+más sencilla modifica los objetos directamente, por lo que al cancelar
+una operación se debe volver al estado anterior, y este proceso es
+repetitivo y propenso a errores. Con frecuencia implica introducir
+comportamiento propio de la interfaz de usuario, en mis objetos de
+dominio, mezclando la lógica de las dos partes de la aplicación.
+Esto me obliga a adaptar mi dominio a este sistema, y repetir muchas
+líneas de código.
+
+Otro caso de estudio, investiga un particular enfoque de diseño para hacer
+frente a los sistemas transaccionales en un entorno orientado a objetos.
+Este arquitectura es única debido a los siguientes objetivos de diseño:
+
+
+\begin {itemize}
+
+\item {\bf Centrada en objetos puros}
+
+\item {\bf Transparente}
+
+\item {\bf Sistema independiente de la arquitectura} se puede utilizar e
+integar en cualquier arquitectura del sistema: web, rich-client,
+etc, y con cualquier sistema de almacenamiento persitence: RDBM, OODB, etc
+
+\end {itemize}
+
+\end{abstract}
