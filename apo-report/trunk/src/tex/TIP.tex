@@ -1,6 +1,49 @@
+\section{Aplicación de ejemplo}
+(Fijarse si se puede poner en la problematica)
+1)Edicion con cancelar
+2)multiple cancelaciones
+3)buscador
+4)monitor de transacciones
+
+
 \section{Nuestra herramienta: TIP}
 \label{sec:Jeronimo}
-sdfsd
-fsd
-fs
-fdf
+
+
+
+Programacion de los aspectos 
+	Se utiliza javassist porque es independiente al usuario, en cambio si utilamos
+	aspectJ obligamos a cambiar de entorno al usuario
+	Abstraccion de javassist, y es independiente para poder utilizarlo
+	
+	El aspecto Transaccional esta basado en el que habia hecho nico y javi (contar
+	que mejoras se hicieron)
+	
+	El aspecto Observable (contar que le agrega metodos y field)
+
+
+Integracion con el domminio
+	Facil de configurar con annotations
+	Poder tener una u otro aspecto 
+
+
+Integración de aspectos con el Arena
+	Asocio un transaccion con una ventana.
+	El trabajo de los eventos va al dominio y no al arena!
+	Modificar el arena para que escuche los eventos que estan solo en su
+	transaccion. (contar del transaccional dialog)
+	
+
+(Mejoras al arena | utilacion de scala => fijarse donde va)
+	
+	
+(poder hacer otra implementacion de (eventos | Swing) y utilizarlo con las
+transacciones (trabajo futuro si no se llega))
+
+Contar que esta publicado, con la licencia y blah
+
+Test de los aspectos
+
+
+
+
