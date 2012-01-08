@@ -43,10 +43,14 @@ usuarios que vemos en lapantalla.\\
 
 \subsection{Eventos}
 
+TODO\\
 
 \subsection{Binding}
-El Binding permite conectar la propiedad de un objeto (modelo) con otra de
-otro objeto(vista).\\
+El Binding permite sincronizar los valores de las propiedades de dos objetos
+diferentes (vista y modelo). Cada vez que el valor de una propiedad
+cambia, el objeto notifica (lanza un evento), y todas las
+propiedades que esten bindeadas a el reflejan los cambios automaticamente\\
+
 
 \includegraphics[width=300px]{img/binding}
 
@@ -74,12 +78,48 @@ interfaz y viceversa , hay que hacerlo a mano.
 
 
 \subsubsection{Problemas sin binding}
+Al no tener binding perdemos mucho tiempo de desarrollo en  traspasar los datos
+de los objetos de dominio hacia los componentes de la interfaz grafica y
+viceversa.
 
 \subsubsection{Problemas con Binding}
+Un problema que aparece frecuentemente es que el binding en su versión más 
+sencilla modifica los objetos directamente, por lo que al cancelar una operación 
+se debe volver al estado anterior, y este proceso es repetitivo y propenso a errores. 
+Con frecuencia implica introducir comportamiento propio de la interfaz de
+usuario, en mis objetos de dominio, mezclando la lógica de las dos partes de
+la aplicación. Esto me obliga a adaptar mi dominio a este sistema, y repetir
+muchas líneas de código.
 	
 \section{Transacciones}	
-	
-	
+{TODO} como enganchar lo anterior con esto\\
+
+Las transacciones en un entorno de bases de datos tienen dos propositos
+principales:
+
+\begin {itemize}
+
+  \item	
+  Proveer unidades de trabajo confiables, que permitan mantener la consistencia
+  incluso si el sistema falla.
+  
+  \item
+  Proporcionar un aislamiento entre los programas de acceso a una base de datos
+  al mismo tiempo.
+  
+\end{itemize}
+
+¿Que pasa con las aplicaciones orientadas a objetos?
+\begin {itemize}
+
+  \item
+  	Las unidades de trabajo y el aislamiento siguen siendo utiles en programacion
+  	orientada a objetos.
+  	
+  \item
+  	Pero la separacion entre el programa y la base de datos es contraria a los
+  	principios de la programacion orientada a objetos.
+\end{itemize}	
 
 El objetivo de este trabajo es proponer una solución a estos dos problemas que
 minimice el impacto en el código de las clases del dominio de la aplicación
