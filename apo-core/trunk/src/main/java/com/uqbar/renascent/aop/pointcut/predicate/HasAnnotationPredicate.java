@@ -2,6 +2,8 @@ package com.uqbar.renascent.aop.pointcut.predicate;
 
 import javassist.ClassPool;
 import javassist.CtClass;
+import javassist.CtField;
+import javassist.CtMember;
 import javassist.NotFoundException;
 
 import com.uqbar.commons.collections.Predicate;
@@ -12,7 +14,7 @@ import com.uqbar.commons.exceptions.ProgramException;
  * 
  * @author jfernandes
  */
-public class HasAnnotationPredicate implements Predicate<CtClass> {
+public class HasAnnotationPredicate implements APredicate {
 	private CtClass annotationType;
 	private String annotationTypeName;
 	private ClassPool classPool;
@@ -56,6 +58,21 @@ public class HasAnnotationPredicate implements Predicate<CtClass> {
 			throw new ProgramException("annotation type not found", exception);
 		}
 		return this.annotationType;
+	}
+
+	@Override
+	public boolean evaluate(CtField ctField) {
+		try {
+			for (Object annotationProxy : ctField.getAnnotations()) {
+				if (implementsAnnotationInterface(annotationProxy.getClass().getInterfaces())) {
+					return true;
+				}
+			}
+			return false;
+		} 
+		catch (ClassNotFoundException e) {
+			throw new ProgramException("Error while inspecting ctClass to check for annotation '" + this.annotationType.getSimpleName() + "'", e);
+		} 
 	}
 
 }

@@ -1,5 +1,38 @@
-\section{Metodolog�a utilizada}
+\section{Metodología utilizada}
 \label{sec:Methodology}
 Introduccion a Aspectos
 		1 en general
-		en particular, xq aplica en este 
+		en particular, xq aplica en este
+
+{\bf Programacion orientada a Aspectos }
+		
+Ya sea a través de la POO o con otras técnicas de abstracción de alto nivel, se
+logra un diseño y una implementación que satisface la funcionalidad básica, y con
+una calidad aceptable. Sin embargo, existen conceptos que no pueden encapsularse
+dentro de una unidad funcional, debido a que atraviesan todo el sistema, o varias
+parte de él (crosscutting concerns). Algunos de estos conceptos son: sincronización,
+manejo de memoria, distribución, chequeo de errores, profiling, seguridad o redes,
+entre otros. Así lo muestran los siguientes ejemplos:
+
+\begin {enumerate}
+
+\item
+Manejo de errores y de fallas: agregar a un sistema simple un buen
+manejo de errores y de fallas requiere muchos y pequeños cambios y
+adiciones por todo el sistema debido a los diferentes contextos
+dinámicos que pueden llevar a una falla, y las diferentes políticas
+relacionadas con el manejo de una falla \cite{Kicz97a}.
+
+\item
+Consideremos una aplicación que incluya conceptos de seguridad y
+sincronización, como por ejemplo, asegurarnos que dos usuarios no
+intenten acceder al mismo dato al mismo tiempo. Ambos conceptos
+requieren que los programadores escriban la misma funcionalidad en
+varias partes de la aplicación. Los programadores se verán forzados a
+recordar todas estas partes, para que a la hora de efectuar un cambio
+y / o una actualización puedan hacerlo de manera uniforme a través
+de todo el sistema. Tan solo olvidarse de actualizar algunas de estas
+repeticiones lleva al código a acumular errores. \cite{Aquila}
+
+
+ 

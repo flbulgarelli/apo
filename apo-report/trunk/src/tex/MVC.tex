@@ -1,20 +1,20 @@
-\section{Contrucción de interfaces de usuario usando el patrón MVC}
+\section{ContrucciÃ³n de interfaces de usuario usando el patrÃ³n MVC}
 
 \subsection{MVC}
 
-Modelo Vista Controlador (MVC) es un patrón de arquitectura de software que
-separa los datos de una aplicación, la interfaz de usuario, y la lógica de
+Modelo Vista Controlador (MVC) es un patrÃ³n de arquitectura de software que
+separa los datos de una aplicaciÃ³n, la interfaz de usuario, y la lÃ³gica de
 negocio en tres componentes distintos.
 
 El estilo fue descrito por primera vez en 1979 por \emph{Trygve Reenskaug},
-entonces trabajando en Smalltalk en laboratorios de investigación de Xerox. 
-La implementación original está escrita en Programación de Aplicaciones en 
+entonces trabajando en Smalltalk en laboratorios de investigaciÃ³n de Xerox. 
+La implementaciÃ³n original estÃ¡ escrita en ProgramaciÃ³n de Aplicaciones en 
 Smalltalk-80(TM): Como utilizar Modelo Vista Controlador.
 
-La idea principal de MVC, y que influyó a frameworks de presentación posteriores,
-es la de Presentación Separada \emph{(Separated Presentation)} que consiste en
-hacer unadivisión clara entre objetos de dominio que modelan nuestra percepción 
-del mundo real y objetos de presentación que son los elementos Interfaz de
+La idea principal de MVC, y que influyÃ³ a frameworks de presentaciÃ³n posteriores,
+es la de PresentaciÃ³n Separada \emph{(Separated Presentation)} que consiste en
+hacer unadivisiÃ³n clara entre objetos de dominio que modelan nuestra percepciÃ³n 
+del mundo real y objetos de presentaciÃ³n que son los elementos Interfaz de
 usuarios que vemos en lapantalla.\\
 
 \includegraphics[width=300px, height=300px]{img/mvc}
@@ -25,10 +25,10 @@ usuarios que vemos en lapantalla.\\
   	
 
 \item {\bf Modelo}
-	El modelo maneja el comportamiento y los datos del dominio de la aplicación,
+	El modelo maneja el comportamiento y los datos del dominio de la aplicaciÃ³n,
 	responde a los pedidos de informacion sobre su estado (por lo general de la
 	vista), y responde a las instrucciones para cambiar su estado (por lo general
-	desde el controlador). También deberían ser capaces de soportar	múltiples presentaciones
+	desde el controlador). TambiÃ©n deberÃ­an ser capaces de soportar	mÃºltiples presentaciones
 	
 	
 \item {\bf Vista}
@@ -60,10 +60,10 @@ modos.
 \begin {itemize}
 
 \item {\bf OneWay}
-Con este tipo de binding el flujo de datos se realiza en una sola dirección. 
+Con este tipo de binding el flujo de datos se realiza en una sola direcciÃ³n. 
 
 \item {\bf TwoWay}
-En este tipo de asociación el flujo se produce en ambas direcciones. Los cambios
+En este tipo de asociaciÃ³n el flujo se produce en ambas direcciones. Los cambios
 realizados en el modelo se ven reflejados  en la vista y viceversa. (Este es el
 tipo de binding que tenemos en el Arena)
 
@@ -83,16 +83,22 @@ de los objetos de dominio hacia los componentes de la interfaz grafica y
 viceversa.
 
 \subsubsection{Problemas con Binding}
-Un problema que aparece frecuentemente es que el binding en su versión más 
-sencilla modifica los objetos directamente, por lo que al cancelar una operación 
+Un problema que aparece frecuentemente es que el binding en su versiÃ³n mÃ¡s 
+sencilla modifica los objetos directamente, por lo que al cancelar una operaciÃ³n 
 se debe volver al estado anterior, y este proceso es repetitivo y propenso a errores. 
 Con frecuencia implica introducir comportamiento propio de la interfaz de
-usuario, en mis objetos de dominio, mezclando la lógica de las dos partes de
-la aplicación. Esto me obliga a adaptar mi dominio a este sistema, y repetir
-muchas líneas de código.
+usuario, en mis objetos de dominio, mezclando la lÃ³gica de las dos partes de
+la aplicaciÃ³n. Esto me obliga a adaptar mi dominio a este sistema, y repetir
+muchas lÃ­neas de cÃ³digo.
 	
 \section{Transacciones}	
-{TODO} como enganchar lo anterior con esto\\
+
+{ Muchas aplicacion trabajan con transacciones en la base de datos, sin embargo
+el concepto excede al ambito de la bsae de datos y es un concepto util y
+necesario para las interfaces de usuario.} 
+
+Esta seccion intenta explicar la forma en que el concepto de transaccion
+impacta en las interfaces de usuario\\
 
 Las transacciones en un entorno de bases de datos tienen dos propositos
 principales:
@@ -109,7 +115,7 @@ principales:
   
 \end{itemize}
 
-¿Que pasa con las aplicaciones orientadas a objetos?
+Â¿Que pasa con las aplicaciones orientadas a objetos?
 \begin {itemize}
 
   \item
@@ -121,7 +127,7 @@ principales:
   	principios de la programacion orientada a objetos.
 \end{itemize}	
 
-El objetivo de este trabajo es proponer una solución a estos dos problemas que
-minimice el impacto en el código de las clases del dominio de la aplicación
+El objetivo de este trabajo es proponer una soluciÃ³n a estos dos problemas que
+minimice el impacto en el cÃ³digo de las clases del dominio de la aplicaciÃ³n
 
 

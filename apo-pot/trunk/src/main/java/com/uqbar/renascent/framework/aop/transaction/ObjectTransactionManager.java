@@ -54,9 +54,9 @@ public class ObjectTransactionManager {
     	
     	ObjectTransactionImpl transaction = (ObjectTransactionImpl) getTransaction();
     	transaction.getLogger().debug("Performing COMMIT on transaction id=[" + transaction.getId() + "]...");
+    	setTransaction(transaction.getParent());
 		ObjectTransaction nextTransaction = transaction.commit();
     	unregisterTransaction(getTransaction());
-    	setTransaction(nextTransaction);
     	transaction.getLogger().debug("Transaction COMMITED id=[" + transaction.getId() + "] next transaction is id=[" + transaction.getId() + "]");
     }
 

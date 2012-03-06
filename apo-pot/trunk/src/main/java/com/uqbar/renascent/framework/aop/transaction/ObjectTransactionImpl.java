@@ -57,6 +57,15 @@ public class ObjectTransactionImpl implements ObjectTransaction {
     public boolean fieldWrite(Object owner, String fieldName, boolean newValue, boolean oldValue) {
     	return ((Boolean) this.fieldWrite(owner, fieldName, Boolean.valueOf(newValue), Boolean.valueOf(oldValue))).booleanValue();
     }
+    
+    public int fieldWrite(Object owner, String fieldName, int newValue, int oldValue) {
+    	return ((Integer) this.fieldWrite(owner, fieldName, Integer.valueOf(newValue), Integer.valueOf(oldValue)));
+    }
+    
+    public double fieldWrite(Object owner, String fieldName, double newValue, double oldValue) {
+    	return ((Double) this.fieldWrite(owner, fieldName, Double.valueOf(newValue), Double.valueOf(oldValue)));
+    }
+
 
     /**
      * Stores the new value in the transaction's map associated to the target object.
@@ -67,8 +76,16 @@ public class ObjectTransactionImpl implements ObjectTransaction {
     	return oldValue;
     }
 
+    public int fieldRead(Object owner, String fieldName, int value) {
+    	return ((Integer) this.fieldRead(owner, fieldName, Integer.valueOf(value)));
+    }
+    
     public boolean fieldRead(Object owner, String fieldName, boolean value) {
     	return ((Boolean) this.fieldRead(owner, fieldName, Boolean.valueOf(value))).booleanValue();
+    }
+    
+    public double fieldRead(Object owner, String fieldName, double value) {
+    	return ((Double) this.fieldRead(owner, fieldName, Double.valueOf(value)));
     }
     
     /**
@@ -119,12 +136,12 @@ public class ObjectTransactionImpl implements ObjectTransaction {
      */
     protected ObjectTransaction commit() {
     	// TODO: use Polymorphism: NullObjectTransaction should be responsable of commiting to objects.
-    	if (this.parent != null && !(this.parent instanceof NullObjectTransaction)) {
-    		this.parent.commitMap(this.attributeMap);
-    	}
-    	else {
+//    	if (this.parent != null && !(this.parent instanceof NullObjectTransaction)) {
+//    		this.parent.commitMap(this.attributeMap);
+//    	}
+//    	else {
     		this.populateValuesToObjects();
-    	}
+//    	}
     	this.getLogger().debug("Commiting Object Transaction id[" + this.getId() + "]");
     	return this.transitionateToParentTransaction(STATE_COMMITED);
     }
@@ -176,8 +193,8 @@ public class ObjectTransactionImpl implements ObjectTransaction {
 //    					RefactormeUtils.forceFieldValue(keyWrapper.getKey(), entry.getKey(), entry.getValue());
     					ReflectionUtils.invokeSetter(keyWrapper.getKey(), entry.getKey(), entry.getValue());
     				}
-    				catch (Exception exception) {
-    					throw ((ProgramException) ApplicationException.unchecked(exception)) //
+    				catch (RuntimeException exception) {
+    					throw new ProgramException(exception) //
     						.addInfo("Object", keyWrapper.getKey()) //
     						.addInfo("Field", entry.getKey()) //
     						.addInfo("Value", entry.getValue()); 
@@ -247,6 +264,7 @@ public class ObjectTransactionImpl implements ObjectTransaction {
     	}
     	return unionMap;
     }
+    
     
     // ***************************
     // ** Accessors

@@ -10,14 +10,21 @@ import javassist.expr.ExprEditor;
 
 import org.uqbar.commons.utils.Transactional;
 
-import com.uqbar.commons.collections.Predicate;
+import com.uqbar.renascent.aop.pointcut.predicate.APredicate;
 import com.uqbar.renascent.aop.pointcut.predicate.HasAnnotationPredicate;
-import com.uqbar.renascent.aop.pointcut.predicate.OrPredicate;
-import com.uqbar.renascent.aop.pointcut.predicate.SuperClassPredicate;
-import com.uqbar.renascent.framework.aop.AdviceWeaver;
 import com.uqbar.renascent.framework.aop.IBehaviorAdviceWeaverStrategy;
 import com.uqbar.renascent.framework.aop.WeavingInstrumentor;
 
+/**
+ * Ver como interceptar los mensajes add: y remove: de las Collections.
+ * Caso mas sencillo es clonar las collections, y trabajar con la clonada hasta hacer el commit
+ * 
+ * Ver DynamicProxy
+ * 
+ * [DOC] Trabajo fururo en una estrategia que vea que es implementacion es mas inteligente.
+ * @author nny
+ *
+ */
 public class TransactionalBehaviorAdviceWeaverStrategy implements
 		IBehaviorAdviceWeaverStrategy {
 	
@@ -26,23 +33,19 @@ public class TransactionalBehaviorAdviceWeaverStrategy implements
 
 	@Override
 	public void addInstrumentors(ClassPool classPool,
-			Map<Predicate<CtClass>, ExprEditor> weavingInstrumentors) {
+			Map<APredicate, ExprEditor> weavingInstrumentors) {
 		
-		// transactions - collections
+		// transactions
 		weavingInstrumentors.put(
 			new HasAnnotationPredicate(classPool, Transactional.class.getName()),
 			new WeavingInstrumentor()
 					.addFieldAccessInterceptor(transactionInterceptor));
 
-//		new SuperClassPredicate(classPool, "com.uqbar.renascent.common.collections.Itr" ),
-//		new SuperClassPredicate(classPool, "com.uqbar.renascent.common.collections.AbstractCollection"),
-//		new SuperClassPredicate(classPool, "com.uqbar.renascent.common.collections.SubListListIterator"),
-//		new SuperClassPredicate(classPool, "com.uqbar.renascent.common.collections.BasicList"),
 	}
 
 	@Override
 	public void applyAdviceToCtClass(CtClass ctClass,
-			Entry<Predicate<CtClass>, ExprEditor> entry)
+			Entry<APredicate, ExprEditor> entry)
 			throws CannotCompileException {
 
 	}

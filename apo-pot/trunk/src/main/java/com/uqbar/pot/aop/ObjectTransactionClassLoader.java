@@ -10,7 +10,7 @@ import com.uqbar.renascent.framework.aop.FrameworkClassLoader;
  * 
  * Parametro para correr tests con este ClassLoader.
  * 
- * -Djava.system.class.loader=com.uqbar.renascent.framework.aop.ObjectTransactionClassLoader
+ * -Djava.system.class.loader=com.uqbar.pot.aop.ObjectTransactionClassLoader
  */
 public class ObjectTransactionClassLoader extends FrameworkClassLoader{
 

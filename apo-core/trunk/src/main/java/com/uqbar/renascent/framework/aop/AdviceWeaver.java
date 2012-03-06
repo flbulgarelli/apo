@@ -7,13 +7,15 @@ import java.util.Map.Entry;
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
+import javassist.CtField;
+import javassist.NotFoundException;
 import javassist.expr.ExprEditor;
 
 import com.uqbar.commons.collections.Predicate;
+import com.uqbar.renascent.aop.pointcut.predicate.APredicate;
 
 /**
- * Colabora con el FrameworkClassLoader para construir los Aspectos que fueron declarados. Solo aspectea los
- * objectos com.uqbar.renascent.framework.persistence.Persistible!!!!!!!
+ * Colabora con el FrameworkClassLoader para construir los Aspectos que fueron declarados.
  * 
  * @author nny
  * @author rgomez
@@ -21,9 +23,8 @@ import com.uqbar.commons.collections.Predicate;
  * @author jfernandes
  */
 public class AdviceWeaver implements IAdviceWeaver {
-	public static final String CLASSNAME_PERSISTIBLE = "com.uqbar.renascent.framework.persistence.Persistible";
 	/** Map with "joinpont" -> "advice" */
-	private Map<Predicate<CtClass>, ExprEditor> weavingInstrumentors = new HashMap<Predicate<CtClass>, ExprEditor>();
+	private Map<APredicate, ExprEditor> weavingInstrumentors = new HashMap<APredicate, ExprEditor>();
 	private final IBehaviorAdviceWeaverStrategy strategy;
 
 	public AdviceWeaver(ClassPool classPool, IBehaviorAdviceWeaverStrategy strategy) {
@@ -31,36 +32,34 @@ public class AdviceWeaver implements IAdviceWeaver {
 		this.addInstrumentors(classPool);
 	}
 
-	protected void addInstrumentors(ClassPool classPool) {
+	protected void addInstrumentors(final ClassPool classPool) {
 		strategy.addInstrumentors(classPool, weavingInstrumentors);
-		
-		this.getWeavingInstrumentors().put(new Predicate<CtClass>() {
-			public boolean evaluate(CtClass ctClass) {
-				return ctClass.getName().equals(
-					"com.uqbar.renascent.framework.domain.GenericObjectReference");
-			}
-		}, new WeavingInstrumentor().addFieldAccessInterceptor(new GenericObjectReferenceFieldAccessInterceptor()));
 	}
 
-	public void applyAdvice(CtClass ctClass) throws CannotCompileException {
+	public void applyAdvice(CtClass ctClass) throws CannotCompileException, NotFoundException {
 		if (!ctClass.isFrozen()) {
-			for (Entry<Predicate<CtClass>, ExprEditor> entry : this.getWeavingInstrumentors().entrySet()) {
+			for (Entry<APredicate, ExprEditor> entry : this.getWeavingInstrumentors().entrySet()) {
 				if (entry.getKey().evaluate(ctClass)) {
 					applyAdviceToCtClass(ctClass, entry);
-					return;
+				}
+				
+				for (CtField ctField : ctClass.getDeclaredFields()) {
+					if (entry.getKey().evaluate(ctField)) {
+						applyAdviceToCtClass(ctField.getType(), entry);
+					}	
 				}
 			}
 		}
 	}
 
 	protected void applyAdviceToCtClass(CtClass ctClass,
-			Entry<Predicate<CtClass>, ExprEditor> entry)
+			Entry<APredicate, ExprEditor> entry)
 			throws CannotCompileException {
 		strategy.applyAdviceToCtClass(ctClass, entry);
 		ctClass.instrument(entry.getValue());
 	}
 
-	protected Map<Predicate<CtClass>, ExprEditor> getWeavingInstrumentors() {
+	protected Map<APredicate, ExprEditor> getWeavingInstrumentors() {
 		return weavingInstrumentors;
 	}
 	

@@ -10,6 +10,7 @@ import javassist.expr.ExprEditor;
 import org.uqbar.commons.utils.Observable;
 
 import com.uqbar.commons.collections.Predicate;
+import com.uqbar.renascent.aop.pointcut.predicate.APredicate;
 import com.uqbar.renascent.aop.pointcut.predicate.HasAnnotationPredicate;
 import com.uqbar.renascent.aop.pointcut.predicate.OrPredicate;
 import com.uqbar.renascent.framework.aop.IBehaviorAdviceWeaverStrategy;
@@ -22,7 +23,7 @@ public class ObservableBehaviorAdviceWeaverStrategy implements IBehaviorAdviceWe
 
 	
 	@Override
-	public void addInstrumentors(ClassPool classPool, Map<Predicate<CtClass>, ExprEditor> weavingInstrumentors) {
+	public void addInstrumentors(ClassPool classPool, Map<APredicate, ExprEditor> weavingInstrumentors) {
 		// persistence - collections
 		weavingInstrumentors.put(
 			new HasAnnotationPredicate(classPool, Observable.class.getName()),
@@ -32,7 +33,7 @@ public class ObservableBehaviorAdviceWeaverStrategy implements IBehaviorAdviceWe
 	}
 	
 	@Override
-	public void applyAdviceToCtClass(CtClass ctClass, Entry<Predicate<CtClass>, ExprEditor> entry)	{
+	public void applyAdviceToCtClass(CtClass ctClass, Entry<APredicate, ExprEditor> entry)	{
 		observableBehavior.addBehavior(ctClass);
 	}
 

@@ -4,23 +4,36 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javassist.CtClass;
+import javassist.CtField;
+
 import com.uqbar.commons.collections.Predicate;
 
 /**
  * 
  * @author jfernandes
  */
-public class OrPredicate<T> implements Predicate<T> {
-	private List<Predicate<T>> components = new ArrayList<Predicate<T>>();
-	
-	public OrPredicate(Predicate<T>... predicate) {
+public class OrPredicate implements APredicate {
+	private List<APredicate> components = new ArrayList<APredicate>();
+
+	public OrPredicate(APredicate... predicate) {
 		this.components = Arrays.asList(predicate);
 	}
 
 	@Override
-	public boolean evaluate(T object) {
-		for (Predicate<T> component : this.components) {
-			if (component.evaluate(object)) {
+	public boolean evaluate(CtClass ctClass) {
+		for (APredicate component : this.components) {
+			if (component.evaluate(ctClass)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean evaluate(CtField ctField) {
+		for (APredicate component : this.components) {
+			if (component.evaluate(ctField)) {
 				return true;
 			}
 		}

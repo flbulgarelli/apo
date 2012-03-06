@@ -1,6 +1,9 @@
 package com.uqbar.poo.aop;
 
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.Array;
+
+import org.apache.commons.lang.ArrayUtils;
 
 import com.uqbar.aop.javassit.builder.CtMethodBuilder;
 
@@ -8,6 +11,7 @@ import javassist.CtClass;
 import javassist.CtField;
 import javassist.CtMethod;
 import javassist.Modifier;
+import javassist.NotFoundException;
 
 /**
  * @author nnydjesus
@@ -30,9 +34,14 @@ public class ObservableBehavior {
 	 * @param ctClass
 	 */
 	private void addFieldChangeSupport(CtClass ctClass) {
+		String fieldName = "changeSupport";
 		
-		this.addField(ctClass, MyPropertyChangeSupport.class,
-				"changeSupport", Modifier.TRANSIENT);
+		try {
+			ctClass.getField(fieldName);
+		} catch (NotFoundException e) {
+			this.addField(ctClass, MyPropertyChangeSupport.class,
+					fieldName, Modifier.TRANSIENT);
+		}
 	}
 
 	/**
@@ -140,7 +149,9 @@ public class ObservableBehavior {
 	private void addMethod(CtClass owner, CtMethod method)  {
 
 		try {
-			owner.addMethod(method);
+			if(!ArrayUtils.contains(owner.getMethods(), method)){
+				owner.addMethod(method);
+			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -165,7 +176,9 @@ public class ObservableBehavior {
 		try {
 			CtField ctField = new CtField(getClass(fieldClass.getName(), owner), name, owner);
 			ctField.setModifiers(modifier);
-			owner.addField(ctField);
+			if(!ArrayUtils.contains(owner.getFields(), ctField)){
+				owner.addField(ctField);
+			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

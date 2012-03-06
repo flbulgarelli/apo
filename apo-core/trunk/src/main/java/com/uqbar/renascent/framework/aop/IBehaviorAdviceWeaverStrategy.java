@@ -8,15 +8,15 @@ import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.expr.ExprEditor;
 
-import com.uqbar.commons.collections.Predicate;
+import com.uqbar.renascent.aop.pointcut.predicate.APredicate;
 
 public interface IBehaviorAdviceWeaverStrategy {
 
-	void applyAdviceToCtClass(CtClass ctClass, Entry<Predicate<CtClass>, ExprEditor> entry)
+	void applyAdviceToCtClass(CtClass ctClass, Entry<APredicate, ExprEditor> entry)
 			throws CannotCompileException;
 
 	void addInstrumentors(ClassPool classPool,
-			Map<Predicate<CtClass>, ExprEditor> weavingInstrumentors);
+			Map<APredicate, ExprEditor> weavingInstrumentors);
 	
 	void configureInstrumentor(WeavingInstrumentor instrumentor);
 
