@@ -16,23 +16,88 @@ entre otros. Así lo muestran los siguientes ejemplos:
 
 \begin {enumerate}
 
-\item
-Manejo de errores y de fallas: agregar a un sistema simple un buen
-manejo de errores y de fallas requiere muchos y pequeños cambios y
-adiciones por todo el sistema debido a los diferentes contextos
-dinámicos que pueden llevar a una falla, y las diferentes políticas
-relacionadas con el manejo de una falla \cite{Kicz97a}.
+	\item
+	Manejo de errores y de fallas: agregar a un sistema simple un buen
+	manejo de errores y de fallas requiere muchos y pequeños cambios y
+	adiciones por todo el sistema debido a los diferentes contextos
+	dinámicos que pueden llevar a una falla, y las diferentes políticas
+	relacionadas con el manejo de una falla \cite{Kicz97a}.
+	
+	\item
+	Consideremos una aplicación que incluya conceptos de seguridad y
+	sincronización, como por ejemplo, asegurarnos que dos usuarios no
+	intenten acceder al mismo dato al mismo tiempo. Ambos conceptos
+	requieren que los programadores escriban la misma funcionalidad en
+	varias partes de la aplicación. Los programadores se verán forzados a
+	recordar todas estas partes, para que a la hora de efectuar un cambio
+	y / o una actualización puedan hacerlo de manera uniforme a través
+	de todo el sistema. Tan solo olvidarse de actualizar algunas de estas
+	repeticiones lleva al código a acumular errores. \cite{Aquila}
 
-\item
-Consideremos una aplicación que incluya conceptos de seguridad y
-sincronización, como por ejemplo, asegurarnos que dos usuarios no
-intenten acceder al mismo dato al mismo tiempo. Ambos conceptos
-requieren que los programadores escriban la misma funcionalidad en
-varias partes de la aplicación. Los programadores se verán forzados a
-recordar todas estas partes, para que a la hora de efectuar un cambio
-y / o una actualización puedan hacerlo de manera uniforme a través
-de todo el sistema. Tan solo olvidarse de actualizar algunas de estas
-repeticiones lleva al código a acumular errores. \cite{Aquila}
+\end{enumerate}
 
+Para resolver estos problemas  recorremos a implementaciones oscuras, con
+algunas falencias en el codigo, que en un futuro nos pueden trarer problemas.
+Algunos síntomas de este problema pueden ser categorizados de la siguiente manera:
 
+\begin {enumerate}
+
+	\item {\bf Código Mezclado } \emph{(Code Tangling)}:
+	En un mismo módulo de un sistema de software pueden simultáneamente convivir más
+	de un requerimiento. Esta múltiple existencia de requerimientos lleva a la
+	presencia conjunta de elementos de implementación de más de un
+	requerimiento, resultando en un Código Mezclado.
+	
+	\item {\bf Código Diseminado} \emph{(Code Scattering)}:
+	Como los requerimientos están esparcidos sobre varios módulos, la implementación
+	resultante también queda diseminada sobre esos módulos.
  
+\end{enumerate}
+
+Estos síntomas combinados afectan tanto el diseño como el desarrollo de
+software, de diversas maneras
+
+\begin{itemize}
+  
+	\item Menor productividad: La implementación simultánea de múltiples
+	conceptos distrae al desarrollador del concepto principal, por
+	concentrarse también en los conceptos periféricos, disminuyendo la
+	productividad.
+  
+  \item Menor reuso: Al tener en un mismo módulo implementados varios
+	conceptos, resulta en un código poco reusable.
+	
+	\item Baja calidad de código: El Código Mezclado produce un código
+	propenso a errores. Además, al tener como objetivo demasiados
+	conceptos al mismo tiempo se corre el riesgo de que algunos de ellos
+	sean subestimados.
+	
+	\item Evolución más dificultosa: Como la implementación no está
+	completamente modularizada los futuros cambios en un
+	requerimiento implican revisar y modificar cada uno de los módulos
+  
+\end{itemize}
+
+Como respuesta a estos problemas nace la Programación Orientada a Aspectos
+(POA). La POA permite a los programadores escribir, ver y editar un aspecto
+diseminado por todo el sistema como una entidad por separado, de una manera
+inteligente, eficiente e intuitiva.\\ \\
+
+La POA es una metodología de programación que soporta la
+separación de las propiedades para los aspectos antes mencionados. Esto implica
+separar la funcionalidad básica y los aspectos, y los aspectos entre sí, a través de
+mecanismos que permitan abstraerlos y componerlos para formar todo el sistema.
+\\\\
+
+La POA es un desarrollo que sigue a la POO, y como tal, soporta la
+descomposición orientada a objetos, además de la procedimental y la funcional. Sin
+embargo, la programación orientada a aspectos no es una extensión de la POO, ya
+que puede utilizarse con los diferentes estilos de programación mencionados
+anteriormente.
+
+
+
+
+
+
+
