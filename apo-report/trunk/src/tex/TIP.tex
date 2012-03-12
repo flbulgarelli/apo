@@ -6,16 +6,96 @@
 4)monitor de transacciones
 
 
-\section{Nuestra herramienta: TIP}
-\label{sec:Jeronimo}
+\section{Nuestra herramienta: }
+{\bf Aspect Pure Object } \emph{APO} es una abstracción del framework Javassist,
+que nos permmite facilmente implementar un aspecto, y aplicarlo a un grupo de
+objetos.
+\\
+Se evaluaron dos frameworks para resolver nuestro problema. Uno es Javassist y
+el otro AspectJ.\\
+Se utiliza Javassist porque es independiente al usuario, en cambio si utilamos
+AspectJ obligamos al consummidor a cambiar la implementacion de sus objetos,
+y cambiar el compilador del codigo. \\ \\ 
 
+Utilizando esta herramienta se implementaron dos aspectos diferentes:
 
+\begin{enumerate}
 
-Programacion de los aspectos 
-	Se utiliza javassist porque es independiente al usuario, en cambio si utilamos
-	aspectJ obligamos a cambiar de entorno al usuario
-	Abstraccion de javassist, y es independiente para poder utilizarlo
+	\item {\bf Aspecto Transaccional:} Esta basado en una implementacion que
+	hecha por Nicolás Passerini y Javier Fernandés.
 	
+	{\bf Objetivos:}
+	\begin{itemize}
+
+	  \item Obtener el concepto de transacción en el mundo de los objetos.
+	  
+	  \item Soprtar transacciones anidadas.
+	  
+	  \item Que utilize a los objetos en forma transparente.
+	  
+	  \item Permitir desacer los cambios. (rollback).
+	  
+	  \item Permitir el trabajo concurrente (nivel de insolacion.)
+	  
+	  \item Mantener la identidad del objeto.
+	   
+	\end{itemize} 
+	
+	Interfaz que nos provee las transacciones:
+	\begin{itemize}
+	  \item {\bf beginTransaction}  \emph{empezar una transacción}
+	  \item {\bf commit} \emph{impactar los cambios realizados en esa transacción}
+	  \item {\bf rollback} \emph{revertir los cambios realizados en esa
+	  transacción}
+	\end{itemize}
+	
+	{\bf Uso}
+	\begin{itemize}
+	  \item Todo el trabajo se realiza dentro de un contexto transaccional.
+	  
+	  \item Las modificaciones de los objetos solo pueden ser vistos dento del
+	  mismo contexto, si todavia no se hizo el commit.
+	   
+	  \item Fuera de ese contexto, el objeto permanece sin modificar.
+	  
+	   \item El contexto transaccional esta asociado a thread actual.
+	\end{itemize}
+	
+	 
+	{\bf Implementacion}\\
+	Utilizando la programacion orientada a aspectos, intercepta todas las lecturas
+	y escrituras de los fields. Insertando codigo al momento de la carga de la
+	clase.
+	Se remplaza el acceso al field, tanto de lectura como escritura, al
+	ObjectTransactionManager.\\
+	
+	El contexto esta asociado a un solo tread. Implementado con variales del tipo ThreadLocal
+	Soporta transacciones anidadas, donde cada transaccion hija hereda el estado
+	de su padre, y al momento de hacer un commit en la sub-transaccion, su cambios
+	son impactados en la transaccion padre.
+	Por esta forma de implementacion, la identidad del objeto se mantiene, ya que
+	el objeto no se modifica ni se clona, solo se cambia el acceso a sus fields.\\
+	
+	{\bf Modelo Transaccional}
+	
+	\includegraphics[width=350px, height=400px]{img/transacionalModel}
+	
+	{\bf Caso de uso}
+	
+	\includegraphics[width=400px, height=350px]{img/tescasePOT}
+	
+	{\bf Contexto de anidación}
+	
+	\includegraphics[width=400px, height=350px]{img/contextoAninado1}
+	
+	
+	
+
+	\item {\bf Aspecto Observable}.
+	 
+\end{enumerate}
+
+
 	El aspecto Transaccional esta basado en el que habia hecho nico y javi (contar
 	que mejoras se hicieron)
 	
@@ -45,5 +125,11 @@ Contar que esta publicado, con la licencia y blah
 Test de los aspectos
 
 
+
+
+--------------------
+Trabajos futuros
+
+implementar niveles de insolaicon
 
 
