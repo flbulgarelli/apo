@@ -43,11 +43,11 @@ Algunos síntomas de este problema pueden ser categorizados de la siguiente mane
 	En un mismo módulo de un sistema de software pueden simultáneamente convivir más
 	de un requerimiento. Esta múltiple existencia de requerimientos lleva a la
 	presencia conjunta de elementos de implementación de más de un
-	requerimiento, resultando en un Código Mezclado.
+	requerimiento, resultando en un Código Mezclado.\cite{mislevy2008dpa}
 	
 	\item {\bf Código Diseminado} \emph{(Code Scattering)}:
 	Como los requerimientos están esparcidos sobre varios módulos, la implementación
-	resultante también queda diseminada sobre esos módulos.
+	resultante también queda diseminada sobre esos módulos.\cite{mislevy2008dpa}
  
 \end{enumerate}
 
@@ -60,6 +60,7 @@ software, de diversas maneras
 	conceptos distrae al desarrollador del concepto principal, por
 	concentrarse también en los conceptos periféricos, disminuyendo la
 	productividad.
+	\cite{Fradet}
   
   \item Menor reuso: Al tener en un mismo módulo implementados varios
 	conceptos, resulta en un código poco reusable.
@@ -67,7 +68,7 @@ software, de diversas maneras
 	\item Baja calidad de código: El Código Mezclado produce un código
 	propenso a errores. Además, al tener como objetivo demasiados
 	conceptos al mismo tiempo se corre el riesgo de que algunos de ellos
-	sean subestimados.
+	sean subestimados.\cite{Fradet}
 	
 	\item Evolución más dificultosa: Como la implementación no está
 	completamente modularizada los futuros cambios en un

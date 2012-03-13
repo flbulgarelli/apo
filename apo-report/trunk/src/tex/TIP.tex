@@ -12,7 +12,7 @@ que nos permmite facilmente implementar un aspecto, y aplicarlo a un grupo de
 objetos.
 \\
 Se evaluaron dos frameworks para resolver nuestro problema. Uno es Javassist y
-el otro AspectJ.\\
+el otro AspectJ. \cite{KiczalesHHKPG01}\\
 Se utiliza Javassist porque es independiente al usuario, en cambio si utilamos
 AspectJ obligamos al consummidor a cambiar la implementacion de sus objetos,
 y cambiar el compilador del codigo. \\ \\ 
@@ -62,7 +62,7 @@ Utilizando esta herramienta se implementaron dos aspectos diferentes:
 	\end{itemize}
 	
 	 
-	{\bf Implementacion}\\
+	{\bf Implementación}\\
 	Utilizando la programacion orientada a aspectos, intercepta todas las lecturas
 	y escrituras de los fields. Insertando codigo al momento de la carga de la
 	clase.
@@ -78,28 +78,61 @@ Utilizando esta herramienta se implementaron dos aspectos diferentes:
 	
 	{\bf Modelo Transaccional}
 	
-	\includegraphics[width=350px, height=400px]{img/transacionalModel}
+	\includegraphics[width=350px, height=300px]{img/transacionalModel}
 	
 	{\bf Caso de uso}
 	
-	\includegraphics[width=400px, height=350px]{img/tescasePOT}
+	\includegraphics[width=400px, height=300px]{img/tescasePOT}
 	
-	{\bf Contexto de anidación}
+	{\bf Contexto de transacciones anidadas (1/8)}\\
+	\includegraphics[width=400px, height=300px]{img/contextoAninado1}
 	
-	\includegraphics[width=400px, height=350px]{img/contextoAninado1}
+	{\bf Contexto de transacciones anidadas (2/8)}\\
+	\includegraphics[width=400px, height=300px]{img/contextoAninado2}
 	
+	{\bf Contexto de transacciones anidadas (3/8)}\\
+	\includegraphics[width=400px, height=300px]{img/contextoAninado3}
 	
+	{\bf Contexto de transacciones anidadas (4/8)}\\
+	\includegraphics[width=400px, height=300px]{img/contextoAninado4}
 	
+	{\bf Contexto de transacciones anidadas (5/8)}\\
+	\includegraphics[width=400px, height=300px]{img/contextoAninado5}
 
-	\item {\bf Aspecto Observable}.
+	{\bf Contexto de transacciones anidadas (6/8)}\\
+	\includegraphics[width=400px, height=300px]{img/contextoAninado6}
+
+	{\bf Contexto de transacciones anidadas (7/8)}\\
+	\includegraphics[width=400px, height=300px]{img/contextoAninado7}
+
+	{\bf Contexto de transacciones anidadas (8/8)}\\
+	\includegraphics[width=150px, height=150px]{img/contextoAninado8}
+
+	\item {\bf Aspecto Observable}
+	El aspecto Observable tiene como objetivos:
+	\begin{itemize}
+
+	  \item Convertir un objeto de dominio en observlable, sin que el cliente lo
+	  modifique.
+	  
+	  \item Notificar a todos los Observadores que el valor de alguna propiedad ha
+	  cambiado.
+	  
+	\end{itemize}
+		
+	{\bf Implementacion}\\
+	En su implementacion interna lo que hace el aspecto es agregar un field del
+	tipo \emph{PropertyChangeSupport} al objeto que se va a convertir en
+	Observable. Y a su vez le agrega metodos para completar su objetivo:
+	El primero es el \emph{firePropertyChange} que es el que notifica a los
+	Observadores que una propiedad ha cambiado.\\
+	
+	Luego le agregamos \emph{addPropertyChangeListener} y 
+	\emph{removePropertyChangeListener} para poder agregar y remover Observadores
+	para que escuchen sus cambios.
+		
 	 
 \end{enumerate}
-
-
-	El aspecto Transaccional esta basado en el que habia hecho nico y javi (contar
-	que mejoras se hicieron)
-	
-	El aspecto Observable (contar que le agrega metodos y field)
 
 
 Integracion con el domminio
