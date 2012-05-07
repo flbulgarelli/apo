@@ -73,10 +73,11 @@ public class ObjectTransactionTestCaseWithDecorator {
 	}
 	
 	protected void logHouseState(final House house, TaskOwner owner) {
-		logger.debug("\t\t[ Tx: " + ObjectTransactionManager.getTransaction().getId() + "] " + "front="
+		String message = "\t\t[ Tx: " + ObjectTransactionManager.getTransaction().getId() + "] " + "front="
 			+ (house.isFrontDoorClosed() ? "CLOSED" : "OPENED") + " back="
 			+ (house.isBackDoorClosed() ? "CLOSED" : "OPENED")
-			+ " people=" + house.getPeople());
+			+ " people=" + house.getPeople();
+		logger.debug(message);
 	}
 	
 }

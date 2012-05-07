@@ -3,16 +3,13 @@ package com.uqbar.renascent.aop.pointcut.predicate;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtField;
-import javassist.CtMember;
 import javassist.NotFoundException;
 
-import com.uqbar.commons.collections.Predicate;
 import com.uqbar.commons.exceptions.ProgramException;
 
 /**
  * Evaluates whether the given CtClass has been annotated with a given annotation class.
  * 
- * @author jfernandes
  */
 public class HasAnnotationPredicate implements APredicate {
 	private CtClass annotationType;

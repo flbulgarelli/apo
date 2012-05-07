@@ -47,5 +47,22 @@ public class House {
 		this.persons = (Person[]) ArrayUtils.add(this.persons, person);
 	}
 
+	public void setBackDoorClosed(Boolean backDoorClosed) {
+		this.backDoorClosed = backDoorClosed;
+	}
+
+
+	public void setFrontDoorClosed(Boolean frontDoorClosed) {
+		this.frontDoorClosed = frontDoorClosed;
+	}
+
+	public Person[] getPersons() {
+		return persons;
+	}
+
+	public void setPersons(Person[] persons) {
+		this.persons = persons;
+	}
+
 }
 

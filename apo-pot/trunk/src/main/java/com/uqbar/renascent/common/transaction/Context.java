@@ -8,7 +8,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.uqbar.commons.collections.CollectionFactory;
 import com.uqbar.commons.exceptions.ProgramException;
-import com.uqbar.commons.loggeable.LoggeableImpl;
 import com.uqbar.renascent.common.text.MessageFormatter;
 
 /**
@@ -125,89 +124,6 @@ public class Context implements ContextConstants {
 		return current;
 	}
 
-	/**
-	 * Crea un nuevo contexto, si no hubiera ya uno presente.
-	 * 
-	 * @deprecated Usar <code>beginContext()</code>.
-	 */
-	public static Context createIfNotPresent(Object contextOwner) {
-		Context current = threadLocalContext.get();
-		if (current == null) {
-			if (contextOwner != null) {
-				LOG.debug("Creating context for " + contextOwner);
-			}
-			else {
-				LOG.debug("Creating no-owner context");
-			}
-			current = new Context(contextOwner);
-			threadLocalContext.set(current);
-		}
-		else if (current.getContextOwner() == null) {
-			if (contextOwner != null) {
-				LOG.debug("Asigning context to " + contextOwner);
-				current.setContextOwner(contextOwner);
-			}
-		}
-		else {
-			if (contextOwner != null) {
-				LoggeableImpl loggeable = new LoggeableImpl("Reusing context");
-				loggeable.addInfo("owner", current.getContextOwner());
-				loggeable.addInfo("client", contextOwner);
-
-				LOG.debug(loggeable);
-			}
-		}
-		return current;
-	}
-
-	/**
-	 * Crea un contexo hijo al existente si lo hubiera o uno independiente si no lo hay. Si hay un contexto
-	 * sin owner se reutiliza, sin crear uno nuevo.
-	 * 
-	 * @deprecated Usar <code>beginContext()</code>.
-	 */
-	public static Context createChildIfPresent(Object contextOwner) {
-		Context current = threadLocalContext.get();
-		if (current == null) {
-			LOG.debug("Creating context for " + contextOwner);
-			current = new Context(contextOwner);
-			threadLocalContext.set(current);
-		}
-		else if (current.getContextOwner() == null) {
-			if (contextOwner != null) {
-				LOG.debug("Asigning context to " + contextOwner);
-				current.setContextOwner(contextOwner);
-			}
-		}
-		else {
-			LOG.debug("Creating child context for " + contextOwner);
-			current = new Context(contextOwner, getCurrentContext());
-			threadLocalContext.set(current);
-		}
-
-		return current;
-	}
-
-	/**
-	 * Elimina el contexto actual, siempre y cuando el objeto 'owner' sea el due�o del contexto. Si el
-	 * contexto actual tiene un contexto padre, ese contexto pasa a ser el actual.
-	 * 
-	 * @deprecated Usar <code>endContext()</code>.
-	 */
-	public static void invalidateCurrentContext(Object owner) {
-		Context context = getCurrentContext();
-		if (context.isContextOwner(owner)) {
-			LOG.debug(new LoggeableImpl("Invalidating context").addInfo("owner", owner));
-			threadLocalContext.set(context.getParentContext());
-		}
-		else {
-			LoggeableImpl loggeable = new LoggeableImpl("Context not invalidated");
-			loggeable.addInfo("owner", owner);
-			loggeable.addInfo("fakeInvalidator", context.getContextOwner());
-
-			LOG.debug(loggeable);
-		}
-	}
 
 	/**
 	 * Invalida el contexto actual, si existe un contexto padre se asigna ese.

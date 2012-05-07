@@ -166,10 +166,11 @@ public class BlockingThreadDoorKeeper implements DoorKeeper {
 		}
 		
 		protected void logHouseState(final House house, TaskOwner owner) {
-			logger.debug("\t[ Tx: " + ObjectTransactionManager.getTransaction().getId() + " ] " + "front="
+			String message = "\t[ Tx: " + ObjectTransactionManager.getTransaction().getId() + " ] " + "front="
 				+ (house.isFrontDoorClosed() ? "CLOSED" : "OPENED") + " back="
 				+ (house.isBackDoorClosed() ? "CLOSED" : "OPENED")
-				+ " people=" + house.getPeople());
+				+ " people=" + house.getPeople();
+			logger.debug(message);
 		}
 		
 		public void nextRunnable(Runnable runnable) {

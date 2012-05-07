@@ -36,6 +36,9 @@ public class ObjectTransactionManager {
      */
     public static void begin(TaskOwner owner) {
     	ObjectTransactionImpl transaction = (ObjectTransactionImpl) getTransaction();
+    	if(transaction == null){
+    		transaction = createObjectNullTransaction(new BasicTaskOwner("null-transacion"), null);
+    	}
     	transaction = owner.isTransactional() ? createObjectTransaction(owner, transaction) : createObjectNullTransaction(owner, transaction);
     	transaction.getLogger().debug("Starting Transaction id=[" + transaction.getId() + "]...");
     	setTransaction(transaction);
@@ -55,7 +58,7 @@ public class ObjectTransactionManager {
     	ObjectTransactionImpl transaction = (ObjectTransactionImpl) getTransaction();
     	transaction.getLogger().debug("Performing COMMIT on transaction id=[" + transaction.getId() + "]...");
     	setTransaction(transaction.getParent());
-		ObjectTransaction nextTransaction = transaction.commit();
+		transaction.commit();
     	unregisterTransaction(getTransaction());
     	transaction.getLogger().debug("Transaction COMMITED id=[" + transaction.getId() + "] next transaction is id=[" + transaction.getId() + "]");
     }

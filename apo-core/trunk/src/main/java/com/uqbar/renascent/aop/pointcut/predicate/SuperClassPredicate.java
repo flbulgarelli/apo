@@ -9,7 +9,6 @@ import javassist.NotFoundException;
  * Predicate que recibe un CtClass y evalua si la esa clase es hija en cualquier nivel de la clase con la
  * cual se construye
  * 
- * @author lgassman
  */
 public class SuperClassPredicate implements APredicate{
 	private CtClass superClass;

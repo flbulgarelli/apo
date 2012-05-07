@@ -1,101 +1,93 @@
 \section{Metodología utilizada}
 \label{sec:Methodology}
 
-{\bf Programacion orientada a Aspectos }
-		
-Ya sea a través de la POO o con otras técnicas de abstracción de alto nivel, se
-logra un diseño y una implementación que satisface la funcionalidad básica, y con
-una calidad aceptable. Sin embargo, existen conceptos que no pueden encapsularse
-dentro de una unidad funcional, debido a que atraviesan todo el sistema, o varias
-parte de él (crosscutting concerns). Algunos de estos conceptos son: sincronización,
-manejo de memoria, distribución, chequeo de errores, profiling, seguridad o redes,
-entre otros. Así lo muestran los siguientes ejemplos:
+Con la Programación orientada a Aspectos, desarrollamos dos conceptos \ldots el
+de Obervabilidad y el de Transaccionalidad.
 
-\begin {enumerate}
-
-	\item
-	Manejo de errores y de fallas: agregar a un sistema simple un buen
-	manejo de errores y de fallas requiere muchos y pequeños cambios y
-	adiciones por todo el sistema debido a los diferentes contextos
-	dinámicos que pueden llevar a una falla, y las diferentes políticas
-	relacionadas con el manejo de una falla \cite{Kicz97a}.
+\subsection{ Observabilidad}
+	El aspecto Observable tiene como objetivos:
+	\begin{itemize}
 	
-	\item
-	Consideremos una aplicación que incluya conceptos de seguridad y
-	sincronización, como por ejemplo, asegurarnos que dos usuarios no
-	intenten acceder al mismo dato al mismo tiempo. Ambos conceptos
-	requieren que los programadores escriban la misma funcionalidad en
-	varias partes de la aplicación. Los programadores se verán forzados a
-	recordar todas estas partes, para que a la hora de efectuar un cambio
-	y / o una actualización puedan hacerlo de manera uniforme a través
-	de todo el sistema. Tan solo olvidarse de actualizar algunas de estas
-	repeticiones lleva al código a acumular errores. \cite{Aquila}
+	  \item Convertir los objetos de dominio en observable, sin que el cliente los
+	  modifique.
+	  
+	  \item Tirar eventos cuando se modifica un atributo, 
+	\end{itemize}
 
-\end{enumerate}
+\subsubsection{Aspecto Transaccional:} 
 
-Para resolver estos problemas  recorremos a implementaciones oscuras, con
-algunas falencias en el codigo, que en un futuro nos pueden trarer problemas.
-Algunos síntomas de este problema pueden ser categorizados de la siguiente manera:
+	{\bf Objetivos:}
+	\begin{itemize}
 
-\begin {enumerate}
+	  \item Permitir deshacer los cambios. (rollback).
 
-	\item {\bf Código Mezclado } \emph{(Code Tangling)}:
-	En un mismo módulo de un sistema de software pueden simultáneamente convivir más
-	de un requerimiento. Esta múltiple existencia de requerimientos lleva a la
-	presencia conjunta de elementos de implementación de más de un
-	requerimiento, resultando en un Código Mezclado.\cite{mislevy2008dpa}
+	  \item Permitir el trabajo concurrente (nivel de aislamiento)
+	  
+	  \item Que utilice a los objetos en forma transparente.
+	  
+	  \item Mantener la identidad del objeto.
+	  
+	  \item Soportar transacciones anidadas.
+	   
+	\end{itemize} 
 	
-	\item {\bf Código Diseminado} \emph{(Code Scattering)}:
-	Como los requerimientos están esparcidos sobre varios módulos, la implementación
-	resultante también queda diseminada sobre esos módulos.\cite{mislevy2008dpa}
- 
-\end{enumerate}
+	Interfaz que nos provee las transacciones:
+	\begin{itemize}
+	  \item {\bf beginTransaction}  \emph{empezar una transacción}
+	  \item {\bf commit} \emph{impactar los cambios realizados en esa transacción}
+	  \item {\bf rollback} \emph{revertir los cambios realizados en esa
+	  transacción}
+	\end{itemize}
 
-Estos síntomas combinados afectan tanto el diseño como el desarrollo de
-software, de diversas maneras
 
-\begin{itemize}
-  
-	\item Menor productividad: La implementación simultánea de múltiples
-	conceptos distrae al desarrollador del concepto principal, por
-	concentrarse también en los conceptos periféricos, disminuyendo la
-	productividad.
-	\cite{Fradet}
-  
-  \item Menor reuso: Al tener en un mismo módulo implementados varios
-	conceptos, resulta en un código poco reusable.
+	{\bf Uso}
+	\begin{itemize}
+	  \item Todo el trabajo se realiza dentro de un contexto transaccional.
+	  
+	  \item Las modificaciones de los objetos solo pueden ser vistos dento del
+	  mismo contexto, si todavía no se hizo el commit.
+	   
+	  \item El objeto no se modifica, hasta que no se confirme la transacción.
+	  
+	   \item El contexto transaccional esta asociado a thread actual.
+	\end{itemize}
+
+
+	{\bf Modelo Transaccional}
 	
-	\item Baja calidad de código: El Código Mezclado produce un código
-	propenso a errores. Además, al tener como objetivo demasiados
-	conceptos al mismo tiempo se corre el riesgo de que algunos de ellos
-	sean subestimados.\cite{Fradet}
+	\includegraphics[width=350px, height=300px]{img/transacionalModel}
 	
-	\item Evolución más dificultosa: Como la implementación no está
-	completamente modularizada los futuros cambios en un
-	requerimiento implican revisar y modificar cada uno de los módulos
-  
-\end{itemize}
+	{\bf Caso de uso}
+	
+	\includegraphics[width=400px, height=300px]{img/tescasePOT}
+	
+	{\bf Contexto de transacciones anidadas (1/8)}\\
+	\includegraphics[width=400px, height=300px]{img/contextoAninado1}
+	
+	{\bf Contexto de transacciones anidadas (2/8)}\\
+	\includegraphics[width=400px, height=300px]{img/contextoAninado2}
+	
+	{\bf Contexto de transacciones anidadas (3/8)}\\
+	\includegraphics[width=400px, height=300px]{img/contextoAninado3}
+	
+	{\bf Contexto de transacciones anidadas (4/8)}\\
+	\includegraphics[width=400px, height=300px]{img/contextoAninado4}
+	
+	{\bf Contexto de transacciones anidadas (5/8)}\\
+	\includegraphics[width=400px, height=300px]{img/contextoAninado5}
 
-Como respuesta a estos problemas nace la Programación Orientada a Aspectos
-(POA). La POA permite a los programadores escribir, ver y editar un aspecto
-diseminado por todo el sistema como una entidad por separado, de una manera
-inteligente, eficiente e intuitiva.\\ \\
+	{\bf Contexto de transacciones anidadas (6/8)}\\
+	\includegraphics[width=400px, height=300px]{img/contextoAninado6}
 
-La POA es una metodología de programación que soporta la
-separación de las propiedades para los aspectos antes mencionados. Esto implica
-separar la funcionalidad básica y los aspectos, y los aspectos entre sí, a través de
-mecanismos que permitan abstraerlos y componerlos para formar todo el sistema.
-\\\\
+	{\bf Contexto de transacciones anidadas (7/8)}\\
+	\includegraphics[width=350px, height=300px]{img/contextoAninado7}
 
-La POA es un desarrollo que sigue a la POO, y como tal, soporta la
-descomposición orientada a objetos, además de la procedimental y la funcional. Sin
-embargo, la programación orientada a aspectos no es una extensión de la POO, ya
-que puede utilizarse con los diferentes estilos de programación mencionados
-anteriormente.
+	{\bf Contexto de transacciones anidadas (8/8)}\\
+	\includegraphics[width=150px, height=150px]{img/contextoAninado8}
+	
+\subsubsection{Unión de los Aspectos:}
+No se como contarlo acá, sin decir que esta con el arena. 
+	
 
 
-
-
-
-
-
+Primero contás sobre eventos, luegos sobre transacciones y finalmente la unión.

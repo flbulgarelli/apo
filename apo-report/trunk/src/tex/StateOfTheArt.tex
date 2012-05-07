@@ -2,70 +2,71 @@
 \label{sec:StateOfTheArt}
 
 
-\subsubsection{Eventos}
+\subsection{Eventos}
+Un evento es una notificacion de que algo ha ocurrido. Es mayormente utilizado
+para mantener comunicaciones 1 a n, sin tener acoplamiento.
 
-Los frameworks que se manejan con eventos resuelven estos problemas 
+En la contruccion de interfaces de usuario, se utilizan los eventos para 
+manejar la comunicación del dominio con la interfaz.
 
-1) A 'mano' como los frameworks que implementan la interfaz Javabeans (Arena
-actual | SWT )\\ 
+\bigskip
 
+Existen varias formas de manejar la comunicación entre el dominio y la vista. 
+A continuación detallaremos las formas más comunes de realizar la comunicacion:
 
-{\bf JavaBeans} representa una implementación del módelo Propiedad-Evento-Método
+\begin {enumerate}
 
-Un componente JavaBean se define a través de :
+	\item {\bf Implicita} Donde los objetos de dominio tienen que
+	 lanzar explicitamente un evento cada vez que el valor de una propiedad cambia,
+	 como lo hace JFace-DataBinding y el Arena actual.
+	\cite{sousa00formal}
+	La forma que tienen para dar el sopote de eventos es utilizando un
+	\emph{PropertyChangeSupport}, que registra a los listener y les notifica el que
+	el objeto de domino cambio el valor de alguna propiedad.
+	
+	\includegraphics[width=350px, height=200px]{img/javabeans}
+	
+	\bigskip
+	
+	\item {\bf Web Form} A través del submmit de un formulario. Wicket es
+	un Framework web MVC para Java. Su sistema de binding  es a través de submit de un
+	formulario, eso trae dos implicaciones:
+	 
+		\begin {enumerate}
+		
+			\item{\bf Submit con Refresh}  EL dominio no tira eventos, en el momento de
+			renderizar la página se leen nuevamente todas las propiedades del dominio.
+			Como wicket corre sobre una plataforma web, en el form vuelve a enviar toda
+			la pagina, y al volver, la renderiza nuevamente.
+			
+			Por otro lado, tampoco es necesario tener eventos desde la vista hacia el
+			modelo. El concepto de Form decide qué datos son los que hay que volcar de un
+			lado a otro.
 
-\begin {itemize}
-
-\item Las propiedades que expone.
-\item Los métodos que ofrece.
-\item Los eventos que atiende o genera.
-
-\end {itemize}
-
-Para gestionar estas características, todo JavaBean debe ofrecer:
-
-\begin {itemize}
-
-\item {\bf Soporte para Introspeción:} El bean tiene que ofrecer la
-información necesaria para que la herramienta de diseño pueda analizar sus características de forma opaca.
-
-\item {\bf Soporte para Customización:} La herramienta de construcción de la
-aplicación puede adaptar (“customizar”) la apariencia o comportamiento del bean a la  aplicación.
-
-\item {\bf Soporte para Persistencia:} El estado de un bean customizado puede
-ser almacenado para ser utilizado más tarde.
-
-\item {\bf Soporte para Eventos:} Los beans se comunican a través del envío y
-	  recepción de eventos.
-
-\end {itemize}
-
-\includegraphics[width=350px, height=200px]{img/javabeans}
-
-
-{\bf wicket} Es un Framework web MVC para Java.\\
-El Sistema de binding de wichet es atravez de submit de un formulario.
-Desventajas.
-\begin {itemize}
-
-\item Las validaciones del dominio solo se hacen cuando en el submit.
-
-\item Incorporar el concepto de Form.
-
-\end {itemize}
-
-3) investigar que hace morphic
-
-
+			\item {\bf Submit con Ajax} 
+			Es una derivación del alterior, a diferencia de que solo se envía
+			una porcion de la página, entonces hay que decirle explicitamente que parte
+			de la pagina queremos refrescar, para que solo renderice esa parte.
+		
+		\end {enumerate}
+		
+		
+	\item investigar que hace morphic, preguntar a Guille.
+	Y tal vez otros frameworks\ldots acá preguntémosle a Javi otros modelos de
+	binding.
+\end{enumerate}	
 
 
-\subsubsection{Transacciones}
+\subsection{Transacciones}
+
+En esta seccion analizaremos las propiedades ACID en las interfaces de usuario.
+
 
 {\bf Soluciones comunes:}
 
 \begin {itemize}
 
-\item Patron: Objectos de transaccion
+\item Patrón: Objetos de transacción
 \item Unidad de trabajo
 \item Clonar al editar
 \item Transacciones de Base de datos 
@@ -73,30 +74,30 @@ Desventajas.
 
 \begin {itemize}
 
-\item {\bf Objetos de transaccion}
+\item {\bf Objetos de transacción}
 Provee una interfaz separada para las transacciones en el contexto de capas de
 acceso a bases de datos.\\
-{\bf Solucion} Utilizar un objeto de transaccion. Hay que hacer rollback en el
+{\bf Solución} Utilizar un objeto de transacción. Hay que hacer rollback en el
 destructor, para que las transacciones abiertas sean abortadas.
 
 \includegraphics[width=300px, height=200px]{img/objectTransaction}
 
-\item {\bf Unidad de tranajo }
-Mantiene una lista de objetos afectados por una transaccion de negocio y
-coordina los cambios de escritura y la resolucion de problemas de concurrencia.
+\item {\bf Unidad de trabajo }
+Mantiene una lista de objetos afectados por una transacción de negocio y
+coordina los cambios de escritura y la resolución de problemas de concurrencia.
 Una unidad de trabajo realiza un seguimiento de todo lo que haces durante una
 transacción que puede afectar a la base de datos. 
 Cuando haya terminado,impacta todos los cambios en la base de datos.
 
 \item {\bf Clonar al editar}
-Esta solucion es bastante comúm. En el momento que se quiere editar un objeto,
-se lo clona, y se modifica el objeto clonado. Cuando se confima la edicion, se
+Esta solución es bastante común. En el momento que se quiere editar un objeto,
+se lo clona, y se modifica el objeto clonado. Cuando se confirma la edición, se
 impacta los cambios del clon en el objeto original.
 
 \item {\bf Transacciones de base de datos}
-Con este sistema, al momento de edicion del objeto, se crea una transaccion en
-la base de datos, y en la confirmacion de la edicion, se comitea la transaccion.
-Y si se quiere cancelar, se hace un rollback en la transaccion y los cambios se
+Con este sistema, al momento de edición del objeto, se crea una transacción en
+la base de datos, y en la confirmación de la edición, se comitea la transacción.
+Y si se quiere cancelar, se hace un rollback en la transacción y los cambios se
 revierten.
 
 \end {itemize}

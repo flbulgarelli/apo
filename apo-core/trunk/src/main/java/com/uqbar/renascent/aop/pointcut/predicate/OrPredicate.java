@@ -7,11 +7,8 @@ import java.util.List;
 import javassist.CtClass;
 import javassist.CtField;
 
-import com.uqbar.commons.collections.Predicate;
-
 /**
  * 
- * @author jfernandes
  */
 public class OrPredicate implements APredicate {
 	private List<APredicate> components = new ArrayList<APredicate>();
