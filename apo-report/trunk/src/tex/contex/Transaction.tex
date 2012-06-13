@@ -1,0 +1,112 @@
+\subsection{Transacciones:}	
+
+Una Transacción es un unidad de la ejecución de un programa, realizada dentro de
+un sistema de gestión de base de datos (SGBD),  que accede y, posiblemente,
+actualiza varios elementos de datos.
+
+Una Transacción está delimitada por instrucciones de inicio transacción y fin
+transacción. La transacción consiste en todas las operaciones que se ejecutan
+entre inicio transacción y fin transacción.
+
+Las transacciones en un entorno de base de datos tienen dos propósitos
+principales:
+
+\begin {enumerate}
+  \item Definir unidades de trabajo seguras, que permitan la recuperación
+  correcta de los errores y mantener una base de datos coherente, incluso en
+  los casos de fallo del sistema, cuando la ejecución se detiene (total o
+  parcialmente) y muchas operaciones sobre una base de datos siguen siendo
+  incompletos..
+  
+  \item Permitir el acceso concurrente a los datos.
+   
+\end{enumerate}
+
+\subsubsection{Propiedades ACID}
+\label{sec:ACID}
+Se denomina ACID a las propiedades de las transacciones que debe mantener el
+SGBD para garantizar la integridad de los datos. \cite{HaerderReuter83}.
+
+	\begin{description}
+	\item[Atomicidad]
+		La atomicidad asegura que se realizan todas las operaciones de una transacción
+		o no se realiza ninguna.
+		
+	\item[Consistencia]
+		 La consistencia asegura que una transacción no romperá con la integridad de
+		 los de datos.
+	  
+	\item[Aislamiento]	
+		El aislamiento asegura que ninguna transacción debe interferir con la
+		ejecución de otra transacción.
+		
+		Un SGBD generalmente hace un bloqueo de los datos o implementa un Control de
+		concurrencia mediante versiones múltiples, lo que puede resultar en una
+		pérdida de concurrencia. Por ello se necesita añadir lógica adicional al
+		programa que accede a los datos para su funcionamiento correcto.
+		La mayor parte de los SGBD ofrecen unos ciertos \emph{niveles de aislamiento}
+		que controlan el grado de bloqueo durante el acceso a los datos.
+		
+		Los niveles de aislamiento están definidos por \emph{ANSI/ISO SQL}, y se listan
+		a continuación.
+		
+		\begin {itemize}
+		
+			\item{\bf \emph{Read uncommitted}}
+				Este es el menor nivel de aislamiento. En él se permiten las lecturas
+				sucias, es decir, una transacción pude ver cambios no confirmados
+				aún por otra transacción.
+			
+			\item {\bf \emph{Read committed}}
+				En este nivel solo se pueden ver los datos que están confirmados, es decir si
+				una  transacción esta haciendo una modificación, esta no es visible a otra
+				transacción hasta que sea confirmada.
+				
+			\item {\bf \emph{Repeatable reads}} 
+				En este nivel de aislamiento, un SGBD que implemente el control de
+				concurrencia basado en bloqueos, mantiene los bloqueos de lectura y escritura
+				-de los datos seleccionados- hasta el final de la transacción. Sin embargo, no
+				se gestionan los bloqueos de rango, por lo que las lecturas fantasma pueden
+				ocurrir.
+			
+				
+		  \item {\bf \emph{Serializable}}
+				Este es el nivel de aislamiento más alto. Especifica que todas las
+				transacciones ocurran de modo aislado, o dicho de otro modo, como si todas las
+				transacciones se ejecutaran secuencialmente, es decir, una tras otra. 
+			
+			\end{itemize}
+	  	
+	\item[Durabilidad]
+		
+		Durabilidad significa que una vez que una transacción ha sido comiteada, ésta
+		persistirá sus cambios, incluso si el sistema falla.
+	
+	\end{description}
+	
+\subsubsection{Operaciones}
+	Las transacciones definen un conjunto de operaciones generales para su
+	utilización:
+	
+	\begin{quote}
+		\begin{description}
+				\item[Commit] es una operación que finaliza  y confirma los
+				cambios realizados dentro de una transacción. 
+				
+				\item[Rollback] es una operación que finaliza y revierte todos los cambios
+				realizados dentro de una transacción.
+				 
+		\end{description}
+	\end{quote}
+	
+\subsubsection{Aplicabilidad}
+	Si bien la palabra transacción aparece fuertemente relacionada a la
+	transacciones de SGBD, el concepto de una actividad ``transaccional'' es
+	aplicable, prácticamente a todo contexto del desarrollo de software, es decir,
+	las propiedades de atomicidad, consistencia, aislacion y durabilidad, son
+	deseables en el desarrollo de software en todo momento. Por ejemplo, es
+	habitual que las interfaces de usuario incluyan botones de aceptar y cancelar
+	que son asimilables a las operaciones de \emph{commit} y \emph{rollback}
+	respectivamente; Si el usuario presiona el botón ``cancelar'' lo que se espera
+	es que los datos de la aplicación queden inalterados en el estado que estaba al
+	realizar la tarea.

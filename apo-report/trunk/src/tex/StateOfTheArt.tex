@@ -1,104 +1,131 @@
 \section{Estado del arte}
 \label{sec:StateOfTheArt}
+El desarrollo de esta sección se enfoca en dos temas relacionados al
+presente trabajo: la comunicación dominio-vista y el manejo de transacciones
+dentro de las interfaces de usuario.
+
+\subsection{Estrategias para la comunicación dominio-vista}
+La interfaz de usuario necesita obtener información del dominio para presentar
+al usuario, así como actualizar esa información a partir de las acciones del usuario.
+Esta necesidad es contradictoria con el  objetivo de separación entre dominio e
+interfaz de usuario planteado por el patrón MVC; por un lado necesitamos que la
+vista y el dominio intercambien información y por otro exigimos que se conozcan
+lo menos posible.
+
+La teoría del MVC propone que la comunicación dominio-vista se realice a través
+de eventos. Como se explicó en la Sección \ref{sec:Eventos}, los eventos
+permiten formas de comunicación con un muy bajo acoplamiento. Sin embargo, son
+pocos los lenguajes que incorporan un manejo de eventos automático y se requiere
+de herramientas tecnológicas adicionales. A continuación detallaremos las
+estrategias más utilizadas para atacar este problema.
 
 
-\subsection{Eventos}
-Un evento es una notificacion de que algo ha ocurrido. Es mayormente utilizado
-para mantener comunicaciones 1 a n, sin tener acoplamiento.
-
-En la contruccion de interfaces de usuario, se utilizan los eventos para 
-manejar la comunicación del dominio con la interfaz.
-
-\bigskip
-
-Existen varias formas de manejar la comunicación entre el dominio y la vista. 
-A continuación detallaremos las formas más comunes de realizar la comunicacion:
-
-\begin {enumerate}
-
-	\item {\bf Implicita} Donde los objetos de dominio tienen que
-	 lanzar explicitamente un evento cada vez que el valor de una propiedad cambia,
-	 como lo hace JFace-DataBinding y el Arena actual.
-	\cite{sousa00formal}
-	La forma que tienen para dar el sopote de eventos es utilizando un
-	\emph{PropertyChangeSupport}, que registra a los listener y les notifica el que
-	el objeto de domino cambio el valor de alguna propiedad.
+	\subsubsection{\emph{Binding} con eventos manuales}
+		Los objetos de dominio tienen que disparar
+		explícitamente un evento cada vez que el valor de una propiedad cambia.
+			
+		Por ejemplo, \emph{JFace-DataBinding}\footnote{JFace-DataBinding es un
+		Framework de presentación basado en el lenguaje Java y utilizado para la
+		construcción del conocido entorno de trabajo \emph{Eclipse}} y el Arena
+		actual, utiliza un \emph{PropertyChangeSupport}, que registra los listener y notifica que el objeto de domino cambio el valor de alguna propiedad \cite{sousa00formal}.
+		
+		A continuación en la figura \ref{javabeans} se describe el esquema de
+		JavaBean.
+		
+		 \begin{figure}[h]
+			\includegraphics[width=350px, height=200px]{img/javabeans}
+			\caption{Esquema Javabeans}
+			\label{javabeans}
+		\end{figure}
 	
-	\includegraphics[width=350px, height=200px]{img/javabeans}
+
+
+		Un ventaja que se tiene al utilizar esta estrategia es que permite tener una
+		comunicación fluida y desacoplada entre la vista y el modelo.
+		Y la desventaja es que obliga a disparar los eventos cada vez que cambia el
+		valor de la propiedad.
 	
-	\bigskip
-	
-	\item {\bf Web Form} A través del submmit de un formulario. Wicket es
-	un Framework web MVC para Java. Su sistema de binding  es a través de submit de un
-	formulario, eso trae dos implicaciones:
-	 
+	\subsubsection{Formularios web}
+		En los formularios web, el binding se realiza atreves del \emph{submit} de un
+		formulario; como por ejemplo Wicket\footnote{Wicket es un Framework web MVC
+		para el lenguaje Java.}. 
+		Se pueden diferenciar dos tipos de submit, submit con refresh y submit con
+		ajax.
+		 
 		\begin {enumerate}
 		
-			\item{\bf Submit con Refresh}  EL dominio no tira eventos, en el momento de
-			renderizar la página se leen nuevamente todas las propiedades del dominio.
-			Como wicket corre sobre una plataforma web, en el form vuelve a enviar toda
-			la pagina, y al volver, la renderiza nuevamente.
+			\item{\bf Submit con Refresh}  No se necesita que el dominio dispare eventos
+			para realizar el binding, sino que en el momento de renderizar la página se
+			leen nuevamente todas las propiedades del dominio.
+			Como wicket corre sobre una plataforma web, en el form en cada submit envía  
+			toda la pagina, y al volver, la renderiza nuevamente.
 			
 			Por otro lado, tampoco es necesario tener eventos desde la vista hacia el
 			modelo. El concepto de Form decide qué datos son los que hay que volcar de un
 			lado a otro.
-
-			\item {\bf Submit con Ajax} 
-			Es una derivación del alterior, a diferencia de que solo se envía
-			una porcion de la página, entonces hay que decirle explicitamente que parte
-			de la pagina queremos refrescar, para que solo renderice esa parte.
 		
+			\item {\bf Submit con Ajax} 
+			Es una derivación del anterior, a diferencia de que solo se envía
+			una porción de la página, entonces hay que decirle explícitamente que parte
+			de la pagina queremos refrescar, para que solo renderice esa parte.
+
 		\end {enumerate}
 		
 		
-	\item investigar que hace morphic, preguntar a Guille.
-	Y tal vez otros frameworks\ldots acá preguntémosle a Javi otros modelos de
-	binding.
-\end{enumerate}	
+
+%\comment{investigar que hace morphic, preguntar a Guille.
+%	Y tal vez otros frameworks\ldots acá preguntémosle a Javi otros modelos de
+%	binding.}
 
 
-\subsection{Transacciones}
+\subsection{Manejo de transacciones en la UI}
 
-En esta seccion analizaremos las propiedades ACID en las interfaces de usuario.
+	En esta sección analizaremos las propiedades ACID, tal como se
+	explicó en la sección \ref{sec:ACID},  pero en el entorno de las interfaces
+	de usuario.
+	Explicaremos las estrategias mas utilizadas en las UIs, y que propiedades ACID
+	se cumplen.
 
 
-{\bf Soluciones comunes:}
-
-\begin {itemize}
-
-\item Patrón: Objetos de transacción
-\item Unidad de trabajo
-\item Clonar al editar
-\item Transacciones de Base de datos 
-\end {itemize}
-
-\begin {itemize}
-
-\item {\bf Objetos de transacción}
-Provee una interfaz separada para las transacciones en el contexto de capas de
-acceso a bases de datos.\\
-{\bf Solución} Utilizar un objeto de transacción. Hay que hacer rollback en el
-destructor, para que las transacciones abiertas sean abortadas.
-
-\includegraphics[width=300px, height=200px]{img/objectTransaction}
-
-\item {\bf Unidad de trabajo }
-Mantiene una lista de objetos afectados por una transacción de negocio y
-coordina los cambios de escritura y la resolución de problemas de concurrencia.
-Una unidad de trabajo realiza un seguimiento de todo lo que haces durante una
-transacción que puede afectar a la base de datos. 
-Cuando haya terminado,impacta todos los cambios en la base de datos.
-
-\item {\bf Clonar al editar}
-Esta solución es bastante común. En el momento que se quiere editar un objeto,
-se lo clona, y se modifica el objeto clonado. Cuando se confirma la edición, se
-impacta los cambios del clon en el objeto original.
-
-\item {\bf Transacciones de base de datos}
-Con este sistema, al momento de edición del objeto, se crea una transacción en
-la base de datos, y en la confirmación de la edición, se comitea la transacción.
-Y si se quiere cancelar, se hace un rollback en la transacción y los cambios se
-revierten.
-
-\end {itemize}
-
+	\subsubsection{Interfaces de Usuario sin estado}
+		Esta estrategia es muy común en aplicaciones web. Se evita almacenar estados
+		en las UIs y se lo delega todo a la base de datos (BD), o bien debe enviarse
+		en cada interacción con el cliente.
+		
+		De esta manera, la	ausencia de datos fuera de la BD, garantiza que no se
+		rompen estas propiedades.
+		
+		Una de las desventajas que tiene este sistema es que si se esta en el
+		paradigma de la programación orientada a objetos, en cada pedido de datos
+		se tiene que reconstruir todo el grafo de objetos, y si el grafo es muy grande,
+		esta operación se vuelve repetitiva y lenta.
+		
+%		\comment{Otos sistemas que utilizan dicha estrategia son las
+		% \emph{Arquitecturas orientada a Servicios} y la \emph{Unidad de Trabajo}}
+		
+	\subsubsection{???}
+		\comment{En este esquema se almacenar la información durante la edición, en
+		algún lugar fuera del objeto. Como consecuencia se postergan las validaciones de negocio hasta la
+		finalización de la edición , o se duplica la validación de negocio en la uis.}
+	
+	
+	\subsubsection{Clonar al editar}
+	
+		Clonar al editar es una estrategia que se basa en la idea de no modificar el
+		objeto, hasta que se confirme la edición. Cuyo funcionamiento se basa en 
+		clonar el objeto, y modificar el objeto clonado. Cuando se confirma la
+		edición, se impacta los cambios del clon en el objeto original.
+		
+		Con dicha estrategia la Atomicidad se cumple, ya que solo se pasan los datos
+		al original, solo cuando se confirma la operación.
+		En caso de que se quiera cancelar la operación, solo se tiene que tirar la
+		copia.
+		
+		Con el Aislamiento hay problemas si varios usuarios intentan modificar un
+		objeto, cada uno tendría una copia, pero si mas de uno confirman sus cambios,
+		los datos quedarían inconsistentes.
+		
+		La desventaja que tiene esta estrategia es que se pierde la identidad del
+		objeto, copiar todos los datos de un objeto a otro, hay que hacerlo a mano, y
+		esta operación hay que hacerla dos veces, tanto para hacer la copia, y para
+		confirmar los cambios.

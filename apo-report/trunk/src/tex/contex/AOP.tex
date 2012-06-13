@@ -1,0 +1,50 @@
+\subsection{Programación orientada a Aspectos}
+
+	La programación orientada a aspectos (POA) es un estilo de programación cuyo
+	principal objetivo es mejorar la  separación entre los requerimientos
+	funcionales de los no funcionales, para ganar expresividad, disminuyendo la
+	dispersión del código asociado a un concepto y haciendo que las
+	implementaciones resulten más comprensibles, adaptables y reutilizables.
+
+
+\subsubsection{Definición de un Aspecto}
+	Según el trabajo seminal de Gregor Kiczales y otros, un aspecto es 
+	``una unidad modular que se disemina por la estructura de
+	otras unidades funcionales. Los aspectos existen tanto en la etapa de
+	diseño como en la etapa de implementación. Un aspecto de diseño es
+	una unidad modular que se entremezcla en la estructura de otras partes
+	del diseño. Un aspecto de programa o de código es una unidad modular
+	del programa que aparece en otra unidades del programa.'' \cite{Kicz97a}
+
+	\bigskip
+	
+	Un aspecto es la unidad básica de construcción en la POA, debido a que permite
+	modularizar los conceptos transversales o \emph{cross-cutting concern} presentes en una aplicación.
+	
+	En palabras simples un aspecto puede ser definido como: ``La encapsulación y
+	modularización de un \emph{cross-cutting concern}''. Por ejemplo en las  
+	
+	La definición de un aspecto se basa en los conceptos de: {\bf \emph{Join
+	Point}}, {\bf \emph{ Point Cut}} y {\bf \emph{ Advice}}.
+	
+	\begin{quote}
+	
+	\begin{description}
+		\item[\emph{Join Point}] Un \emph{Join Point} puede ser definido como un punto
+		en la ejecución de una aplicación, como por ejemplo: la creación de una instancia, el manejo de una
+		excepción, una llamada a un método, el retorno de un método, la asignación de
+		un valor a una variable, etc.
+		
+		\item[\emph{Point Cut}] Un \emph{Point Cut} hace referencia a un conjunto de
+		Join Point que cumplen cierta condición, es decir, permiten exponer el contexto de
+		ejecución de dichos \emph{points}.
+		
+		\item[\emph{Advices}] Y por último los \emph{Advices}, éstos pueden definirse
+		como: acciones que se ejecutan en cada \emph{Join Point} dentro de un mismo
+		\emph{Point Cut}, estas acciones se traducen en rutinas o fragmentos de
+		código.
+	
+	\end{description}
+	\end{quote}
+	
+	

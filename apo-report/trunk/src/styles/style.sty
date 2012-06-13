@@ -22,7 +22,6 @@
 \usepackage{longtable}
 \usepackage{acronym}
 \usepackage{listings}
-\usepackage[htt]{hyphenat}
 
 %\usepackage{natbib}
 \usepackage{makeidx}  % allows for indexgeneration
@@ -36,6 +35,7 @@
     linkcolor=black,
     urlcolor=black
 }
+
 
 \renewcommand{\tablename}{Tabla}
 
@@ -57,24 +57,26 @@
 
 \setlongtables
 
-%\lstset{language=Java}
-\lstset{ %
-language=Java,                % choose the language of the code
-basicstyle=\footnotesize,       % the size of the fonts that are used for the code
-%numbers=left,                   % where to put the line-numbers
-%numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
-%stepnumber=1,                   % the step between two line-numbers. If it's 1 each line will be numbered
-%numbersep=5pt,                  % how far the line-numbers are from the code
-backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
-showspaces=false,               % show spaces adding particular underscores
-showstringspaces=false,         % underline spaces within strings
-showtabs=false,                 % show tabs within strings adding particular underscores
-frame=single,                   % adds a frame around the code
-tabsize=2,                      % sets default tabsize to 2 spaces
-captionpos=b,                   % sets the caption-position to bottom
-breaklines=true,                % sets automatic line breaking
-breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
-escapeinside={\%*}{*)}          % if you want to add a comment within your code
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
 }
 
 \newif\ifshowfigs
@@ -99,7 +101,7 @@ escapeinside={\%*}{*)}          % if you want to add a comment within your code
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\def\EmailURL#1{\href{mailto:#1}{\email{#1}}}
+\newcommand{\comment}[1]{{\color{blue}#1}}
 
 % otras definiciones
 
@@ -107,8 +109,8 @@ escapeinside={\%*}{*)}          % if you want to add a comment within your code
 
 \addto{\captionsspanish}{\def\tablename{Tabla}}
 \addto{\captionsspanish}{\def\figurename{Figura}}
-\addto{\captionsspanish}{\def\listtablename{�ndice de tablas}}
-\addto{\captionsspanish}{\def\contentsname{�ndice}}
+\addto{\captionsspanish}{\def\listtablename{Indice de tablas}}
+\addto{\captionsspanish}{\def\contentsname{Indice}}
 \addto{\captionsspanish}{\def\bibliographyname{Fuentes consultadas}}
 \spanishdecimal{.}
 
@@ -174,6 +176,4 @@ escapeinside={\%*}{*)}          % if you want to add a comment within your code
 \setlength{\floatsep}{12pt plus 2pt minus 4pt}
 \setlength{\textfloatsep}{20pt plus 2pt minus 4pt}
 \setlength{\intextsep}{10pt plus 2pt minus 3pt}
-
-\pagestyle{fancy}
 
