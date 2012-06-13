@@ -3,17 +3,17 @@ package com.uqbar.renascent.framework.aop;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.uqbar.aop.javassit.parser.JavassitParser;
-
 import javassist.CannotCompileException;
 import javassist.NotFoundException;
 import javassist.expr.ExprEditor;
 import javassist.expr.FieldAccess;
 
+import com.uqbar.aop.javassit.parser.JavassistParser;
+import com.uqbar.aop.javassit.parser.Tokens;
+
 /**
  * Intruduce bytecode para que se pueda interceptar todos los fields del objeto.
  * 
- * @author rgomez
  */
 public class WeavingInstrumentor extends ExprEditor {
 	/**
@@ -40,12 +40,12 @@ public class WeavingInstrumentor extends ExprEditor {
 	}
 	
 	private void weaveFieldWrite(FieldAccess fieldAccess) {
-		StringBuffer statement = new StringBuffer("$defaultField = $defaultValueAssignment;");
+		StringBuffer statement = new StringBuffer(Tokens.DEFAULT_FIELD.getRegExp() + " = "  + Tokens.DEFAULT_VALUE_ASSIGMENT.getRegExp() + ";");
 		try {
 			for (FieldAccessInterceptor interceptor : this.fieldAccessInterceptors) {
 				interceptor.addYourselfToFieldWrite(statement, fieldAccess);
 			}
-			fieldAccess.replace(JavassitParser.parser(fieldAccess, statement.toString()));
+			fieldAccess.replace(JavassistParser.parser(fieldAccess, statement.toString()));
 		}
 		catch (CannotCompileException exception) {
 			throw getVerbosedException(exception, statement.toString(), fieldAccess);
@@ -60,12 +60,12 @@ public class WeavingInstrumentor extends ExprEditor {
 	 * @param name Name of the field being processed
 	 */
 	private void weaveFieldRead(FieldAccess fieldAccess) {
-		StringBuffer statement = new StringBuffer("$rtn $defaultField;");
+		StringBuffer statement = new StringBuffer(Tokens.RETURN.getRegExp() + " " + Tokens.DEFAULT_FIELD.getRegExp()+ ";");
 		try {
 			for (FieldAccessInterceptor interceptor : this.fieldAccessInterceptors) {
 				interceptor.addYourselfToFieldRead(statement, fieldAccess);
 			}
-			fieldAccess.replace(JavassitParser.parser(fieldAccess, statement.toString()));
+			fieldAccess.replace(JavassistParser.parser(fieldAccess, statement.toString()));
 		}
 		catch (CannotCompileException exception) {
 			throw this.getVerbosedException(exception, statement.toString(), fieldAccess);

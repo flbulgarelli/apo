@@ -23,7 +23,7 @@ public class FrameworkClassLoader extends ClassLoader {
 	private Vector<String> notDefinedHere; // must be atomic.
 	private Vector<String> notDefinedPackages; // must be atomic.
 	private ClassPool classPool;
-	private IAdviceWeaver adviceWeaver;
+	private TAdviceWeaver adviceWeaver;
 
 	// ***************************
 	// ** Constructores
@@ -65,7 +65,7 @@ public class FrameworkClassLoader extends ClassLoader {
 		this.adviceWeaver = createAdviceWeaver(cp);
 	}
 
-	protected AdviceWeaver createAdviceWeaver(ClassPool cp) {
+	protected TAdviceWeaver createAdviceWeaver(ClassPool cp) {
 		return new AdviceWeaver(cp, null);
 	}
 
