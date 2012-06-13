@@ -1,26 +1,43 @@
-\subsection{Transacciones:}	
+\subsection{Transacciones}	
 
-Una Transacción es un unidad de la ejecución de un programa, realizada dentro de
-un sistema de gestión de base de datos (SGBD),  que accede y, posiblemente,
-actualiza varios elementos de datos.
+Una transacción es una unidad en la ejecución de un programa que se comporta 
+\emph{atómicamente}: debe ejecutarse por completo o fallar sin dejar rastro, no
+puede dejar los datos en un estado intermedio.
+Los objetivos de trabajar con transacciones son dos.
+En primer lugar, definir unidades de trabajo seguras, que permitan la
+recuperarse de los errores y mantener la coherencia de los datos, incluso en
+los casos de fallas en el sistema.
+En segundo lugar, permitir el acceso concurrente, es decir, que múltiples
+usuarios utilicen la misma información al mismo tiempo sin interferir entre sí.
 
-Una Transacción está delimitada por instrucciones de inicio transacción y fin
-transacción. La transacción consiste en todas las operaciones que se ejecutan
-entre inicio transacción y fin transacción.
-
-Las transacciones en un entorno de base de datos tienen dos propósitos
-principales:
-
-\begin {enumerate}
-  \item Definir unidades de trabajo seguras, que permitan la recuperación
-  correcta de los errores y mantener una base de datos coherente, incluso en
-  los casos de fallo del sistema, cuando la ejecución se detiene (total o
-  parcialmente) y muchas operaciones sobre una base de datos siguen siendo
-  incompletos..
-  
-  \item Permitir el acceso concurrente a los datos.
+Para poder trabajar con transacciones se deben contar con instrucciones
+especiales para marcar su inicio y su final:
+\begin{quote}
+	\begin{description}
+		\item[Begin transaction] es una operación que marca el inicio de una
+		transacción. Toda operación que se haga de aquí en más quedará en suspenso
+		mientras dure la transacción.
+	
+		\item[Commit] es una operación que finaliza y confirma los
+		cambios realizados desde el inicio de la transacción. 
+		
+		\item[Rollback] es una operación que finaliza y revierte todos los cambios
+		realizados desde el inicio de la transacción.
+	\end{description}
+\end{quote}
    
-\end{enumerate}
+\bigskip
+
+Muchas veces las transacciones se asocian con los sistemas de gestión de bases
+de datos (SGBD), sin embargo es un concepto más general.
+En interfaces de usuario es común incluir botones de
+``aceptar'' y ``cancelar'' que podemos relacionar con las ideas de
+\emph{commit} y \emph{rollback}. 
+Si el usuario presiona el botón ``cancelar'' lo que se espera
+es que los datos de la aplicación queden en el estado exacto en el que estaba
+antes de comenzar la tarea.
+
+\bigskip
 
 \subsubsection{Propiedades ACID}
 \label{sec:ACID}
@@ -83,30 +100,4 @@ SGBD para garantizar la integridad de los datos. \cite{HaerderReuter83}.
 		persistirá sus cambios, incluso si el sistema falla.
 	
 	\end{description}
-	
-\subsubsection{Operaciones}
-	Las transacciones definen un conjunto de operaciones generales para su
-	utilización:
-	
-	\begin{quote}
-		\begin{description}
-				\item[Commit] es una operación que finaliza  y confirma los
-				cambios realizados dentro de una transacción. 
-				
-				\item[Rollback] es una operación que finaliza y revierte todos los cambios
-				realizados dentro de una transacción.
-				 
-		\end{description}
-	\end{quote}
-	
-\subsubsection{Aplicabilidad}
-	Si bien la palabra transacción aparece fuertemente relacionada a la
-	transacciones de SGBD, el concepto de una actividad ``transaccional'' es
-	aplicable, prácticamente a todo contexto del desarrollo de software, es decir,
-	las propiedades de atomicidad, consistencia, aislacion y durabilidad, son
-	deseables en el desarrollo de software en todo momento. Por ejemplo, es
-	habitual que las interfaces de usuario incluyan botones de aceptar y cancelar
-	que son asimilables a las operaciones de \emph{commit} y \emph{rollback}
-	respectivamente; Si el usuario presiona el botón ``cancelar'' lo que se espera
-	es que los datos de la aplicación queden inalterados en el estado que estaba al
-	realizar la tarea.
+		

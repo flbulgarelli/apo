@@ -7,69 +7,77 @@ dentro de las interfaces de usuario.
 \subsection{Estrategias para la comunicación dominio-vista}
 La interfaz de usuario necesita obtener información del dominio para presentar
 al usuario, así como actualizar esa información a partir de las acciones del usuario.
-Esta necesidad es contradictoria con el  objetivo de separación entre dominio e
-interfaz de usuario planteado por el patrón MVC; por un lado necesitamos que la
-vista y el dominio intercambien información y por otro exigimos que se conozcan
-lo menos posible.
+La necesidad de intercambiar información entre dominio e interfaz de usuario
+entra en conflicto con el objetivo de minimizar el conocimiento entre ambas,
+como propone el patrón MVC.
 
-La teoría del MVC propone que la comunicación dominio-vista se realice a través
-de eventos. Como se explicó en la Sección \ref{sec:Eventos}, los eventos
-permiten formas de comunicación con un muy bajo acoplamiento. Sin embargo, son
-pocos los lenguajes que incorporan un manejo de eventos automático y se requiere
-de herramientas tecnológicas adicionales. A continuación detallaremos las
-estrategias más utilizadas para atacar este problema.
+Para solucionar esta contradicción la teoría MVC propone que la
+comunicación entre dominio y vista se realice a través de eventos. 
+Como se explicó en la Sección \ref{sec:Eventos}, los eventos
+permiten formas de comunicación con un muy bajo acoplamiento. 
+Sin embargo, son pocos los lenguajes que incorporan un manejo automático de
+eventos, por eso se requiere utilizar herramientas tecnológicas adicionales.
+A continuación detallaremos las estrategias más utilizadas para atacar este problema.
 
-
-	\subsubsection{\emph{Binding} con eventos manuales}
-		Los objetos de dominio tienen que disparar
-		explícitamente un evento cada vez que el valor de una propiedad cambia.
-			
-		Por ejemplo, \emph{JFace-DataBinding}\footnote{JFace-DataBinding es un
-		Framework de presentación basado en el lenguaje Java y utilizado para la
-		construcción del conocido entorno de trabajo \emph{Eclipse}} y el Arena
-		actual, utiliza un \emph{PropertyChangeSupport}, que registra los listener y notifica que el objeto de domino cambio el valor de alguna propiedad \cite{sousa00formal}.
-		
-		A continuación en la figura \ref{javabeans} se describe el esquema de
-		JavaBean.
-		
-		 \begin{figure}[h]
-			\includegraphics[width=350px, height=200px]{img/javabeans}
-			\caption{Esquema Javabeans}
-			\label{javabeans}
-		\end{figure}
+\subsubsection{\emph{Binding} con eventos manuales}
+	En algunas tecnologías que no tienen manejo automático de eventos se obliga a
+	los objetos de dominio a disparar eventos \emph{explícitamente} cada vez cambia
+	el valor de una de sus propiedades.
 	
+	Esta técnica es utilizada en
+	frameworks como \emph{JFace-DataBinding}\footnote{JFace-DataBinding es un
+	Framework de presentación basado en el lenguaje Java y utilizado para la
+	construcción del conocido entorno de trabajo \emph{Eclipse}} y el Arena
+	actual, que se basan en el estandar de
+	\emph{JavaBean}s \cite{sousa00formal}.
+	La figura \ref{javabeans} describe el esquema de eventos utilizado en estas
+	tecnologías. El framework lleva un registro de los \emph{listeners}
+	interesados en cada propiedad de cada objeto, pero se obliga a cada objeto de dominio a:
+	\begin{itemize}
+	  \item tener una referencia a una instancia de la clase
+	  \code{PropertyChangeSupport}
+	  \item realizar una notificación cada vez que cambia una de sus propiedades
+	  \emph{observables}
+	\end{itemize} 
 
-
-		Un ventaja que se tiene al utilizar esta estrategia es que permite tener una
-		comunicación fluida y desacoplada entre la vista y el modelo.
-		Y la desventaja es que obliga a disparar los eventos cada vez que cambia el
-		valor de la propiedad.
 	
-	\subsubsection{Formularios web}
-		En los formularios web, el binding se realiza atreves del \emph{submit} de un
-		formulario; como por ejemplo Wicket\footnote{Wicket es un Framework web MVC
-		para el lenguaje Java.}. 
-		Se pueden diferenciar dos tipos de submit, submit con refresh y submit con
-		ajax.
-		 
-		\begin {enumerate}
-		
-			\item{\bf Submit con Refresh}  No se necesita que el dominio dispare eventos
-			para realizar el binding, sino que en el momento de renderizar la página se
-			leen nuevamente todas las propiedades del dominio.
-			Como wicket corre sobre una plataforma web, en el form en cada submit envía  
-			toda la pagina, y al volver, la renderiza nuevamente.
-			
-			Por otro lado, tampoco es necesario tener eventos desde la vista hacia el
-			modelo. El concepto de Form decide qué datos son los que hay que volcar de un
-			lado a otro.
-		
-			\item {\bf Submit con Ajax} 
-			Es una derivación del anterior, a diferencia de que solo se envía
-			una porción de la página, entonces hay que decirle explícitamente que parte
-			de la pagina queremos refrescar, para que solo renderice esa parte.
+	 \begin{figure}[h]
+		\includegraphics[width=350px, height=200px]{img/javabeans}
+		\caption{Esquema de eventos definido por el estándar de \emph{Javabeans}}
+		\label{javabeans}
+	\end{figure}
 
-		\end {enumerate}
+	La principal ventaja de esta estrategia es que
+	permite una comunicación fluida y desacoplada entre la vista y el modelo.
+	El problema es que, al disparar los eventos manualmente se ensucian las clases
+	del dominio. Además, obliga a escribir mucho código repetitivo, que hace que
+	sea muy fácil cometer errores.
+
+\subsubsection{Formularios web}
+	En los formularios web, el binding se realiza atreves del \emph{submit} de un
+	formulario; como por ejemplo Wicket\footnote{Wicket es un Framework web MVC
+	para el lenguaje Java.}. 
+	Se pueden diferenciar dos tipos de submit, submit con refresh y submit con
+	ajax.
+	 
+	\begin {enumerate}
+	
+		\item{\bf Submit con Refresh}  No se necesita que el dominio dispare eventos
+		para realizar el binding, sino que en el momento de renderizar la página se
+		leen nuevamente todas las propiedades del dominio.
+		Como wicket corre sobre una plataforma web, en el form en cada submit envía  
+		toda la pagina, y al volver, la renderiza nuevamente.
+		
+		Por otro lado, tampoco es necesario tener eventos desde la vista hacia el
+		modelo. El concepto de Form decide qué datos son los que hay que volcar de un
+		lado a otro.
+	
+		\item {\bf Submit con Ajax} 
+		Es una derivación del anterior, a diferencia de que solo se envía
+		una porción de la página, entonces hay que decirle explícitamente que parte
+		de la pagina queremos refrescar, para que solo renderice esa parte.
+
+	\end {enumerate}
 		
 		
 
