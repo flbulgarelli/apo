@@ -5,7 +5,21 @@
 3)buscador\\
 4)monitor de transacciones\\
 
-Transacción bancaria de una cuenta a otra
+Para comprender mejor esta problemática veamos un ejemplo. Supongamos una simple
+aplicación de banca donde los clientes de un banco pueden consultar el estado de sus
+cuentas, realizar transferencias de fondos y administrar sus datos personales.
+Al realizar un transferencia, desde una cuenta hacia otra, hay que extraer el
+monto indicado de la primera cuenta, y depositarlo en la segunda. Estas dos
+operaciones pueden tener errores, como por ejemplo, extraer un monto mayor al
+saldo, o depositar mas cantidad de la maxima permitida.
+
+		\begin{figure}[h]
+			\includegraphics{img/objectTransaction}
+			\caption{uml}
+			\label{uml}
+		\end{figure}	
+	
+
 
 
 \section{Nuestra herramienta: }
