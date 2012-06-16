@@ -1,18 +1,20 @@
 \section{Objetivo}
 \label{sec:Objetivo}
-El presente trabajo tiene dos objetivos principales.  
+El primer objetivo de este trabajo es automatizar la comunicación entre el
+modelo y la interfaz de usuario.
+Toda vez que el usuario ingrese información en el sistema, la
+información debe llegar directamente hasta el dominio. Esto nos permite
+aprovechar toda la lógica del dominio durante la edición.
+De la misma forma, si cambia un atributo de un objeto de dominio, se debe
+informar a la interfaz de usuario para que ese cambio sea visible
+inmediatamente.
+Toda esta funcionalidad debe poder ser implementada en forma transparente,
+sin modificar el dominio ni imponerle restricciones.
 
-\begin{itemize}
-    
-  \item Realizar una vinculación transparente entre el modelo y la vista.
-  Poder tener una comunicación en ambos sentidos, del modelo hacia la vista y
-  de la vista hacia el modelo.
-  Realizar esta comunicación, sin acoplamiento, y de manera automática, ya que
-  es un proceso repetitivo, y propenso a errores.
-  
-  
-  \item Obtener un sistema transaccional, con un uso transparente, automático y
-  sencillo. Manteniendo la identidad del objeto  y aprovechando el
-  comportamiento de los objetos al momento de su edición.
-  Permitir realizar operaciones de \emph{commit} y \emph{rollback}
-\end{itemize}
+El segundo objetivo es proveer un soporte para transacciones, que
+permita automatizar el \emph{rollback} de que la operación en curso no se pueda
+finalizar o que el usuario decida cancelarla.
+Además, dos usuarios deberán poder trabajar con la misma información
+simultáneamente con un grado de aislación \emph{read commited}.
+
+\comment{Revisar:} Manteniendo la identidad del objeto.

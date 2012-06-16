@@ -53,47 +53,55 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	del dominio. Además, obliga a escribir mucho código repetitivo, que hace que
 	sea muy fácil cometer errores.
 
-\subsubsection{Formularios web}
-	En los formularios web, el binding se realiza atreves del \emph{submit} de un
-	formulario; como por ejemplo Wicket\footnote{Wicket es un Framework web MVC
-	para el lenguaje Java.}. 
-	Se pueden diferenciar dos tipos de submit, submit con refresh y submit con
-	ajax.
-	 
-	\begin {enumerate}
+\subsubsection{Formularios}
+	En esta estrategia, durante la edición no se hace un \emph{binding} de los
+	datos contra el modelo de dominio. En cambio, se almacenan en un lugar
+	intermedio, dentro de la interfaz de usuario, y no hay ninguna comunicación
+	con el dominio hasta que el usuario no confirme la acción. En ese momento se
+	tranfieren todos los datos juntos, en un único paquete.
 	
-		\item{\bf Submit con Refresh}  No se necesita que el dominio dispare eventos
-		para realizar el binding, sino que en el momento de renderizar la página se
-		leen nuevamente todas las propiedades del dominio.
-		Como wicket corre sobre una plataforma web, en el form en cada submit envía  
-		toda la pagina, y al volver, la renderiza nuevamente.
-		
-		Por otro lado, tampoco es necesario tener eventos desde la vista hacia el
-		modelo. El concepto de Form decide qué datos son los que hay que volcar de un
-		lado a otro.
+	Esta estrategia es la forma más tradicional de construcción de aplicaciones
+	web. El propio navegador de Internet es el que se ocupa de almacenar los
+	datos durante la edición de un \emph{formulario}, que luego se envía
+	(\emph{submit}) al servidor. 
+	Al recibir este pedido, un componente dentro del servidor se ocupa de desarmar
+	el paquete de datos que llega, y transfiere esa información al dominio en forma
+	manual.
 	
-		\item {\bf Submit con Ajax} 
-		Es una derivación del anterior, a diferencia de que solo se envía
-		una porción de la página, entonces hay que decirle explícitamente que parte
-		de la pagina queremos refrescar, para que solo renderice esa parte.
+	Una vez procesado el pedido, el servidor contesta con una nueva página que
+	el navegador debe presentar al usario, reemplazando por completo la vista anterior.
+	Durante el armado de la página se va pidiendo al dominio cada dato que se desea
+	mostrar. Dado que se reemplaza por completo la pantalla del usuario, \textbf{no
+	hay necesidad de lanzar eventos} que permitan actualizar lo que el usuario
+	estaba viendo.
+	
+	En aplicaciones de escritorio sin \emph{binding} se puede tener una estrategia
+	similar. En lugar de tener un formulario que se envía como un paquete, los
+	datos editados se guardan en los propios \emph{controles} de la interfaz de
+	usuario. Cuando el usuario confirma la accción, manualmente se toman los datos
+	de los controles y se transfieren al dominio.
 
-	\end {enumerate}
-		
-		
-
-%\comment{investigar que hace morphic, preguntar a Guille.
-%	Y tal vez otros frameworks\ldots acá preguntémosle a Javi otros modelos de
-%	binding.}
-
-
+	\medskip
+	
+	El problema de esta estrategia es que toda la comunicación debe ser realizada
+	en forma manual. Esto es tedioso de mantener y una posible fuente de errores.
+	Además, como almacenamos los datos fuera de los objetos de dominio, no podemos
+	aprovechar su lógica. Por ejemplo si el objeto de dominio tiene validaciones
+	sobre sus atributos, no las podemos aprovechar durante la edición. En
+	aplicaciones web tradicionales, muchas veces no se validan los datos hasta que
+	no se intenta confirmar la operación, lo que es bastante molesto para el
+	usuario. En otros casos, para poder hacer validaciones a medida que el usuario
+	edita, la interfaz de usuario tiene su propia implementación de las validaciones. 
+	Es decir, la lógica de validación está duplicada.
+	 		
 \subsection{Manejo de transacciones en la UI}
-
-	En esta sección analizaremos las propiedades ACID, tal como se
-	explicó en la sección \ref{sec:ACID},  pero en el entorno de las interfaces
-	de usuario.
-	Explicaremos las estrategias mas utilizadas en las UIs, y que propiedades ACID
-	se cumplen.
-
+	Como se explicó en la sección \ref{sec:ACID}, muchas veces las interfaces de
+	usuario deben garantizar las propiedades ACID.
+	Normalmente las tecnologías que se usan para construir interfaces de usuario no
+	tienen soporte nativo para manejar transacciones, entonces el programador se ve
+	obligado a implementarlas en forma manual.
+	En esta sección analizaremos las estrategias mas utilizadas, y qué propiedades
+	ACID se cumplen en cada caso.
 
 	\subsubsection{Interfaces de Usuario sin estado}
 		Esta estrategia es muy común en aplicaciones web. Se evita almacenar estados
