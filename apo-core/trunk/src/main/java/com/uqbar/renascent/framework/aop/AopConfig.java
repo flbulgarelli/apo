@@ -45,6 +45,10 @@ public abstract class AopConfig {
 	public static Boolean isEnable(String shortKey) {
 		return isEnableWithFullKey(FILE_PREFIX + "." + shortKey + "." + FILE_SUFFIX);
 	}
+	
+	public static String getProperty(String propertyName) {
+		return AopConfig.getProperties().getProperty(propertyName);
+	}
 
 	public static Boolean isAOPEnable() {
 		return isEnable(AOP_ENABLE_KEY);
