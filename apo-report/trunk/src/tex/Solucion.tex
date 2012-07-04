@@ -16,39 +16,21 @@ en la sección \ref{sec:Union} la integración de ambos aspectos.
 	El aspecto Transaccional convierte los objetos en objetos
 	transaccionales, en forma transparente  y manteniendo su identidad.
 	
-	Permite tener un control en las operaciones de modificación de los objetos.
-	Permite confirmar la operación, donde sus cambios se impactan en el objeto.
-	También permite la cancelación de las operaciones, desechando cada
-	modificación realizada. Además soporta el trabajo concurrente, o nivel de
-	aislamiento, permitiendo a varios procesos realizar cambios en un mismo objeto
-	al mismo tiempo. También soporta múltiples transacciones, ó transacciones
+	Toda operación sobre un objeto se realiza dentro de un contexto transaccional
+	limitado por las operaciones detalladas en la sección
+	\ref{ctxTransactional} (\emph{beginTransaction, commit, roolback}).
+	Las operaciones realizadas a los objetos solo puede ser
+	vistos dentro del mismo contexto y no modifican al objeto hasta que no se
+	confirme la transacción (\emph{commit}).
+	 
+	El contexto transaccional permite tener un control en las operaciones de
+	modificacion de los objetos, confirmar una operacion en curso, donde sus
+	cambios seran impactados en el objeto, cancelar la todas las operaciones
+	realizadas. Adamás soporta el trabajo concurrente, tambien llamado
+	nivel de asislamieto, permitiendo a varios procesos realizar cambios en un
+	mismo objeto al mismo tiempo. También soporta múltiples transacciones, ó transacciones
 	anidadas.
 	
-	\bigskip
-	
-	Interfaz que nos provee las transacciones:
-	
-	\begin{itemize}
-	  \item {\bf \emph{beginTransaction}}  \emph{empezar una transacción}
-	  \item {\bf \emph{commit}} \emph{impactar los cambios realizados en esa
-	  transacción}
-	  \item {\bf \emph{rollback}} \emph{revertir los cambios realizados en esa
-	  transacción}
-	\end{itemize}
-
-
-	{\bf Titulo????????}
-	\begin{itemize}
-	  \item Todo el trabajo se realiza dentro de un contexto transaccional.
-	  
-	  \item Las modificaciones de los objetos solo pueden ser vistos dento del
-	  mismo contexto, si todavía no se hizo el commit.
-	   
-	  \item El objeto no se modifica, hasta que no se confirme la transacción.
-	  
-	   \item El contexto transaccional esta asociado a thread actual.
-	\end{itemize}
-
 	
 \subsection{Unión de los Aspectos:}
 \label{sec:Union}
