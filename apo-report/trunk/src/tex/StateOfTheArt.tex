@@ -102,48 +102,94 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	Normalmente las tecnologías que se usan para construir interfaces de usuario no
 	tienen soporte nativo para manejar transacciones, entonces el programador se ve
 	obligado a implementarlas en forma manual.
-	En esta sección analizaremos las estrategias mas utilizadas, y qué propiedades
-	ACID se cumplen en cada caso.
+	
+	Las estrategias más comunes apuntan principalmente a garantizar la atomicidad
+	de los cambios. Para ello se evita que la UI interactúe
+	directamente con los objetos de dominio. Si la acción que se está realizando
+	desde la UI tuviera que modificar un atributo objeto de dominio, el nuevo valor
+	del atributo se almacena en algún ``lugar intermedio'' hasta que se confirme toda
+	la operación. Esta forma de trabajo simplifica el rollback: simplemente se
+	descarta la información intermedia. Los lugares de almacenamiento intermedio
+	pueden ser:
+	\begin{itemize}
+	  \item Un objeto desarrollado específicamente a tal efecto, que sólo tiene los
+	  atributos necesarios y ningún comportamiento. \comment{Acá se podría citar
+	  http://martinfowler.com/eaaCatalog/dataTransferObject.html, pero del libro,
+	  no de la web.}
+	  \item Los propios componentes de la interfaz de usuario (por
+	  ejemplo una instancia de la clase \texttt{TextBox}).
+	  \item En aplicaciones Web, el \emph{request} cubre ese rol.
+	  \item Una copia (\emph{clone}) del objeto original.
+	\end{itemize}
+	
+	En cualquiera de estas estrategias, en el momento de confirmar la operación se
+	deberá ``trasvasar'' la información del almacenamiento intermedio a los objetos
+	de dominio involucrados.
+	Con frecuencia esta operación es manual\footnote{En algunos casos puede automatizarse utilizando
+	técnicas de \emph{reflection}} e implica una duplicación de conocimiento entre
+	el objeto de dominio y el almacenamiento intermedio. Por ejemplo, en caso de
+	agregar un atributo al objeto de dominio se deberá garantizar que se mantiene
+	sincronizado con los almacenamientos intermedios.
+	
+	Utilizar una copia del objeto original tiene algunas ventajas sobre las demás
+	alternativas. En primer lugar se elimina la duplicación de
+	conocimiento, al menos en parte. Por otro lado, esta estrategia permite que la
+	UI aproveche el comportamiento del propio objeto durante la edición (por
+	ejemplo: validaciones). Además, en esta estrategia hay una variante que se
+	utiliza para evitar la trasvasamiento de datos, que es reemplazar el objeto de
+	dominio por la copia al final de la operación. Sin embargo, en sistemas
+	complejos esta estrategia suele no ser suficiente, porque requiere que podamos
+	conocer todas las referencias al objeto que queremos reemplazar. Por otro lado,
+	el reemplazo puede muy complejo si la operación modifica múltiples objetos de
+	dominio.
 
-	\subsubsection{Interfaces de Usuario sin estado}
-		Esta estrategia es muy común en aplicaciones web. Se evita almacenar estados
-		en las UIs y se lo delega todo a la base de datos (BD), o bien debe enviarse
-		en cada interacción con el cliente.
-		
-		De esta manera, la	ausencia de datos fuera de la BD, garantiza que no se
-		rompen estas propiedades.
-		
-		Una de las desventajas que tiene este sistema es que si se esta en el
-		paradigma de la programación orientada a objetos, en cada pedido de datos
-		se tiene que reconstruir todo el grafo de objetos, y si el grafo es muy grande,
-		esta operación se vuelve repetitiva y lenta.
-		
-%		\comment{Otos sistemas que utilizan dicha estrategia son las
-		% \emph{Arquitecturas orientada a Servicios} y la \emph{Unidad de Trabajo}}
-		
-	\subsubsection{???}
-		\comment{En este esquema se almacenar la información durante la edición, en
-		algún lugar fuera del objeto. Como consecuencia se postergan las validaciones de negocio hasta la
-		finalización de la edición , o se duplica la validación de negocio en la uis.}
+	Como se ve, todas estas estrategias logran atomicidad a costa de duplicar
+	información y agregar tareas manuales que pueden ser fuente de errores de
+	programación. En general no hay una forma sistemática de
+	garantizar consistencia o aislamiento.
 	
-	
-	\subsubsection{Clonar al editar}
-	
-		Clonar al editar es una estrategia que se basa en la idea de no modificar el
-		objeto, hasta que se confirme la edición. Cuyo funcionamiento se basa en 
-		clonar el objeto, y modificar el objeto clonado. Cuando se confirma la
-		edición, se impacta los cambios del clon en el objeto original.
-		
-		Con dicha estrategia la Atomicidad se cumple, ya que solo se pasan los datos
-		al original, solo cuando se confirma la operación.
-		En caso de que se quiera cancelar la operación, solo se tiene que tirar la
-		copia.
-		
-		Con el Aislamiento hay problemas si varios usuarios intentan modificar un
-		objeto, cada uno tendría una copia, pero si mas de uno confirman sus cambios,
-		los datos quedarían inconsistentes.
-		
-		La desventaja que tiene esta estrategia es que se pierde la identidad del
-		objeto, copiar todos los datos de un objeto a otro, hay que hacerlo a mano, y
-		esta operación hay que hacerla dos veces, tanto para hacer la copia, y para
-		confirmar los cambios.
+% 	En esta sección analizaremos las estrategias mas utilizadas, y qué propiedades
+% 	ACID se cumplen en cada caso.
+% 
+% 	\subsubsection{Interfaces de Usuario sin estado}
+% 		Esta estrategia es muy utilizada en aplicaciones web o en aplicaciones
+% 		orientadas a servicios. En este tipo de aplicaciones, 
+% 		Se evita almacenar estados en las UIs y se lo delega
+% 		todo a la base de datos (BD), o bien debe enviarse en cada interacción con el cliente.
+% 		
+% 		De esta manera, la	ausencia de datos fuera de la BD, garantiza que no se
+% 		rompen estas propiedades.
+% 		
+% 		Una de las desventajas que tiene este sistema es que si se esta en el
+% 		paradigma de la programación orientada a objetos, en cada pedido de datos
+% 		se tiene que reconstruir todo el grafo de objetos, y si el grafo es muy grande,
+% 		esta operación se vuelve repetitiva y lenta.
+% 		
+% %		\comment{Otos sistemas que utilizan dicha estrategia son las
+% 		% \emph{Arquitecturas orientada a Servicios} y la \emph{Unidad de Trabajo}}
+% 		
+% 	\subsubsection{\emph{Data Transfer Objects}}
+% 		\comment{En este esquema se almacenar la información durante la edición, en
+% 		algún lugar fuera del objeto. Como consecuencia se postergan las validaciones de negocio hasta la
+% 		finalización de la edición , o se duplica la validación de negocio en la uis.}
+% 	
+% 	
+% 	\subsubsection{Clonar al editar}
+% 		Clonar al editar es una estrategia que se basa en la idea de no modificar el
+% 		objeto, hasta que se confirme la edición. Cuyo funcionamiento se basa en 
+% 		clonar el objeto, y modificar el objeto clonado. Cuando se confirma la
+% 		edición, se impacta los cambios del clon en el objeto original.
+% 		
+% 		Con dicha estrategia la Atomicidad se cumple, ya que solo se pasan los datos
+% 		al original, solo cuando se confirma la operación.
+% 		En caso de que se quiera cancelar la operación, solo se tiene que tirar la
+% 		copia.
+% 		
+% 		Con el Aislamiento hay problemas si varios usuarios intentan modificar un
+% 		objeto, cada uno tendría una copia, pero si mas de uno confirman sus cambios,
+% 		los datos quedarían inconsistentes.
+% 		
+% 		La desventaja que tiene esta estrategia es que se pierde la identidad del
+% 		objeto, copiar todos los datos de un objeto a otro, hay que hacerlo a mano,
+% y 		esta operación hay que hacerla dos veces, tanto para hacer la copia, y para
+% 		confirmar los cambios.
