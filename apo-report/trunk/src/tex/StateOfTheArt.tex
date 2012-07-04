@@ -20,7 +20,7 @@ eventos, por eso se requiere utilizar herramientas tecnológicas adicionales.
 A continuación detallaremos las estrategias más utilizadas para atacar este problema.
 
 \subsubsection{\emph{Binding} con eventos manuales}
-	En algunas tecnologías que no tienen manejo automático de eventos se obliga a
+	En algunas tecnologías que no tienen manejo automático de eventos obliga a
 	los objetos de dominio a disparar eventos \emph{explícitamente} cada vez cambia
 	el valor de una de sus propiedades.
 	
@@ -34,10 +34,9 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	tecnologías. El framework lleva un registro de los \emph{listeners}
 	interesados en cada propiedad de cada objeto, pero se obliga a cada objeto de dominio a:
 	\begin{itemize}
-	  \item tener una referencia a una instancia de la clase
-	  \code{PropertyChangeSupport}
-	  \item realizar una notificación cada vez que cambia una de sus propiedades
-	  \emph{observables}
+	  \item Tener una referencia a un objeto que actue como soporte para generar
+	  los eventos.
+	  \item Realizar una notificación cada vez que cambia una de sus propiedades
 	\end{itemize} 
 
 	
@@ -49,11 +48,13 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 
 	La principal ventaja de esta estrategia es que
 	permite una comunicación fluida y desacoplada entre la vista y el modelo.
-	El problema es que, al disparar los eventos manualmente se ensucian las clases
-	del dominio. Además, obliga a escribir mucho código repetitivo, que hace que
+	El problema es que, al disparar los eventos \\
+	manualmente se ensucian las
+	clases del dominio. Además, obliga a escribir mucho código repetitivo, que hace que
 	sea muy fácil cometer errores.
 
 \subsubsection{Formularios}
+
 	En esta estrategia, durante la edición no se hace un \emph{binding} de los
 	datos contra el modelo de dominio. En cambio, se almacenan en un lugar
 	intermedio, dentro de la interfaz de usuario, y no hay ninguna comunicación
@@ -69,7 +70,8 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	manual.
 	
 	Una vez procesado el pedido, el servidor contesta con una nueva página que
-	el navegador debe presentar al usario, reemplazando por completo la vista anterior.
+	el \\ navegador debe presentar al usario, reemplazando por completo la vista
+	anterior.\\
 	Durante el armado de la página se va pidiendo al dominio cada dato que se desea
 	mostrar. Dado que se reemplaza por completo la pantalla del usuario, \textbf{no
 	hay necesidad de lanzar eventos} que permitan actualizar lo que el usuario
