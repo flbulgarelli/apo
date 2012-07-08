@@ -1,11 +1,12 @@
 \section{Aplicación de ejemplo}
 
 Para comprender mejor esta problemática veamos un ejemplo. Supongamos una simple
-aplicación bancaria, donde los clientes de un banco pueden transferir dinero de
-una cuenta a otra. Al realizar un transferencia, hay que extraer el monto
-indicado de la primera cuenta, y depositarlo en la segunda. Estas dos
+aplicación, donde los clientes de un banco pueden transferir dinero de
+una cuenta a otra. Al realizar una transferencia, hay que extraer el monto
+indicado de una cuenta, y depositarlo en otra. Estas dos
 operaciones pueden tener errores, como por ejemplo, extraer un monto mayor al
-saldo, o depositar mas cantidad de la maxima permitida.
+saldo, o depositar una cantidad mayor a la maxima permitida. 
+Un cliente no puede ver el saldo de las las cuentas que no sean de su propiedad.
 
 La  figura \ref{example} muestra el diagrama de la aplicación de
 ejemplo
@@ -17,52 +18,58 @@ ejemplo
 	\end{figure}	
 
 
-El sistema me permite 
+El sistema me permite realizar multiples transferencias a la vez y por ultimo
+realizar la confirmacion o la cancelación de todas ellas. Tambien brinda la posibilidad
+de realizar multiples transacciones, por ejemplo, en la edicion de un cliente,
+se puede editar, eliminar o crear cuentas. A su vez se puede hacer una
+transferencia a otra cuenta. En cada una de esas operaciones se esta
+trabajando en dentro de una transacción. y las operaciones pueden ser
+canceladas por unidad, es decir, se cancelan o se confirman por transacción.
+
+
 
 \section{Nuestra herramienta: }
 
-Con el propósito de cumplir el objetivo detallado en la Sección
-\ref{sec:Objetivo} y llevándolo a cabo con la solución propuesta en la  la
-Sección \ref{sec:Solucion}, se desarrolló dos conceptos \emph{Pure Objects
-Observable} (POO)  para atacar a la problemática de la observabilidad y
-\emph{Pure Object Transaction} (POT) para atacar a la problematica
-transaccional.
+En esta sección se explica como se llevo a cabo la implementación de la solución
+propuesta en la Sección \ref{sec:Solucion}, y cumpliendo el objetivo detallado
+en la Sección \ref{sec:Objetivo}. Se dessarrolló dos conceptos fundamentales
+para con lo planteado. \emph{Pure Objects Observable} (POO)  para atacar a la
+problemática de la observabilidad y \emph{Pure Object Transaction} (POT) para
+atacar a la problematica transaccional.
+	
+	\subsection{Framework utilizado}  
 
-\medskip  
+	Se evaluaron dos frameworks para resolver nuestro problema. Uno es Javassist y
+	el otro AspectJ. \cite{KiczalesHHKPG01}
+	El criterio de evaluación que se utilizo fue el que tenga menor impacto para el
+	programador que utilice el framework.
 
-Se evaluaron dos frameworks para resolver nuestro problema. Uno es Javassist y
-el otro AspectJ. \cite{KiczalesHHKPG01}
+	\medskip 
+	Aunque AspactJ es una herramienta de mas alto nivel en comparación con
+	Javassist,  se eligió a  Javassist porque el agrega los aspectos al momento de
+	la carga de la clase, es decir hay que utilizar un \emph{ClassLoader}
+	específico, en cambio AspectJ agrega los aspectos al en tiempo de compilación,
+	entonces el programador tienen que utilizar otro compilador para su código.
 
-\medskip 
+	\medskip 
 
-Se utilizó Javassist porque es independiente al usuario, en cambio si utilizamos
-AspectJ obligamos al usuario a el compilador del código. 
+	\subsection{Desarrollo de Aspect for Pure Objects}
 
-\medskip 
+	Ya que Javassist es muy de bajo nivel, y trabaja a nivel de \emph{bytecode},
+	trajabar con el es complicado y el codigo se hace poco entendible. Por eso se
+	desarrolló una herramienta llamada \emph{ Aspect for Pure Objects} (APO), que
+	es una abstracción del Framework Javassist, que permite fácilmente configurar 
+	aspectos, y aplicarselo a un grupo de objetos.
 
-Ya que Javassist es muy de bajo nivel, y trabaja a nivel de \emph{bytecode},
-trajabar con el es complicado y el codigo se hace intendible. Por eso se
-desrrollo una herramienta llamada \emph{ Aspect for Pure Object} (APO), que es 
-una abstracción del Framework Javassist, que permite fácilmente implementar un
-aspecto, y aplicarselo a un grupo de objetos.
-
-\comment{Hay ciertos parametros en la aplicación que son configurables. Para
-ello hay que editar el archivo \emph{framework-config.properties}}.
-
-\medskip 
-
-Utilizando \emph{APO} se implementaron los dos aspectos diferentes:
-
-	\subsection{Aspecto Transaccional (POO)} 
-		Esta basado en una implementación
+	\subsection{Aspecto Transaccional (POT)} 
+		Basado en una implementación
 		hecha por Nicolás Passerini y Javier Fernandes.
 		 
-		Utilizando la programación orientada a aspectos, intercepta todas las lecturas
-		y escrituras de los \emph{fields}. Insertando código al momento de la carga de
-		la clase.
-		Se remplaza el acceso al field, tanto de lectura como escritura, y se lo delega
-		al ObjectTransactionManager, donde se guarda la información en una estructura
-		[objeto, [Field, Valor]].
+		Donde intercepta todas las lecturas	y escrituras de los atributos de un
+		objeto.	Insertando código al momento de la carga de la clase.
+		Se remplaza el acceso al atributo, tanto de lectura como escritura, y se lo
+		delega al administrador de las transacciones, donde se guarda la información
+		en una estructura [Objeto, [Atributo, Valor]].
 		
 		\medskip
 		
@@ -72,18 +79,23 @@ Utilizando \emph{APO} se implementaron los dos aspectos diferentes:
 		de su padre, y al momento de hacer el \emph{commit} en la sub-transacción, sus
 		cambios son impactados en la transacción padre.
 		Por esta forma de implementación, la identidad del objeto se mantiene, ya que
-		el objeto no se modifica ni se clona, solo se cambia el acceso a sus fields.
+		el objeto no se modifica ni se clona, solo se cambia el acceso a sus
+		atributos.
 		
 		Para agregarle este aspecto a una clase se utiliza la \emph{Annotation}
 		\emph{Transactional }
-		
-			\begin{lstlisting} 
-				@Transactional
-				public class Client extends Entity {
-				}
-			\end{lstlisting}
+				
+		\begin{figure}[h]
+				\begin{lstlisting} 
+					@Transactional
+					public class Client extends Entity {
+					}
+				\end{lstlisting}
+			\caption{Ejemplo de uso del Aspecto Transaccional}
+			\label{pot}
+		\end{figure}  
 
-	\subsection{ Aspecto Observable}
+	\subsection{ Aspecto Observable (POO)}
 			
 		En su implementación interna lo que hace el aspecto es agregar un \emph{field
 		changeSupport} del tipo \emph{<<PropertySupport>>} al objeto que se va a
@@ -98,11 +110,15 @@ Utilizando \emph{APO} se implementaron los dos aspectos diferentes:
 		Para agregarle este aspecto a una clase se utiliza la \emph{Annotation}
 		\emph{Observable}
 		
-			\begin{lstlisting} 
-				@Observable
-				public class Client extends Entity {
-				}
-			\end{lstlisting}
+	\begin{figure}[h]
+		\begin{lstlisting} 
+			@Observable
+			public class Client extends Entity {
+			}
+		\end{lstlisting}
+		\caption{Ejemplo de usu del aspecto observable}
+		\label{poo}
+	\end{figure}  
 		
 
 
@@ -111,11 +127,15 @@ Utilizando \emph{APO} se implementaron los dos aspectos diferentes:
 	ambos aspecto. Se puede poner los dos \emph{Annotation} \emph{Observable} y
 	\emph{Transactional} como vimos previamente, o ponerle uno solo. 
 	
-	\begin{lstlisting} 
-		@TransactionalAndObservable
-		public class Client extends Entity {
-		}
-	\end{lstlisting}
+	\begin{figure}[h]
+		\begin{lstlisting} 
+			@TransactionalAndObservable
+			public class Client extends Entity {
+			}
+		\end{lstlisting}
+		\caption{integración de ambos aspectos}
+		\label{TandO}
+	\end{figure}  
 	
 	
 	
@@ -146,20 +166,18 @@ Utilizando \emph{APO} se implementaron los dos aspectos diferentes:
 	 
 	 \medskip
 	 
-	\subsubsection{Monitor de Transacciones}
-	
-	 Con arena también se desarrolló un {\bf Monitor de Transacciones}, que me
-	 muestra el estado actual de la transacción, incluyendo las transacciones
-	 anidadas. Mostrandome los objetos afectados por la transacción y que
-	 propiedades se modificaron.
-	 
-	 
- 
+	\begin{description}
+		\item[Monitor de Transacciones]
+		 Con arena también se desarrolló un {\bf Monitor de Transacciones}, que 
+		 muestra el estado actual de la transacción, incluyendo las transacciones
+		 anidadas. Mostrando los objetos afectados por la transacción y que
+		 atributos se modificaron.
+	\end{description}
 
 	
-\subsection{Buscar un  titulo}
-La implementación de la integración en el arena se realizó con Scala, agregando
-mejora al Arena como: Árboles, Listas \ldots \ldots \ldots. 
+	\subsection{Otras mejoras al Arena}
+		La implementación de la integración en el arena se realizó con Scala, agregando
+		mejora al Arena como: Árboles, Listas \ldots \ldots \ldots. 
 	
 	
 Contar que esta publicado, con la licencia y blah

@@ -68,19 +68,21 @@ SGBD para garantizar la integridad de los datos. \cite{HaerderReuter83}.
 		Los niveles de aislamiento están definidos por \emph{ANSI/ISO SQL}, y se listan
 		a continuación.
 		
-		\begin {itemize}
-		
-			\item{\bf \emph{Read uncommitted}}
+		\subsubsection{Niveles de aislamiento}
+	
+		\begin{description}
+
+			\item [Read uncommitted]
 				Este es el menor nivel de aislamiento. En él se permiten las lecturas
 				sucias, es decir, una transacción pude ver cambios no confirmados
 				aún por otra transacción.
 			
-			\item {\bf \emph{Read committed}}
+			\item [Read committed]
 				En este nivel solo se pueden ver los datos que están confirmados, es decir si
 				una  transacción esta haciendo una modificación, esta no es visible a otra
 				transacción hasta que sea confirmada.
 				
-			\item {\bf \emph{Repeatable reads}} 
+			\item [Repeatable reads] 
 				En este nivel de aislamiento, un SGBD que implemente el control de
 				concurrencia basado en bloqueos, mantiene los bloqueos de lectura y escritura
 				-de los datos seleccionados- hasta el final de la transacción. Sin embargo, no
@@ -88,12 +90,12 @@ SGBD para garantizar la integridad de los datos. \cite{HaerderReuter83}.
 				ocurrir.
 			
 				
-		  \item {\bf \emph{Serializable}}
+		  \item [Serializable]
 				Este es el nivel de aislamiento más alto. Especifica que todas las
 				transacciones ocurran de modo aislado, o dicho de otro modo, como si todas las
 				transacciones se ejecutaran secuencialmente, es decir, una tras otra. 
 			
-			\end{itemize}
+			\end{description}
 	  	
 	\item[Durabilidad]
 		
