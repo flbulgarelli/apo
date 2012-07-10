@@ -2,6 +2,26 @@
 \section{Trabajo futuro}
 \label{sec:futurework}
 
+
+\subsection{Estrategias de resolución de conlficto en las Transacciones}
+
+	\begin{itemize}
+
+		\item{\bf Optimista:} Que las multiples  transacciones simultaneas puedan ser
+		mejorador con un simple feedback y la información de alerta al
+		usuario final diciendo que alguien más está editando el mismoo objeto.
+		Se prodria ser más especifico, si se aumenta el nivel de detalle que especifica
+		``quien'' y ``que objetos'' se comparten y ``cual de ellos se ha cambiado e
+		otra operación ''
+	
+		\item{\bf Pesimista:} Se  bloquea el casos de uso, cuando alguien ya esta
+		manipulando uno de los objetos involucrados. 
+
+	\end{itemize}
+	
+\subsection{Niveles de Aislamiento en las Transacciones}
+Actualmente solo soporta el nivel \emph{Read committed},  
+
 implementar niveles de insolación.
 
 aspectear Arrays.
