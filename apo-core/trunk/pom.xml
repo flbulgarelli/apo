@@ -2,16 +2,16 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.uqbar</groupId>
+	<groupId>uqbar</groupId>
 	<artifactId>apo-core</artifactId>
-	<version>1.0</version>
-	<name>Aspected Pure Object Project</name>
+	<version>${arena-version}</version>
+	<name>Aspect for Pure Objects</name>
 	<packaging>jar</packaging>
 
 	<parent>
 		<groupId>uqbar</groupId>
-		<artifactId>uqbar-parent-project</artifactId>
-		<version>1.2</version>
+		<artifactId>arena-parent</artifactId>
+		<version>1.0</version>
 	</parent>
 
 
@@ -30,10 +30,11 @@
 	<dependencies>
 		<!-- UQBAR DEPENDENCIES -->
 		<dependency>
-			<groupId>com.uqbar</groupId>
-			<artifactId>uqbar-commons</artifactId>
-			<version>1.1-SNAPSHOT</version>
+			<groupId>uqbar</groupId>
+			<artifactId>util-commons</artifactId>
+			<version>${arena-version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.uqbar</groupId>
 			<artifactId>uqbar-commons-collections</artifactId>
@@ -41,19 +42,10 @@
 		</dependency>
 
 		<dependency>
-			<groupId>uqbar</groupId>
-			<artifactId>util-commons</artifactId>
-			<version>3.0-SNAPSHOT</version>
+			<groupId>com.uqbar</groupId>
+			<artifactId>uqbar-commons-exceptions</artifactId>
+			<version>1.5-SNAPSHOT</version>
 		</dependency>
-
-		<!-- /UQBAR DEPENDENCIES -->
-		<!-- <dependency> -->
-		<!-- <groupId>com.uqbar</groupId> -->
-		<!-- <artifactId>renascent.commons</artifactId> -->
-		<!-- <version>1.0-SNAPSHOT</version> -->
-		<!-- </dependency> -->
-
-
 
 		<dependency>
 			<groupId>javassist</groupId>
@@ -75,11 +67,6 @@
 			<version>1.1.1</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.uqbar</groupId>
-			<artifactId>uqbar-commons-exceptions</artifactId>
-			<version>1.5-SNAPSHOT</version>
-		</dependency>
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
