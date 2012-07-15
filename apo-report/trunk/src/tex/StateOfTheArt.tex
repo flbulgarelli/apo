@@ -28,13 +28,13 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	frameworks como \emph{JFace-DataBinding}\footnote{JFace-DataBinding es un
 	Framework de presentación basado en el lenguaje Java y utilizado para la
 	construcción del conocido entorno de trabajo \emph{Eclipse}} y el Arena
-	actual, que se basan en el estandar de
+	actual, que se basan en el estándar de
 	\emph{JavaBean}s \cite{sousa00formal}.
 	La figura \ref{javabeans} describe el esquema de eventos utilizado en estas
 	tecnologías. El framework lleva un registro de los \emph{listeners}
 	interesados en cada propiedad de cada objeto, pero se obliga a cada objeto de dominio a:
 	\begin{itemize}
-	  \item Tener una referencia a un objeto que actue como soporte para generar
+	  \item Tener una referencia a un objeto que actúe como soporte para generar
 	  los eventos.
 	  \item Realizar una notificación cada vez que cambia una de sus propiedades
 	\end{itemize} 
@@ -59,7 +59,7 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	datos contra el modelo de dominio. En cambio, se almacenan en un lugar
 	intermedio, dentro de la interfaz de usuario, y no hay ninguna comunicación
 	con el dominio hasta que el usuario no confirme la acción. En ese momento se
-	tranfieren todos los datos juntos, en un único paquete.
+	transfieren todos los datos juntos, en un único paquete.
 	
 	Esta estrategia es la forma más tradicional de construcción de aplicaciones
 	web. El propio navegador de Internet es el que se ocupa de almacenar los
@@ -70,7 +70,7 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	manual.
 	
 	Una vez procesado el pedido, el servidor contesta con una nueva página que
-	el \\ navegador debe presentar al usario, reemplazando por completo la vista
+	el \\ navegador debe presentar al usuario, reemplazando por completo la vista
 	anterior.\\
 	Durante el armado de la página se va pidiendo al dominio cada dato que se desea
 	mostrar. Dado que se reemplaza por completo la pantalla del usuario, \textbf{no
@@ -80,7 +80,7 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	En aplicaciones de escritorio sin \emph{binding} se puede tener una estrategia
 	similar. En lugar de tener un formulario que se envía como un paquete, los
 	datos editados se guardan en los propios \emph{controles} de la interfaz de
-	usuario. Cuando el usuario confirma la accción, manualmente se toman los datos
+	usuario. Cuando el usuario confirma la acción, manualmente se toman los datos
 	de los controles y se transfieren al dominio.
 
 	\medskip
@@ -136,7 +136,7 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	conocimiento, al menos en parte. Por otro lado, esta estrategia permite que la
 	UI aproveche el comportamiento del propio objeto durante la edición (por
 	ejemplo: validaciones). Además, en esta estrategia hay una variante que se
-	utiliza para evitar la trasvasamiento de datos, que es reemplazar el objeto de
+	utiliza para evitar la traspasamiento de datos, que es reemplazar el objeto de
 	dominio por la copia al final de la operación. Sin embargo, en sistemas
 	complejos esta estrategia suele no ser suficiente, porque requiere que podamos
 	conocer todas las referencias al objeto que queremos reemplazar. Por otro lado,
@@ -148,48 +148,3 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	programación. En general no hay una forma sistemática de
 	garantizar consistencia o aislamiento.
 	
-% 	En esta sección analizaremos las estrategias mas utilizadas, y qué propiedades
-% 	ACID se cumplen en cada caso.
-% 
-% 	\subsubsection{Interfaces de Usuario sin estado}
-% 		Esta estrategia es muy utilizada en aplicaciones web o en aplicaciones
-% 		orientadas a servicios. En este tipo de aplicaciones, 
-% 		Se evita almacenar estados en las UIs y se lo delega
-% 		todo a la base de datos (BD), o bien debe enviarse en cada interacción con el cliente.
-% 		
-% 		De esta manera, la	ausencia de datos fuera de la BD, garantiza que no se
-% 		rompen estas propiedades.
-% 		
-% 		Una de las desventajas que tiene este sistema es que si se esta en el
-% 		paradigma de la programación orientada a objetos, en cada pedido de datos
-% 		se tiene que reconstruir todo el grafo de objetos, y si el grafo es muy grande,
-% 		esta operación se vuelve repetitiva y lenta.
-% 		
-% %		\comment{Otos sistemas que utilizan dicha estrategia son las
-% 		% \emph{Arquitecturas orientada a Servicios} y la \emph{Unidad de Trabajo}}
-% 		
-% 	\subsubsection{\emph{Data Transfer Objects}}
-% 		\comment{En este esquema se almacenar la información durante la edición, en
-% 		algún lugar fuera del objeto. Como consecuencia se postergan las validaciones de negocio hasta la
-% 		finalización de la edición , o se duplica la validación de negocio en la uis.}
-% 	
-% 	
-% 	\subsubsection{Clonar al editar}
-% 		Clonar al editar es una estrategia que se basa en la idea de no modificar el
-% 		objeto, hasta que se confirme la edición. Cuyo funcionamiento se basa en 
-% 		clonar el objeto, y modificar el objeto clonado. Cuando se confirma la
-% 		edición, se impacta los cambios del clon en el objeto original.
-% 		
-% 		Con dicha estrategia la Atomicidad se cumple, ya que solo se pasan los datos
-% 		al original, solo cuando se confirma la operación.
-% 		En caso de que se quiera cancelar la operación, solo se tiene que tirar la
-% 		copia.
-% 		
-% 		Con el Aislamiento hay problemas si varios usuarios intentan modificar un
-% 		objeto, cada uno tendría una copia, pero si mas de uno confirman sus cambios,
-% 		los datos quedarían inconsistentes.
-% 		
-% 		La desventaja que tiene esta estrategia es que se pierde la identidad del
-% 		objeto, copiar todos los datos de un objeto a otro, hay que hacerlo a mano,
-% y 		esta operación hay que hacerla dos veces, tanto para hacer la copia, y para
-% 		confirmar los cambios.

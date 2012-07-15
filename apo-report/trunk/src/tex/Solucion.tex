@@ -10,10 +10,10 @@ en la sección \ref{sec:Union} la integración de ambos aspectos.
 \subsection{Aspecto Observable}
 	El aspecto Observable permite que un objeto pueda notificar cada cambio de
 	valor de sus atributos. A su vez, agrega el comportamiento de tener un conjunto
-	de listener que estes escuchando esas notificaciones para poder reaccionar a su
+	de listener que estés escuchando esas notificaciones para poder reaccionar a su
 	conveniencia.
 	Dicha notificación se realiza utilizando eventos. En cada notificación el
-	sistema le aviza a todos los listeners que se han registrado para observar ese
+	sistema le avisa a todos los listeners que se han registrado para observar ese
 	atributo.
 
 \subsection{Aspecto Transaccional}
@@ -21,16 +21,16 @@ en la sección \ref{sec:Union} la integración de ambos aspectos.
 	manejar los valores de sus variables de instancia, monitoreando sus cambios.	
 	Toda operación sobre un objeto se realiza dentro de un \emph{contexto
 	transaccional} limitado por las operaciones detalladas en la Sección
-	\ref{ctxTransactional} (\emph{beginTransaction, commit, roolback}).
+	\ref{ctxTransactional} (\emph{beginTransaction, commit, rollback}).
 	Las operaciones realizadas a los objetos solo puede ser
 	vistos dentro del mismo contexto y no modifican al objeto hasta que no se
 	confirme la transacción (\emph{commit}).
 	 
 	El contexto transaccional permite tener un control en las operaciones de
-	modificación de los objetos, confirmar una operacion en curso, donde sus
-	cambios seran impactados en el objeto, cancelar la todas las operaciones
-	realizadas. Además soporta el trabajo concurrente, tambien llamado
-	nivel de aislamieto, permitiendo a varios procesos realizar cambios en un
+	modificación de los objetos, confirmar una operación en curso, donde sus
+	cambios serán impactados en el objeto, cancelar la todas las operaciones
+	realizadas. Además soporta el trabajo concurrente, también llamado
+	nivel de aislamiento, permitiendo a varios procesos realizar cambios en un
 	mismo objeto al mismo tiempo. También soporta transacciones
 	anidadas.
 	

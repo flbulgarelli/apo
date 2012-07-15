@@ -3,31 +3,35 @@
 \label{sec:futurework}
 
 
-\subsection{Estrategias de resolución de conlficto en las Transacciones}
-
-	\begin{itemize}
-
-		\item{\bf Optimista:} Que las multiples  transacciones simultaneas puedan ser
-		mejorador con un simple feedback y la información de alerta al
-		usuario final diciendo que alguien más está editando el mismoo objeto.
-		Se prodria ser más especifico, si se aumenta el nivel de detalle que especifica
-		``quien'' y ``que objetos'' se comparten y ``cual de ellos se ha cambiado e
-		otra operación ''
+	\subsection{Estrategias de resolución de conflictos en las Transacciones}
 	
-		\item{\bf Pesimista:} Se  bloquea el casos de uso, cuando alguien ya esta
-		manipulando uno de los objetos involucrados. 
-
-	\end{itemize}
+		\begin{itemize}
 	
-\subsection{Niveles de Aislamiento en las Transacciones}
-Actualmente solo soporta el nivel \emph{Read committed},  
-
-implementar niveles de insolación.
-
-aspectear Arrays.
-
-Mejorar APO
-
-(poder hacer otra implementación de (eventos | Swing) y utilizarlo con las
-transacciones)
-
+			\item{\bf Optimista:} Que las múltiples  transacciones simultaneas puedan ser
+			mejorado con un simple feedback y la información de alerta al
+			usuario final diciendo que alguien más está editando el mismo objeto.
+			Se podría ser más especifico, si se aumenta el nivel de detalle que especifica
+			``quien'' y ``que objetos'' se comparten y ``cual de ellos se ha cambiado e
+			otra operación ''
+		
+			\item{\bf Pesimista:} Se  bloquea el casos de uso, cuando alguien ya esta
+			manipulando uno de los objetos involucrados. 
+	
+		\end{itemize}
+		
+	\subsection{Niveles de Aislamiento en las Transacciones}
+	Actualmente solo soporta el nivel \emph{Read committed}, estaria bueno
+	implementar los demás niveles de aislamiento \ref{isolation}.
+	
+	\subsection{Aspectear Arrays}
+		Actualmente los cambios realizados en las propiedades de los objetos como
+		Arrays, Listas, Mapas, ect, no se aplican los aspectos cuando se operan con
+		ellos. Por ejemplo en las operaciones de \emph{add}, \emph{remove} o
+		equivalentes, no estamos realizando una nueva asignación del atributo, sino de
+		internamente la estructura se modifica.
+		
+	\subsection{Mejorar APO}
+		Se podrian realizar mejoras en la herramienta para brindar mas usabilidad al
+		momento de crear los aspectos. como por ejemplo brindar cpnfiguraciones para
+		interceptar métodos, constructores, instanciaciones, excepciones, ect.
+		 

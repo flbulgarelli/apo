@@ -5,7 +5,7 @@ aplicación, donde los clientes de un banco pueden transferir dinero de
 una cuenta a otra. Al realizar una transferencia, hay que extraer el monto
 indicado de una cuenta, y depositarlo en otra. Estas dos
 operaciones pueden tener errores, como por ejemplo, extraer un monto mayor al
-saldo, o depositar una cantidad mayor a la maxima permitida. 
+saldo, o depositar una cantidad mayor a la máxima permitida. 
 Un cliente no puede ver el saldo de las las cuentas que no sean de su propiedad.
 
 La  figura \ref{example} muestra el diagrama de la aplicación de
@@ -18,9 +18,9 @@ ejemplo
 	\end{figure}	
 
 
-El sistema me permite realizar multiples transferencias a la vez y por ultimo
-realizar la confirmacion o la cancelación de todas ellas. Tambien brinda la posibilidad
-de realizar multiples transacciones, por ejemplo, en la edicion de un cliente,
+El sistema me permite realizar múltiples transferencias a la vez y por ultimo
+realizar la confirmación o la cancelación de todas ellas. También brinda la posibilidad
+de realizar múltiples transacciones, por ejemplo, en la edición de un cliente,
 se puede editar, eliminar o crear cuentas. A su vez se puede hacer una
 transferencia a otra cuenta. En cada una de esas operaciones se esta
 trabajando en dentro de una transacción. y las operaciones pueden ser
@@ -32,10 +32,10 @@ canceladas por unidad, es decir, se cancelan o se confirman por transacción.
 
 En esta sección se explica como se llevo a cabo la implementación de la solución
 propuesta en la Sección \ref{sec:Solucion}, y cumpliendo el objetivo detallado
-en la Sección \ref{sec:Objetivo}. Se dessarrolló dos conceptos fundamentales
+en la Sección \ref{sec:Objetivo}. Se desarrolló dos conceptos fundamentales
 para con lo planteado. \emph{Pure Objects Observable} (POO)  para atacar a la
 problemática de la observabilidad y \emph{Pure Object Transaction} (POT) para
-atacar a la problematica transaccional.
+atacar a la problemática transaccional.
 	
 	\subsection{Framework utilizado}  
 
@@ -45,7 +45,7 @@ atacar a la problematica transaccional.
 	programador que utilice el framework.
 
 	\medskip 
-	Aunque AspactJ es una herramienta de mas alto nivel en comparación con
+	Aunque AspectJ es una herramienta de mas alto nivel en comparación con
 	Javassist,  se eligió a  Javassist porque el agrega los aspectos al momento de
 	la carga de la clase, es decir hay que utilizar un \emph{ClassLoader}
 	específico, en cambio AspectJ agrega los aspectos al en tiempo de compilación,
@@ -56,10 +56,10 @@ atacar a la problematica transaccional.
 	\subsection{Desarrollo de Aspect for Pure Objects}
 
 	Ya que Javassist es muy de bajo nivel, y trabaja a nivel de \emph{bytecode},
-	trajabar con el es complicado y el codigo se hace poco entendible. Por eso se
+	trabajar con el es complicado y el código se hace poco entendible. Por eso se
 	desarrolló una herramienta llamada \emph{ Aspect for Pure Objects} (APO), que
 	es una abstracción del Framework Javassist, que permite fácilmente configurar 
-	aspectos, y aplicarselo a un grupo de objetos.
+	aspectos, y aplicárselo a un grupo de objetos.
 
 	\subsection{Aspecto Transaccional (POT)} 
 		Basado en una implementación
@@ -99,8 +99,8 @@ atacar a la problematica transaccional.
 			
 		En su implementación interna lo que hace el aspecto es agregar un \emph{field
 		changeSupport} del tipo \emph{<<PropertySupport>>} al objeto que se va a
-		convertir en Observable. Pero su implememtacion se optiene del el archivo de
-		configuracion con la \emph{key: framework.aop.poo.changeSupport}.
+		convertir en Observable. Pero su implementación se obtiene del el archivo de
+		configuración con la \emph{key: framework.aop.poo.changeSupport}.
 		Luego se agrega métodos para completar su objetivo.
 		El primero es el \emph{firePropertyChange} que es el que notifica a los
 		Observadores que una propiedad ha cambiado.	Luego le agregamos
@@ -116,7 +116,7 @@ atacar a la problematica transaccional.
 			public class Client extends Entity {
 			}
 		\end{lstlisting}
-		\caption{Ejemplo de usu del aspecto observable}
+		\caption{Ejemplo de uso del aspecto observable}
 		\label{poo}
 	\end{figure}  
 		
@@ -166,22 +166,21 @@ atacar a la problematica transaccional.
 	 
 	 \medskip
 	 
-	\begin{description}
-		\item[Monitor de Transacciones]
-		 Con arena también se desarrolló un {\bf Monitor de Transacciones}, que 
-		 muestra el estado actual de la transacción, incluyendo las transacciones
-		 anidadas. Mostrando los objetos afectados por la transacción y que
-		 atributos se modificaron.
-	\end{description}
 
 	
 	\subsection{Otras mejoras al Arena}
-		La implementación de la integración en el arena se realizó con Scala, agregando
-		mejora al Arena como: Árboles, Listas \ldots \ldots \ldots. 
-	
-	
-Contar que esta publicado, con la licencia y blah
-
-Test de los aspectos
-
-
+	La integración se realizo con el lenguaje de programación Scala
+	\cite{ref}. Para llevar al cabo la integración se agregó algunas
+	mejoras en el Arena. 
+	Algunas mejoras fueron:
+	\begin{description}
+	  \item[Monitor de Transacciones]
+		 Con arena también se desarrolló un \emph{Monitor de Transacciones}, que 
+		 muestra el estado actual de la transacción, incluyendo las transacciones
+		 anidadas. Mostrando los objetos afectados por la transacción y los
+		 atributos se modificaron.
+	  \item[Nuevos componentes] Se Implementaron algunas estructuras visuales como
+	  Arboles y Listas.
+	  \item[Bindinds Anidados] Se implemento bindings para las propiedades
+	  anidadas de los objetos.
+	\end{description}

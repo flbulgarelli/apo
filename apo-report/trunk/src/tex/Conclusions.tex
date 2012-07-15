@@ -3,7 +3,7 @@
 
 El presente trabajo tenia tres objetivos principales. El primero era automatizar
 la comunicación entre el modelo de dominio y la interfaz de usuario. El segundo
-objetivo era proveer un soporte para transacciones; Y el trecer objetivo era
+objetivo era proveer un soporte para transacciones; Y el tercer objetivo era
 proveer una sistema de monitoreo para las transacciones.
 
 De cara a estos objetivos surgieron las siguientes cuestiones para destacar
@@ -13,12 +13,19 @@ De cara a estos objetivos surgieron las siguientes cuestiones para destacar
 	\begin{itemize}
 	  
 		\item Utilizar la programación orientada a aspectos para la resolución de
-		estos problemas es muy útil.
+		estos problemas fue muy útil.
 		
 		\item  
+		
 		\item 
 		\item 
 	  
 	\end{itemize}
 	
 \end{quote}
+
+Se probo las transacciones en una aplicacion mas compleja como la de un Kiosco.
+La aplicación se realizo toda en scala-swing. Y donde mas se veia la utilidad de
+las transacciones era en las ventas. Cuando estaba en una venta, se agregaban
+productos, pero al momento de confirmar la venta, el cliente puede cancelar la
+venta tambien, y en ese momento es donde le damos rollback y nada mas!
