@@ -25,10 +25,11 @@
 	
 	\subsection{Aspectear Arrays}
 		Actualmente los cambios realizados en las propiedades de los objetos como
-		Arrays, Listas, Mapas, ect, no se aplican los aspectos cuando se operan con
-		ellos. Por ejemplo en las operaciones de \emph{add}, \emph{remove} o
-		equivalentes, no estamos realizando una nueva asignación del atributo, sino de
-		internamente la estructura se modifica.
+		Arrays, Listas, Mapas, ect, no se aplican el aspecto de Observabilidad cuando
+		se operan con ellos. Por ejemplo en las operaciones de \emph{add}, \emph{remove} o
+		equivalentes, no estamos realizando una nueva asignación del atributo, sino
+		que internamente la estructura se modifica, entonces el objeto de dominio no
+		tira eventos de cambio y por ende la interfaz no se actualiza.
 		
 	\subsection{Mejorar APO}
 		Se podrian realizar mejoras en la herramienta para brindar mas usabilidad al

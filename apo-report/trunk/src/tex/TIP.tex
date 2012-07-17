@@ -1,4 +1,5 @@
 \section{Aplicación de ejemplo}
+
 Para comprender mejor esta problemática veamos un ejemplo. Supongamos una simple
 aplicación, donde los clientes de un banco pueden transferir dinero de
 una cuenta a otra. Al realizar una transferencia, hay que extraer el monto
@@ -50,7 +51,7 @@ atacar a la problemática transaccional.
 	tecnología que permitiera desarrollar con programación orientada a aspectos.
 	Se evaluaron dos frameworks para resolver nuestro problema.
 	Uno es Javassist \cite{??} y el otro AspectJ \cite{KiczalesHHKPG01}.
-	
+
 	\medskip 
 	Encontramos AspectJ es una herramienta de más alto nivel, que extiende
 	el lenguaje Java agregando construcciones específicas para trabajar con
@@ -81,15 +82,30 @@ atacar a la problemática transaccional.
 	Acá agregar un poco de código\ldots contar un poco más la herramienta.
 
 
-	\subsection{Aspecto Transaccional (POT)} 
-		Basado en una implementación
-		hecha por Nicolás Passerini y Javier Fernandes.
+	\subsection{Pure Object Transaction} 
+		Pure Object Transaction es la herramienta que resulve el problema
+		transaccional. Basado en una implementación hecha por
+		Nicolás Passerini y Javier Fernandes. Se utilizo los mismos conceptos en esta
+		implementación, pero utilizando el APO.
 		 
-		Donde intercepta todas las lecturas	y escrituras de los atributos de un
+		El framework intercepta todas las lecturas	y escrituras de los atributos de un
 		objeto.	Insertando código al momento de la carga de la clase.
 		Se remplaza el acceso al atributo, tanto de lectura como escritura, y se lo
 		delega al administrador de las transacciones, donde se guarda la información
 		en una estructura [Objeto, [Atributo, Valor]].
+		
+		\medskip
+		
+		En la primera implementación no interceptaba las operaciones sobre los
+		atributos de Collecciones, ya que Java impide modificar sus clases, por
+		ende no se puede agregarle dicho aspecto.
+		Por ejemplo al agregar un elemento a la collección, se re está realizando una
+		nueva asignacción, sino que se modifica la colección. Entonces el framework no
+		puede mantener el registro de las modificaciones y al realizar un
+		\emph{roolback} los cambios no se revierten.
+		En la version actual se resolvio este problema, reemplazando la implentacion
+		de la collección elegida por el usuario, por una implementada especialmente
+		para resolver este problema.
 		
 		\medskip
 		
@@ -115,13 +131,15 @@ atacar a la problemática transaccional.
 			\label{pot}
 		\end{figure}  
 
-	\subsection{ Aspecto Observable (POO)}
+	\subsection{ Pure Observable Objects}
 			
-		En su implementación interna lo que hace el aspecto es agregar un \emph{field
-		changeSupport} del tipo \emph{<<PropertySupport>>} al objeto que se va a
-		convertir en Observable. Pero su implementación se obtiene del el archivo de
-		configuración con la \emph{key: framework.aop.poo.changeSupport}.
-		Luego se agrega métodos para completar su objetivo.
+		Pure Observable Objects es el framework que resulve el problema de la
+		observabilidad panteado anteriormente. En su implementación interna lo que
+		hace el aspecto es agregar un atrubuto \emph{changeSupport} del tipo
+		\emph{<<PropertySupport>>} al objeto que se va a convertir en Observable. Pero
+		su implementación se obtiene del el archivo de configuración.
+		
+		Luego se agrega los siguientes métodos para completar su objetivo.
 		El primero es el \emph{firePropertyChange} que es el que notifica a los
 		Observadores que una propiedad ha cambiado.	Luego le agregamos
 		\emph{addPropertyChangeListener} y \emph{removePropertyChangeListener} para
@@ -142,22 +160,6 @@ atacar a la problemática transaccional.
 		
 
 
-\subsection{Integración de ambos aspectos } 
-	Framework me permite poder tener uno u otro , o
-	ambos aspecto. Se puede poner los dos \emph{Annotation} \emph{Observable} y
-	\emph{Transactional} como vimos previamente, o ponerle uno solo. 
-	
-	\begin{figure}[h]
-		\begin{lstlisting} 
-			@TransactionalAndObservable
-			public class Client extends Entity {
-			}
-		\end{lstlisting}
-		\caption{integración de ambos aspectos}
-		\label{TandO}
-	\end{figure}  
-	
-	
 	
 \subsection{Integración de aspectos con el Arena}
 	En Arena se integró los dos aspectos, el Observable y el transaccional, con el
@@ -184,7 +186,21 @@ atacar a la problemática transaccional.
 	
 	 \end{description}
 	 
-	 \medskip
+	Framework permite permite poder tener uno, otro o ambos aspecto. Se puede poner
+	los dos \emph{Annotation} \emph{Observable} y \emph{Transactional} como vimos
+	previamente, o ponerle \emph{TransactionalAndObservable} que es una union de
+	ambos.
+	
+	\begin{figure}[h]
+		\begin{lstlisting} 
+			@TransactionalAndObservable
+			public class Client extends Entity {
+			}
+		\end{lstlisting}
+		\caption{integración de ambos aspectos}
+		\label{TandO}
+	\end{figure}  
+	
 	 
 
 	
