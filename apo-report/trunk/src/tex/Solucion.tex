@@ -1,42 +1,59 @@
 \section{Solución propuesta}
 \label{sec:Solucion}
 
-Utilizamos la Programación orientada a Aspectos para desarrollar dos
+Utilizamos la programación orientada a aspectos para desarrollar dos
 conceptos independientes, {\bf Observable} y  {\bf Transaccional}.
-
-En las secciones subsiguientes se describe el comportamiento de los aspectos, y
-en la sección \ref{sec:Union} la integración de ambos aspectos.
+En las secciones subsiguientes se describe el comportamiento de cada uno de
+estos dos aspectos y en la sección \ref{sec:Union} la integración de ambos.
 
 \subsection{Aspecto Observable}
-	El aspecto Observable permite que un objeto pueda notificar cada cambio de
-	valor de sus atributos. A su vez, agrega el comportamiento de tener un conjunto
-	de listener que estés escuchando esas notificaciones para poder reaccionar a su
-	conveniencia.
-	Dicha notificación se realiza utilizando eventos. En cada notificación el
-	sistema le avisa a todos los listeners que se han registrado para observar ese
-	atributo.
+	El aspecto Observable implementa un mecanismo transparente para que cualquier
+	objeto pueda recibir notificaciones cuando un objeto de dominio
+	cambia.
+	Para ello, el sistema asocia cada atributo de un objeto que se desee observar
+	con un conjunto de \emph{listeners}. 
+	El aspecto intercepta todos los accesos a los atributos
+	del objeto observado y, ante cada modificación de un atributo, notifica a todos
+	los listeners que se han registrado para observar ese atributo.
+	
+	Este mecanismo permite asociar acciones específicas que se disparan cada vez
+	que el objeto es modificado. En particular, se utiliza para mantener
+	sincronizada la interfaz de usuario con los objetos del dominio.
 
 \subsection{Aspecto Transaccional}
-	El aspecto Transaccional agrega  la funcionalidad de que un objeto pueda
-	manejar los valores de sus variables de instancia, monitoreando sus cambios.	
-	Toda operación sobre un objeto se realiza dentro de un \emph{contexto
-	transaccional} limitado por las operaciones detalladas en la Sección
-	\ref{ctxTransactional} (\emph{beginTransaction, commit, rollback}).
-	Las operaciones realizadas a los objetos solo puede ser
-	vistos dentro del mismo contexto y no modifican al objeto hasta que no se
-	confirme la transacción (\emph{commit}).
+	El aspecto Transaccional permite controlar la visibilidad de las modificaciones
+	realizadas a un objeto.
+	Para ello, se define el concepto de \emph{contexto transaccional}.
+	Un contexto trasaccional es un espacio de trabajo en el cual se pueden
+	hacer modificaciones a un objeto que no serán vistas fuera de ese contexto.
+
+	Los contextos transaccionales se delimitan por las
+	operaciones detalladas en la Sección \ref{ctxTransactional}
+	(\emph{beginTransaction}, \emph{commit} y \emph{rollback}).
+	La operación de \emph{commit} confirma las modificaciones y las hace públicas
+	fuera del contexto.
+	Por su parte, la operación de \emph{rollback} provee un
+	mecanismo automático para descartar todas las modificaciones realizadas
+	dentro del contexto.
+	Al ejecutarla, todos los objetos modificados dentro del contexto regresan al
+	estado que tenían al comenzar la transacción.
 	 
-	El contexto transaccional permite tener un control en las operaciones de
-	modificación de los objetos, confirmar una operación en curso, donde sus
-	cambios serán impactados en el objeto, cancelar la todas las operaciones
-	realizadas. Además soporta el trabajo concurrente, también llamado
-	nivel de aislamiento, permitiendo a varios procesos realizar cambios en un
-	mismo objeto al mismo tiempo. También soporta transacciones
-	anidadas.
+	El contexto transaccional permite el trabajo concurrente, permitiendo que
+	varios procesos puedan acceder a un mismo objeto al mismo
+	tiempo, con un aislamiento de nivel \emph{read commited}.
+	 
+	También se da soporte para \emph{transacciones anidadas}, es decir, la
+	posibilidad de abrir un nuevo contexto transaccional dentro de otro contexto,
+	denominado \emph{contexto padre}.
+	Esta funcionalidad permite dividir una transacción en partes que pueden ser
+	revertidas o confirmadas individualmente.
 	
-	
-\subsection{Unión de los Aspectos:}
+\subsection{Integración de ambos aspectos entre sí y con la interfaz de usuario}
 \label{sec:Union}
 La unión de los dos aspectos independientes es con el fin de asociar asociar los
 eventos disparados por el dominio, con la translación actual.
  
+Encontrar en la interfaz de usuario dónde se deben abrir y cerrar las
+transaccioens.
+Filtrar los eventos para que no le lleguen a una ventana los que no le
+corresponden por el contexto transaccional.

@@ -1,14 +1,12 @@
 \section{Aplicación de ejemplo}
-
 Para comprender mejor esta problemática veamos un ejemplo. Supongamos una simple
 aplicación, donde los clientes de un banco pueden transferir dinero de
 una cuenta a otra. Al realizar una transferencia, hay que extraer el monto
-indicado de una cuenta, y depositarlo en otra. Estas dos
-operaciones pueden tener errores, como por ejemplo, extraer un monto mayor al
-saldo, o depositar una cantidad mayor a la máxima permitida. 
-Un cliente no puede ver el saldo de las las cuentas que no sean de su propiedad.
-
-La  figura \ref{example} muestra el diagrama de la aplicación de
+indicado de una cuenta, y depositarlo en otra. 
+Al ejecutar cualquiera de estas dos operaciones se pueden producir errores,
+como por ejemplo, que no haya saldo saldo suficiente, o que el depósito supere
+el máximo permitido.
+La  figura \ref{example} muestra el diagrama de clases de la aplicación de
 ejemplo
 
 	\begin{figure}[h]
@@ -18,7 +16,7 @@ ejemplo
 	\end{figure}	
 
 
-El sistema me permite realizar múltiples transferencias a la vez y por ultimo
+El sistema me permite realizar múltiples transferencias a la vez y por último
 realizar la confirmación o la cancelación de todas ellas. También brinda la posibilidad
 de realizar múltiples transacciones, por ejemplo, en la edición de un cliente,
 se puede editar, eliminar o crear cuentas. A su vez se puede hacer una
@@ -26,40 +24,62 @@ transferencia a otra cuenta. En cada una de esas operaciones se esta
 trabajando en dentro de una transacción. y las operaciones pueden ser
 canceladas por unidad, es decir, se cancelan o se confirman por transacción.
 
+Caso de uso 1: transferir plata.
+Tres ventajas:
+- queda más simple
+- menos posibilidad de mandármela
+- concurrencia.
 
+Poner el código como queda.
+
+Caso de uso 2: transferencias múltiples.
+muchas transferencias en una única transacción\ldots fijate si sale algo y si no
+lo volamos.
 
 \section{Nuestra herramienta: }
 
-En esta sección se explica como se llevo a cabo la implementación de la solución
+En esta sección se explica como se llevó a cabo la implementación de la solución
 propuesta en la Sección \ref{sec:Solucion}, y cumpliendo el objetivo detallado
-en la Sección \ref{sec:Objetivo}. Se desarrolló dos conceptos fundamentales
-para con lo planteado. \emph{Pure Objects Observable} (POO)  para atacar a la
+en la Sección \ref{sec:Objetivo}. Se desarrollaron dos herramientas
+fundamentales para lo planteado. \emph{Pure Objects Observable} (POO) para atacar a la
 problemática de la observabilidad y \emph{Pure Object Transaction} (POT) para
 atacar a la problemática transaccional.
 	
-	\subsection{Framework utilizado}  
-
-	Se evaluaron dos frameworks para resolver nuestro problema. Uno es Javassist y
-	el otro AspectJ. \cite{KiczalesHHKPG01}
-	El criterio de evaluación que se utilizo fue el que tenga menor impacto para el
-	programador que utilice el framework.
-
+	\subsection{Selección de un framework de aspectos}  
+	Un primer paso para la implementación de la herramienta fue la selección de una
+	tecnología que permitiera desarrollar con programación orientada a aspectos.
+	Se evaluaron dos frameworks para resolver nuestro problema.
+	Uno es Javassist \cite{??} y el otro AspectJ \cite{KiczalesHHKPG01}.
+	
 	\medskip 
-	Aunque AspectJ es una herramienta de mas alto nivel en comparación con
-	Javassist,  se eligió a  Javassist porque el agrega los aspectos al momento de
-	la carga de la clase, es decir hay que utilizar un \emph{ClassLoader}
-	específico, en cambio AspectJ agrega los aspectos al en tiempo de compilación,
-	entonces el programador tienen que utilizar otro compilador para su código.
+	Encontramos AspectJ es una herramienta de más alto nivel, que extiende
+	el lenguaje Java agregando construcciones específicas para trabajar con
+	los conceptos de la teoría de programación orientada a aspectos.
+	Por otro lado AspectJ requiere que el programador usuario de nuestro framework
+	utilice un compilador específico. Consideramos que esta característica es muy
+	negativa, por condicionar el entorno de trabajo de los usuarios de nuestra
+	herramienta.
+	En cambio Javassist agrega los aspectos al momento de la carga de las clases,
+	sólo requiere que utilicemos un \emph{ClassLoader} específico.
 
-	\medskip 
+	Elegimos Javaassist por su menor impacto para el programador que utilice el
+	framework como usuario.
+	Para minimizar los problemas asociados a utilizar un framework de tan bajo
+	nivel desarrollamos una herramienta que simplifica su uso agregando algunas
+	abstracciones útiles. Esta herramienta se describe en la sección siguiente.
 
 	\subsection{Desarrollo de Aspect for Pure Objects}
 
-	Ya que Javassist es muy de bajo nivel, y trabaja a nivel de \emph{bytecode},
-	trabajar con el es complicado y el código se hace poco entendible. Por eso se
-	desarrolló una herramienta llamada \emph{ Aspect for Pure Objects} (APO), que
-	es una abstracción del Framework Javassist, que permite fácilmente configurar 
-	aspectos, y aplicárselo a un grupo de objetos.
+	El framework Javassist permite modificar directamente el \emph{bytecode} de
+	una clase en el momento de cargarla.
+	Por ser de tan bajo nivel es uno de los frameworks de aspectos más poderosos,
+	pero a su vez el código se hace poco entendible.
+	Por eso se desarrolló una herramienta llamada \emph{Aspect for Pure Objects} (APO), 
+	que permite configurar aspectos utilizando conceptos de más alto nivel y
+	aplicárselo a un grupo de objetos.
+	
+	Acá agregar un poco de código\ldots contar un poco más la herramienta.
+
 
 	\subsection{Aspecto Transaccional (POT)} 
 		Basado en una implementación
@@ -73,7 +93,7 @@ atacar a la problemática transaccional.
 		
 		\medskip
 		
-		El contexto de la transacción esta asociado a un solo \emph{tread}. Esto
+		El contexto de la transacción esta asociado a un solo \emph{thread}. Esto
 		permite manejar la concurrencia en el acceso a la información de los objetos. 
 		Soportando transacciones anidadas, donde cada transacción hija hereda el estado
 		de su padre, y al momento de hacer el \emph{commit} en la sub-transacción, sus
