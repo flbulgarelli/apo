@@ -2,28 +2,30 @@ package com.uqbar.poo.aop;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.EventListener;
 
 /**
  * @author nnydjesus
  *
  */
-public class MyPropertyChangeSupport extends PropertyChangeSupport {
+public class MyPropertyChangeSupport extends PropertyChangeSupport implements PropertySupport {
 	private static final long serialVersionUID = 1L;
 
 	public MyPropertyChangeSupport(Object sourceBean) {
 		super(sourceBean);
 	}
 	
-    public void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
+    @Override
+	public void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
     	super.firePropertyChange(propertyName,  oldValue, newValue);
     }
     
-    public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-    	super.addPropertyChangeListener(propertyName, listener);
+	public void addPropertyChangeListener(String propertyName, EventListener listener) {
+    	super.addPropertyChangeListener(propertyName, (PropertyChangeListener) listener);
     }
     
-    public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-    	super.removePropertyChangeListener(propertyName, listener);
+	public void removePropertyChangeListener(String propertyName, EventListener listener) {
+    	super.removePropertyChangeListener(propertyName, (PropertyChangeListener) listener);
     }
 
 }
