@@ -57,3 +57,14 @@ Encontrar en la interfaz de usuario dónde se deben abrir y cerrar las
 transaccioens.
 Filtrar los eventos para que no le lleguen a una ventana los que no le
 corresponden por el contexto transaccional.
+
+	 En Arena se integró los dos aspectos, el Observable y
+	el transaccional, con el fin de que los objetos de dominio sean puros, y que no tengan la noción de
+	eventos, ni transacciones, y así poder bindearlos con los componentes de de la
+	interfaz gráfica. Y al cancelar la edición poder revertir los cambios
+	transparéntenme.
+
+	Como se explicó en la sección \ref{sec:Union}, para integrar los dos aspectos
+	entre sí se requiere filtrar los eventos disparados por los objetos de dominio, 
+	limitándolos a las ventanas que se encuentran dentro del mismo contexto
+	transaccional.

@@ -48,22 +48,23 @@ atacar a la problemática transaccional.
 	
 	\subsection{Selección de un framework de aspectos}  
 	Un primer paso para la implementación de la herramienta fue la selección de una
-	tecnología que permitiera desarrollar con programación orientada a aspectos.
-	Se evaluaron dos frameworks para resolver nuestro problema.
-	Uno es Javassist \cite{??} y el otro AspectJ \cite{KiczalesHHKPG01}.
+	tecnología que permitiera desarrollar utilizando programación orientada a
+	aspectos.
+	Con ese objetivo, se evaluaron dos frameworks: Javassist \cite{??} y AspectJ
+	\cite{KiczalesHHKPG01}.
 
 	\medskip 
-	Encontramos AspectJ es una herramienta de más alto nivel, que extiende
+	Encontramos que AspectJ es una herramienta de más alto nivel, que extiende
 	el lenguaje Java agregando construcciones específicas para trabajar con
 	los conceptos de la teoría de programación orientada a aspectos.
-	Por otro lado AspectJ requiere que el programador usuario de nuestro framework
+	Por otro lado AspectJ requiere que el programador que use nuestro framework
 	utilice un compilador específico. Consideramos que esta característica es muy
 	negativa, por condicionar el entorno de trabajo de los usuarios de nuestra
 	herramienta.
 	En cambio Javassist agrega los aspectos al momento de la carga de las clases,
 	sólo requiere que utilicemos un \emph{ClassLoader} específico.
 
-	Elegimos Javaassist por su menor impacto para el programador que utilice el
+	Elegimos Javassist por su menor impacto para el programador que utilice el
 	framework como usuario.
 	Para minimizar los problemas asociados a utilizar un framework de tan bajo
 	nivel desarrollamos una herramienta que simplifica su uso agregando algunas
@@ -79,74 +80,116 @@ atacar a la problemática transaccional.
 	que permite configurar aspectos utilizando conceptos de más alto nivel y
 	aplicárselo a un grupo de objetos.
 	
-	Acá agregar un poco de código\ldots contar un poco más la herramienta.
+	La Figura \ref{bleh} muestra esquemáticamente el diseño de la herramienta.
+	Una instancia de \code{AdviceWeaver} se ocupa de aplicar los cambios sobre las
+	clases.
+	Para ello cuenta con un conjunto de \code{Advice} que consisten de un
+	\code{Predicate} (que determina el conjunto de clases sobre el que aplica el
+	advice) y un objeto que implemente la interfaz \code{ExprEditor} (que
+	será el responsable de realizar las modificaciones sobre
+	las clases alcanzadas por el advice).
+	Finalmente una instancia de \code{APOCrlassLoader}, instalada como class loader
+	del sistema permite que antes de utilizar cualquier clase esta pueda ser procesada por el \code{AdviceWeaver}
+	
+	Para implementar las modificaciones se provee una implementación de
+	\code{ExprEditor} que contiene una colección de modificaciones expresadas en un
+	lenguaje de alto nivel y las traduce al lenguaje de bajo nivel que requiere el
+	framework Javassist.
+	La Figura \ref{??} muestra un ejemplo de código de este lenguaje de alto nivel,
+	tomado del framework POO, que se describe en la Sección \ref{poo}.
+	A su vez, la Tabla \ref{??} describe las expresiones propias del lenguaje
+	definido por APO, su significado y su traducción al lenguaje de expresiones de
+	Javassist.
 
-
-	\subsection{Pure Object Transaction} 
-		Pure Object Transaction es la herramienta que resulve el problema
-		transaccional. Basado en una implementación hecha por
-		Nicolás Passerini y Javier Fernandes. Se utilizo los mismos conceptos en esta
-		implementación, pero utilizando el APO.
+	\begin{lstlisting}
+		java.lang.Object oldValue = $oldValue; 
+		$originalStatement
+		$this.firePropertyChange('$fieldName', oldValue, $newValue);
+	\end{lstlisting}
+	
+	\begin{tabular}{|c|c|p{6cm}|}
+	\hline
+	Expresión APO & Expresión Javassist & Significado \\
+	\hline
+	\$oldValue & ??? & El valor del atributo antes de la asignación que está siendo
+	modificada.
+	\\
+	\hline
+	\end{tabular} 
+	
+	\subsection{Pure Object Transaction}
+		\label{pot} 
+		Pure Object Transaction (POT) es la herramienta que implementa el aspecto
+		transaccional como se definió en la sección \ref{aspectoTransaccional}.
+		Está basado en una implementación anterior de Nicolás Passerini y Javier
+		Fernandes, que se actualizó para aprovechar el framework APO y facilitar su
+		integración con las demás herramientas desarrolladas.
+		
+		\medskip
 		 
-		El framework intercepta todas las lecturas	y escrituras de los atributos de un
-		objeto.	Insertando código al momento de la carga de la clase.
-		Se remplaza el acceso al atributo, tanto de lectura como escritura, y se lo
-		delega al administrador de las transacciones, donde se guarda la información
-		en una estructura [Objeto, [Atributo, Valor]].
-		
-		\medskip
-		
-		En la primera implementación no interceptaba las operaciones sobre los
-		atributos de Collecciones, ya que Java impide modificar sus clases, por
-		ende no se puede agregarle dicho aspecto.
-		Por ejemplo al agregar un elemento a la collección, se re está realizando una
-		nueva asignacción, sino que se modifica la colección. Entonces el framework no
-		puede mantener el registro de las modificaciones y al realizar un
-		\emph{roolback} los cambios no se revierten.
-		En la version actual se resolvio este problema, reemplazando la implentacion
-		de la collección elegida por el usuario, por una implementada especialmente
-		para resolver este problema.
-		
-		\medskip
-		
-		El contexto de la transacción esta asociado a un solo \emph{thread}. Esto
-		permite manejar la concurrencia en el acceso a la información de los objetos. 
-		Soportando transacciones anidadas, donde cada transacción hija hereda el estado
-		de su padre, y al momento de hacer el \emph{commit} en la sub-transacción, sus
-		cambios son impactados en la transacción padre.
-		Por esta forma de implementación, la identidad del objeto se mantiene, ya que
-		el objeto no se modifica ni se clona, solo se cambia el acceso a sus
-		atributos.
+		Este framework intercepta todas las lecturas y escrituras de los atributos de
+		un objeto, delegando tanto las lecturas como las escrituras al
+		\emph{administrador de las transacciones}.
+		A su vez, el administrador de transacciones asocia el pedido con un contexto
+		transaccional, que guarda los valores de los atributos de un objeto que fueron
+		modificador durante la transacción en una estructura de la forma
+		\lstinline|[Objeto, [Atributo, Valor]]|.
+		Cada contexto transaccional esta asociado a un \emph{thread}. Esto
+		permite manejar la concurrencia en el acceso a la información de los objetos.
+		La herramienta provee también soporte para transacciones anidadas.
+		 
+		Al momento de hacer el \emph{commit} en una transacción, los valores
+		contenidos en el contexto transaccional son impactados en la transacción
+		padre.
+		En caso de tratarse de una trasacción de primer nivel, los cambios se impactan
+		en los objetos de dominio.
+		Esta forma de implementación permite que la identidad del objeto se
+		mantenga, ya que el objeto no se modifica ni se clona, solo se intercepta el
+		acceso a sus atributos.
 		
 		Para agregarle este aspecto a una clase se utiliza la \emph{Annotation}
-		\emph{Transactional }
+		\emph{Transactional}.
 				
 		\begin{figure}[h]
 				\begin{lstlisting} 
 					@Transactional
-					public class Client extends Entity {
+					public class Client {
 					}
 				\end{lstlisting}
 			\caption{Ejemplo de uso del Aspecto Transaccional}
 			\label{pot}
 		\end{figure}  
 
-	\subsection{ Pure Observable Objects}
-			
-		Pure Observable Objects es el framework que resulve el problema de la
-		observabilidad panteado anteriormente. En su implementación interna lo que
-		hace el aspecto es agregar un atrubuto \emph{changeSupport} del tipo
-		\emph{<<PropertySupport>>} al objeto que se va a convertir en Observable. Pero
-		su implementación se obtiene del el archivo de configuración.
+		\medskip
 		
-		Luego se agrega los siguientes métodos para completar su objetivo.
-		El primero es el \emph{firePropertyChange} que es el que notifica a los
-		Observadores que una propiedad ha cambiado.	Luego le agregamos
-		\emph{addPropertyChangeListener} y \emph{removePropertyChangeListener} para
-		poder agregar y remover Observadores para que escuchen sus cambios.
+		Otro agregado a la versión original es la intercepción de las modificaciones 
+		a un objeto de tipo \lstinline|Collection|, por ejemplo agregar o quitar
+		objetos de una colección.
+		Esto presenta un desafío especial ya que habitualmente en los programas Java
+		se utilizan las implementaciones de colecciones provistas por el propio
+		lenguaje y no es posible aplicar aspectos sobre estas clases. 
+		En la nueva versión, este problema se resuelve reemplazando en forma
+		automática las colecciones del lenguaje Java por
+		implementaciones propias de las mismas interfaces.
+
+	\subsection{Pure Observable Objects}
+		\label{poo}
+		Pure Observable Objects (POO) es el framework que implementa el
+		aspecto Observable planteado en la Sección \ref{aspectoObservable}.
+		La implementación interna del aspecto agrega un
+		atributo llamado \lstinline|changeSupport| del tipo
+		\lstinline|PropertySupport| al objeto al que se le aplica el aspecto.
+		\lstinline|PropertySupport| es una interfaz, la implementación concreta a
+		utilizar se obtiene del el archivo de configuración.
+		
+		Para completar el objetivo se agregan los métodos 
+		\lstinline|addPropertyChangeListener| y
+		\lstinline|removePropertyChangeListener| que permiten agregar 
+		y remover observadores, y \lstinline|firePropertyChange|
+		que notifica a los observadores que un atributo ha cambiado.
 		
 		Para agregarle este aspecto a una clase se utiliza la \emph{Annotation}
-		\emph{Observable}
+		\lstinline|Observable|.
 		
 	\begin{figure}[h]
 		\begin{lstlisting} 
@@ -157,39 +200,39 @@ atacar a la problemática transaccional.
 		\caption{Ejemplo de uso del aspecto observable}
 		\label{poo}
 	\end{figure}  
-		
-
-
 	
-\subsection{Integración de aspectos con el Arena}
-	En Arena se integró los dos aspectos, el Observable y el transaccional, con el
-	fin de que los objetos de dominio sean puros, y que no tengan la noción de
-	eventos, ni transacciones, y así poder bindearlos con los componentes de de la
-	interfaz gráfica. Y al cancelar la edición poder revertir los cambios
-	transparéntenme.
+\subsection{Integración de POT, POO y Arena}
+	Para integar el framework Arena con el aspecto transaccional (POT) se definió
+	la clase \lstinline|TransactionalDialog|. 
+	Definir una ventana como una subclase de
+	\lstinline|TransactionalDialog| permite asociar a esa ventana con un contexto
+	transaccional.
+	Al abrirse la ventana se efectúa la operación de \emph{beginTransaction}.
+	Luego, botones \emph{Aceptar} y \emph{Cancelar} (que por defecto son agregados
+	por la superclase) efectúan las acciones de \emph{commit} y
+	\emph{rollback}.
 	
-	Para ello se tubo que asociar una transacción con una ventana, en el caso mas
-	especifico con la clase \emph{TransactionalDialog}. A su vez también tenemos
-	vinculado los eventos del dominio junto con la ventana y la transacción.
-	Se implemento tres niveles de aislamiento de los eventos,  \emph{Fire All},
-	\emph{Fire Committed} y \emph{Fire olnly in my transaction};
-	
+	Como se explicó en la sección \ref{sec:Union}, para integrar los dos aspectos
+	entre sí se requiere filtrar los eventos disparados por los objetos de dominio, 
+	limitándolos a las ventanas que se encuentran dentro del mismo contexto
+	transaccional. 
+	Se implementaron tres niveles de aislamiento de los eventos:
 	\begin{description}
 		\item[\emph{Fire All}] Todos los eventos disparados por el dominio son
-		escuchados, sin importar si están en una transacción.
+		escuchados, sin importar si están en un transacción.
 	
 		\item[\emph{Fire Committed}] Solo se escucha los eventos de las transacciones
 			comiteadas
 		
 		\item[\emph{Fire olnly in my transaction}] solo se escucha los eventos que
 			ocurren dentro de su translación.
-	
 	 \end{description}
 	 
-	Framework permite permite poder tener uno, otro o ambos aspecto. Se puede poner
-	los dos \emph{Annotation} \emph{Observable} y \emph{Transactional} como vimos
-	previamente, o ponerle \emph{TransactionalAndObservable} que es una union de
-	ambos.
+	El framework se puede configurar para utilizar uno, otro o ambos
+	aspectos, según se requiera.
+	Los objetos pueden ser anotados con \emph{Observable} y
+	\emph{Transactional} como vimos previamente, 
+	o bien utilizar \emph{TransactionalAndObservable} que es una union de ambas.
 	
 	\begin{figure}[h]
 		\begin{lstlisting} 
@@ -200,9 +243,6 @@ atacar a la problemática transaccional.
 		\caption{integración de ambos aspectos}
 		\label{TandO}
 	\end{figure}  
-	
-	 
-
 	
 	\subsection{Otras mejoras al Arena}
 	La integración se realizo con el lenguaje de programación Scala
