@@ -1,19 +1,23 @@
 package com.uqbar.poo.aop;
 
-import java.beans.PropertyChangeListener;
-import com.uqbar.aop.javassit.builder.CtMethodBuilder;
+import java.lang.Object
 
-import javassist.CtClass;
-import javassist.CtField;
-import javassist.CtMethod;
-import javassist.Modifier;
-import javassist.NotFoundException;
+import com.uqbar.aop.javassit.builder.CtMethodBuilder
+import com.uqbar.aop.AopConfig
+
+import javassist.CtClass
+import javassist.CtField
+import javassist.CtMethod
+import javassist.Modifier
+import javassist.NotFoundException
 
 /**
  * @author nnydjesus
  *
  */
 class ObservableBehavior {
+  
+  val eventListenerClass = java.lang.Class.forName(AopConfig.getProperty("framework.aop.poo.propertyListener"))
 
   def addBehavior(ctClass: CtClass) {
     addFieldChangeSupport(ctClass);
@@ -33,7 +37,7 @@ class ObservableBehavior {
       ctClass.getField(fieldName);
     } catch {
       case e: NotFoundException => {
-        this.addField(ctClass, classOf[MyPropertyChangeSupport],
+        this.addField(ctClass, classOf[PropertySupport],
           fieldName, Modifier.TRANSIENT);
       }
     }
@@ -45,7 +49,7 @@ class ObservableBehavior {
    */
   private def addAddPropertyChangeListenerMethod(ctClassOwner: CtClass) {
     var ctClsString = getClass(classOf[String], ctClassOwner)
-    var ctPropertyChangeListener = getClass(classOf[PropertyChangeListener], ctClassOwner)
+    var ctPropertyChangeListener = getClass(eventListenerClass, ctClassOwner)
 
     val addPropertyChangeListenerBody = "{$this.getChangeSupport().addPropertyChangeListener($argument1, $argument2);}";
 
@@ -64,7 +68,7 @@ class ObservableBehavior {
 
   private def addRemovePropertyChangeListenerMethod(ctClassOwner: CtClass) {
     var ctClsString = getClass(classOf[String], ctClassOwner);
-    var ctPropertyChangeListener = getClass(classOf[PropertyChangeListener], ctClassOwner);
+    var ctPropertyChangeListener = getClass(eventListenerClass, ctClassOwner);
 
     val removePropertyChangeListenerBody = "{ $this.getChangeSupport().removePropertyChangeListener($argument1, $argument2);}";
 
@@ -110,14 +114,15 @@ class ObservableBehavior {
    * @param ctClassOwner
    */
   private def addGeterChangeSupport(ctClassOwner: CtClass) {
-    val changeSuportType = getClass(classOf[MyPropertyChangeSupport], ctClassOwner);
+    val changeSuportType = getClass(classOf[PropertySupport], ctClassOwner);
 
-    ctClassOwner.getClassPool().importPackage(classOf[MyPropertyChangeSupport].getPackage().getName());
+    ctClassOwner.getClassPool().importPackage(classOf[PropertySupport].getPackage().getName());
+    var changeSupport = AopConfig.getProperty("framework.aop.poo.changeSupport")
 
     val getChangeSupportBody =
       "{"+
    		  "if($this.changeSupport == null) {"+
-  		  	" $this.changeSupport = new MyPropertyChangeSupport($this);" +
+  		  	" $this.changeSupport = new ${changeSupport}($this);" +
           "}"+
      	 "return $this.changeSupport;"+
       "}"
@@ -127,7 +132,7 @@ class ObservableBehavior {
       withModifier(Modifier.PUBLIC)
       withReturnType(changeSuportType)
       withOwner(ctClassOwner)
-      witBody(getChangeSupportBody)
+      witBody(getChangeSupportBody.replace("${changeSupport}", changeSupport))
     }.build()
 
     addMethod(ctClassOwner, method);
