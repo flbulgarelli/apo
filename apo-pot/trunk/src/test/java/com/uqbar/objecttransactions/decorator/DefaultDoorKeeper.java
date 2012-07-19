@@ -3,11 +3,11 @@ package com.uqbar.objecttransactions.decorator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.uqbar.aop.transaction.ObjectTransactionManager;
+import com.uqbar.aop.transaction.utils.BasicTaskOwner;
+import com.uqbar.common.transaction.TaskOwner;
 import com.uqbar.objecttransactions.House;
 import com.uqbar.objecttransactions.Person;
-import com.uqbar.renascent.common.transaction.TaskOwner;
-import com.uqbar.renascent.framework.aop.transaction.ObjectTransactionManager;
-import com.uqbar.renascent.framework.aop.transaction.utils.BasicTaskOwner;
 
 /**
  * @author jfernandes

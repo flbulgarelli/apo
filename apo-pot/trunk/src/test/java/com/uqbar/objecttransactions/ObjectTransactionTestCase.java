@@ -4,9 +4,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 
-import com.uqbar.renascent.common.transaction.TaskOwner;
-import com.uqbar.renascent.framework.aop.transaction.ObjectTransactionManager;
-import com.uqbar.renascent.framework.aop.transaction.utils.BasicTaskOwner;
+import com.uqbar.aop.transaction.ObjectTransactionManager;
+import com.uqbar.aop.transaction.utils.BasicTaskOwner;
+import com.uqbar.common.transaction.TaskOwner;
 
 /**
  * Run with this jvm parameter!

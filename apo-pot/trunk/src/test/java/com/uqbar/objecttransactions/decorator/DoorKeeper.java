@@ -1,8 +1,8 @@
 package com.uqbar.objecttransactions.decorator;
 
+import com.uqbar.common.transaction.TaskOwner;
 import com.uqbar.objecttransactions.House;
 import com.uqbar.objecttransactions.Person;
-import com.uqbar.renascent.common.transaction.TaskOwner;
 
 /**
  * @author jfernandes
