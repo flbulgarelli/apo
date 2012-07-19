@@ -10,18 +10,12 @@ import javassist.expr.ExprEditor;
 
 import org.uqbar.commons.utils.Transactional;
 
-import com.uqbar.renascent.aop.pointcut.predicate.APredicate;
-import com.uqbar.renascent.aop.pointcut.predicate.HasAnnotationPredicate;
-import com.uqbar.renascent.framework.aop.IBehaviorAdviceWeaverStrategy;
-import com.uqbar.renascent.framework.aop.WeavingInstrumentor;
+import com.uqbar.aop.IBehaviorAdviceWeaverStrategy;
+import com.uqbar.aop.WeavingInstrumentor;
+import com.uqbar.aop.pointcut.predicate.APredicate;
+import com.uqbar.aop.pointcut.predicate.HasAnnotationPredicate;
 
 /**
- * Ver como interceptar los mensajes add: y remove: de las Collections.
- * Caso mas sencillo es clonar las collections, y trabajar con la clonada hasta hacer el commit
- * 
- * Ver DynamicProxy
- * 
- * [DOC] Trabajo fururo en una estrategia que vea que es implementacion es mas inteligente.
  * @author nny
  *
  */

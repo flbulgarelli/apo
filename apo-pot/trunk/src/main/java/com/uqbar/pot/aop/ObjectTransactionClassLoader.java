@@ -2,8 +2,8 @@ package com.uqbar.pot.aop;
 
 import javassist.ClassPool;
 
-import com.uqbar.renascent.framework.aop.AdviceWeaver;
-import com.uqbar.renascent.framework.aop.FrameworkClassLoader;
+import com.uqbar.aop.AdviceWeaver;
+import com.uqbar.aop.APOClassLoader;
 
 /**
  * Nuestro classloader, que al cargar una clase, le hace weaving para meterle la magia de aspectos.
@@ -12,7 +12,7 @@ import com.uqbar.renascent.framework.aop.FrameworkClassLoader;
  * 
  * -Djava.system.class.loader=com.uqbar.pot.aop.ObjectTransactionClassLoader
  */
-public class ObjectTransactionClassLoader extends FrameworkClassLoader{
+public class ObjectTransactionClassLoader extends APOClassLoader{
 
 	public ObjectTransactionClassLoader(ClassLoader parent) {
 		super(parent);
