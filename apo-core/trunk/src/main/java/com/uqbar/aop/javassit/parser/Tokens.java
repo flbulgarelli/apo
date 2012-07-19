@@ -39,8 +39,8 @@ public enum Tokens {
 		 */
 		@Override
 		public String getJavassistExp(FieldAccess fieldAccess) {
-			return "((" + "com.uqbar.renascent.framework.aop.transaction.ObjectTransactionImpl" + ")"
-			+ "com.uqbar.renascent.framework.aop.transaction.ObjectTransactionManager.getTransaction()" + ")";
+			return "((" + "com.uqbar.aop.transaction.ObjectTransactionImpl" + ")"
+			+ "com.uqbar.aop.transaction.ObjectTransactionManager.getTransaction()" + ")";
 		}
 	},
 	STRINGS("'") {
@@ -68,6 +68,20 @@ public enum Tokens {
 		}
 		
 	},
+	ORIGINAL_STATEMENT_ASSIGMENT("$originalAsigment") {
+		@Override
+		public String getJavassistExp(FieldAccess fieldAccess) {
+			return DEFAULT_FIELD.getJavassistExp(fieldAccess) + " = " + Tokens.DEFAULT_VALUE_ASSIGMENT.getJavassistExp(fieldAccess)+ ";";
+		}
+		
+	},
+	ORIGINAL_STATEMENT_READER("$originalReader") {
+		@Override
+		public String getJavassistExp(FieldAccess fieldAccess) {
+			return Tokens.RETURN.getJavassistExp(fieldAccess) + " " + Tokens.DEFAULT_FIELD.getJavassistExp(fieldAccess)+ ";";
+		}
+		
+	},
 	DEFAULT_FIELD("$defaultField") {
 		@Override
 		public String getJavassistExp(FieldAccess fieldAccess) {
@@ -84,6 +98,13 @@ public enum Tokens {
 		", " + THIS.getJavassistExp(fa) + "." + FIELD_NAME.getJavassistExp(fa) + ")";
 		}
 	},
+	OBJECT("$Object") {
+		@Override
+		public String getJavassistExp(FieldAccess fieldAccess) {
+			return Object.class.getName();
+		}
+	},
+	
 	NEW_VALUE("$newValue") {
 		@Override
 		public String getJavassistExp(FieldAccess fieldAccess) {
