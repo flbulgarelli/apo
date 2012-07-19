@@ -1,11 +1,12 @@
 package com.uqbar.renascent.framework.aop
 import javassist.CtClass
 import scala.collection.mutable.HashMap
-import com.uqbar.renascent.aop.pointcut.predicate.APredicate
 import javassist.expr.ExprEditor
 import scala.collection.JavaConversions._
 import javassist.ClassPool
 import java.util.Map.Entry
+import com.uqbar.aop.IBehaviorAdviceWeaverStrategy
+import com.uqbar.aop.pointcut.predicate.APredicate
 
 /**
  * Colabora con el FrameworkClassLoader para construir los Aspectos que fueron declarados.
@@ -52,4 +53,4 @@ class AdviceWeaver extends TAdviceWeaver{
     this.strategy = strategy
     this.addInstrumentors(classPool)
   }
-} 
+}
