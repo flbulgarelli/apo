@@ -1,72 +1,72 @@
 \section{Solución propuesta}
 \label{sec:Solucion}
 
-Utilizamos la programación orientada a aspectos para desarrollar dos
-conceptos independientes, {\bf Observable} y  {\bf Transaccional}.
-En las secciones subsiguientes se describe el comportamiento de cada uno de
-estos dos aspectos y en la sección \ref{sec:Union} la integración de ambos.
+	Utilizamos la programación orientada a aspectos para desarrollar dos
+	conceptos independientes, {\bf Observable} y  {\bf Transaccional}.
+	En las secciones subsiguientes se describe el comportamiento de cada uno de
+	estos dos aspectos y en la sección \ref{sec:Union} la integración de ambos.
 
-\subsection{Aspecto Observable}
-\label{aspectoObservable}
-	El aspecto Observable implementa un mecanismo transparente para que cualquier
-	objeto pueda recibir notificaciones cuando un objeto de dominio
-	cambia.
-	Para ello, el sistema asocia cada atributo de un objeto que se desee observar
-	con un conjunto de \emph{listeners}. 
-	El aspecto intercepta todos los accesos a los atributos
-	del objeto observado y, ante cada modificación de un atributo, notifica a todos
-	los listeners que se han registrado para observar ese atributo.
+	\subsection{Aspecto Observable}
+	\label{aspectoObservable}
+		El aspecto Observable implementa un mecanismo transparente para que cualquier
+		objeto pueda recibir notificaciones cuando un objeto de dominio
+		cambia.
+		Para ello, el sistema asocia cada atributo de un objeto que se desee observar
+		con un conjunto de \emph{listeners}. 
+		El aspecto intercepta todos los accesos a los atributos
+		del objeto observado y, ante cada modificación de un atributo, notifica a todos
+		los listeners que se han registrado para observar ese atributo.
+		
+		Este mecanismo permite asociar acciones específicas que se disparan cada vez
+		que el objeto es modificado. En particular, se utiliza para mantener
+		sincronizada la interfaz de usuario con los objetos del dominio.
+
+	\subsection{Aspecto Transaccional}
+	\label{aspectoTransaccional}
+		El aspecto Transaccional permite controlar la visibilidad de las modificaciones
+		realizadas a un objeto.
+		Para ello, se define el concepto de \emph{contexto transaccional}.
+		Un contexto trasaccional es un espacio de trabajo en el cual se pueden
+		hacer modificaciones a un objeto que no serán vistas fuera de ese contexto.
 	
-	Este mecanismo permite asociar acciones específicas que se disparan cada vez
-	que el objeto es modificado. En particular, se utiliza para mantener
-	sincronizada la interfaz de usuario con los objetos del dominio.
-
-\subsection{Aspecto Transaccional}
-\label{aspectoTransaccional}
-	El aspecto Transaccional permite controlar la visibilidad de las modificaciones
-	realizadas a un objeto.
-	Para ello, se define el concepto de \emph{contexto transaccional}.
-	Un contexto trasaccional es un espacio de trabajo en el cual se pueden
-	hacer modificaciones a un objeto que no serán vistas fuera de ese contexto.
-
-	Los contextos transaccionales se delimitan por las
-	operaciones detalladas en la Sección \ref{ctxTransactional}
-	(\emph{beginTransaction}, \emph{commit} y \emph{rollback}).
-	La operación de \emph{commit} confirma las modificaciones y las hace públicas
-	fuera del contexto.
-	Por su parte, la operación de \emph{rollback} provee un
-	mecanismo automático para descartar todas las modificaciones realizadas
-	dentro del contexto.
-	Al ejecutarla, todos los objetos modificados dentro del contexto regresan al
-	estado que tenían al comenzar la transacción.
-	 
-	El contexto transaccional permite el trabajo concurrente, permitiendo que
-	varios procesos puedan acceder a un mismo objeto al mismo
-	tiempo, con un aislamiento de nivel \emph{read commited}.
-	 
-	También se da soporte para \emph{transacciones anidadas}, es decir, la
-	posibilidad de abrir un nuevo contexto transaccional dentro de otro contexto,
-	denominado \emph{contexto padre}.
-	Esta funcionalidad permite dividir una transacción en partes que pueden ser
-	revertidas o confirmadas individualmente.
+		Los contextos transaccionales se delimitan por las
+		operaciones detalladas en la Sección \ref{ctxTransactional}
+		(\emph{beginTransaction}, \emph{commit} y \emph{rollback}).
+		La operación de \emph{commit} confirma las modificaciones y las hace públicas
+		fuera del contexto.
+		Por su parte, la operación de \emph{rollback} provee un
+		mecanismo automático para descartar todas las modificaciones realizadas
+		dentro del contexto.
+		Al ejecutarla, todos los objetos modificados dentro del contexto regresan al
+		estado que tenían al comenzar la transacción.
+		 
+		El contexto transaccional permite el trabajo concurrente, permitiendo que
+		varios procesos puedan acceder a un mismo objeto al mismo
+		tiempo, con un aislamiento de nivel \emph{read commited}.
+		 
+		También se da soporte para \emph{transacciones anidadas}, es decir, la
+		posibilidad de abrir un nuevo contexto transaccional dentro de otro contexto,
+		denominado \emph{contexto padre}.
+		Esta funcionalidad permite dividir una transacción en partes que pueden ser
+		revertidas o confirmadas individualmente.
+		
+	\subsection{Integración de ambos aspectos entre sí y con la interfaz de usuario}
+	\label{sec:Union}
+		La unión de los dos aspectos independientes es con el fin de asociar asociar los
+		eventos disparados por el dominio, con la translación actual.
+		 
+		Encontrar en la interfaz de usuario dónde se deben abrir y cerrar las
+		transaccioens.
+		Filtrar los eventos para que no le lleguen a una ventana los que no le
+		corresponden por el contexto transaccional.
 	
-\subsection{Integración de ambos aspectos entre sí y con la interfaz de usuario}
-\label{sec:Union}
-La unión de los dos aspectos independientes es con el fin de asociar asociar los
-eventos disparados por el dominio, con la translación actual.
- 
-Encontrar en la interfaz de usuario dónde se deben abrir y cerrar las
-transaccioens.
-Filtrar los eventos para que no le lleguen a una ventana los que no le
-corresponden por el contexto transaccional.
-
-	 En Arena se integró los dos aspectos, el Observable y
-	el transaccional, con el fin de que los objetos de dominio sean puros, y que no tengan la noción de
-	eventos, ni transacciones, y así poder bindearlos con los componentes de de la
-	interfaz gráfica. Y al cancelar la edición poder revertir los cambios
-	transparéntenme.
-
-	Como se explicó en la sección \ref{sec:Union}, para integrar los dos aspectos
-	entre sí se requiere filtrar los eventos disparados por los objetos de dominio, 
-	limitándolos a las ventanas que se encuentran dentro del mismo contexto
-	transaccional.
+		 En Arena se integró los dos aspectos, el Observable y
+		el transaccional, con el fin de que los objetos de dominio sean puros, y que no tengan la noción de
+		eventos, ni transacciones, y así poder bindearlos con los componentes de de la
+		interfaz gráfica. Y al cancelar la edición poder revertir los cambios
+		transparéntenme.
+	
+		Como se explicó en la sección \ref{sec:Union}, para integrar los dos aspectos
+		entre sí se requiere filtrar los eventos disparados por los objetos de dominio, 
+		limitándolos a las ventanas que se encuentran dentro del mismo contexto
+		transaccional.
