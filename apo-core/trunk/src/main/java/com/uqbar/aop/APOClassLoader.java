@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Vector;
 
 import com.uqbar.aop.AdviceWeaver;
-import com.uqbar.aop.TAdviceWeaver;
 
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -26,7 +25,7 @@ public class APOClassLoader extends ClassLoader {
 	private Vector<String> notDefinedHere; // must be atomic.
 	private Vector<String> notDefinedPackages; // must be atomic.
 	private ClassPool classPool;
-	private TAdviceWeaver adviceWeaver;
+	private AdviceWeaver adviceWeaver;
 
 	// ***************************
 	// ** Constructores
@@ -68,7 +67,7 @@ public class APOClassLoader extends ClassLoader {
 		this.adviceWeaver = createAdviceWeaver(cp);
 	}
 
-	protected TAdviceWeaver createAdviceWeaver(ClassPool cp) {
+	protected AdviceWeaver createAdviceWeaver(ClassPool cp) {
 		return new AdviceWeaver(cp, null);
 	}
 

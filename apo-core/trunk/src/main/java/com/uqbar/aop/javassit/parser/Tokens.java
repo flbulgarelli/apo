@@ -1,5 +1,7 @@
 package com.uqbar.aop.javassit.parser;
 
+import com.uqbar.commons.StringUtils;
+
 import javassist.NotFoundException;
 import javassist.expr.FieldAccess;
 
@@ -91,11 +93,8 @@ public enum Tokens {
 	},
 	OLD_VALUE("$oldValue") {
 		@Override
-		public String getJavassistExp(FieldAccess fa) {
-//			return THIS.getJavassistExp() + "." + FIELD_NAME.getJavassistExp();
-			return INTERCEPTOR.getJavassistExp(fa) + ".fieldRead(" + THIS.getJavassistExp(fa) + "," +
-		STRINGS.getJavassistExp(fa) +   FIELD_NAME.getJavassistExp(fa) + STRINGS.getJavassistExp(fa)+ 
-		", " + THIS.getJavassistExp(fa) + "." + FIELD_NAME.getJavassistExp(fa) + ")";
+		public String getJavassistExp(FieldAccess fAcces) {
+			return THIS.getJavassistExp(fAcces) + ".get" + StringUtils.capitalize(FIELD_NAME.getJavassistExp(fAcces)) +"();";
 		}
 	},
 	OBJECT("$Object") {
