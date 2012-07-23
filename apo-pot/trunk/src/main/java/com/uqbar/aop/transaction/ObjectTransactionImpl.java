@@ -3,6 +3,7 @@ package com.uqbar.aop.transaction;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -10,7 +11,9 @@ import org.uqbar.commons.utils.ReflectionUtils;
 
 import com.uqbar.common.transaction.ObjectTransaction;
 import com.uqbar.common.transaction.TaskOwner;
-import com.uqbar.common.transaction.list.TransacionalList;
+import com.uqbar.common.transaction.Collection.TransacionalList;
+import com.uqbar.common.transaction.Collection.TransactionalMap;
+import com.uqbar.common.transaction.Collection.TransactionalSet;
 import com.uqbar.commons.collections.CollectionFactory;
 import com.uqbar.commons.exceptions.ProgramException;
 
@@ -28,6 +31,7 @@ import com.uqbar.commons.exceptions.ProgramException;
  * @author npasserini
  * @author nny
  */
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class ObjectTransactionImpl implements ObjectTransaction {
     public static final String STATE_ROLLBACKED = "ROLLBACKED";
 	public static final String STATE_COMMITED = "COMMITED";
@@ -78,6 +82,14 @@ public class ObjectTransactionImpl implements ObjectTransaction {
     
     public List fieldWrite(Object owner, String fieldName, List newValue, List oldValue) {
     	return ((List) this.fieldWrite(owner, fieldName, (Object)new TransacionalList(newValue), (Object)oldValue));
+    }
+    
+	public Map fieldWrite(Object owner, String fieldName, Map newValue, Map oldValue) {
+    	return ((Map) this.fieldWrite(owner, fieldName, (Object)new TransactionalMap(newValue), (Object)oldValue));
+    }
+	
+	public Set fieldWrite(Object owner, String fieldName, Set newValue, Set oldValue) {
+    	return ((Set) this.fieldWrite(owner, fieldName, (Object)new TransactionalSet(newValue), (Object)oldValue));
     }
 
 

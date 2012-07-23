@@ -1,47 +1,35 @@
 package com.uqbar.pot.aop;
 
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.List;
 
-import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
-import javassist.expr.ExprEditor;
 
 import org.uqbar.commons.utils.Transactional;
 
-import com.uqbar.aop.IBehaviorAdviceWeaverStrategy;
+import com.uqbar.aop.Advice;
+import com.uqbar.aop.BehaviorAdviceWeaverStrategy;
 import com.uqbar.aop.WeavingInstrumentor;
-import com.uqbar.aop.pointcut.predicate.APredicate;
 import com.uqbar.aop.pointcut.predicate.HasAnnotationPredicate;
 
 /**
  * @author nny
  *
  */
-public class TransactionalBehaviorAdviceWeaverStrategy implements
-		IBehaviorAdviceWeaverStrategy {
+public class TransactionalBehaviorAdviceWeaverStrategy implements BehaviorAdviceWeaverStrategy {
 	
 	private TransactionFieldAccessInterceptor transactionInterceptor = new TransactionFieldAccessInterceptor();
 
-
 	@Override
-	public void addInstrumentors(ClassPool classPool,
-			Map<APredicate, ExprEditor> weavingInstrumentors) {
-		
+	public void addAdvices(ClassPool classPool, List<Advice> advices) {
 		// transactions
-		weavingInstrumentors.put(
+		advices.add( new Advice(
 			new HasAnnotationPredicate(classPool, Transactional.class.getName()),
-			new WeavingInstrumentor()
-					.addFieldAccessInterceptor(transactionInterceptor));
-
+			new WeavingInstrumentor().addFieldAccessInterceptor(transactionInterceptor)));
 	}
 
 	@Override
-	public void applyAdviceToCtClass(CtClass ctClass,
-			Entry<APredicate, ExprEditor> entry)
-			throws CannotCompileException {
-
+	public void applyAdviceToCtClass(CtClass ctClass, Advice advice) {
 	}
 
 	@Override
