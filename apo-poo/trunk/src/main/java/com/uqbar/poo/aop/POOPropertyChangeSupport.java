@@ -8,10 +8,10 @@ import java.util.EventListener;
  * @author nnydjesus
  *
  */
-public class MyPropertyChangeSupport extends PropertyChangeSupport implements PropertySupport {
+public class POOPropertyChangeSupport extends PropertyChangeSupport implements PropertySupport {
 	private static final long serialVersionUID = 1L;
 
-	public MyPropertyChangeSupport(Object sourceBean) {
+	public POOPropertyChangeSupport(Object sourceBean) {
 		super(sourceBean);
 	}
 	

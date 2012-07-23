@@ -15,9 +15,9 @@ class ObservableFieldAccessInterceptor extends FieldAccessInterceptor {
 	override def modifyWriterFieldAccess(statement:StringBuffer , fieldAccess:FieldAccess ){
 		if(!Modifier.isTransient(fieldAccess.getField().getModifiers())){
 		  var newStatement = """
-		  $Object oldValue = $oldValue;
-		  $originalAsigment;
-		  $this.firePropertyChange('$fieldName', oldValue, $newValue);
+			  $Object oldValue = $oldValue;
+			  $originalAsigment;
+			  $this.firePropertyChange('$fieldName', oldValue, $newValue);
 		  """
 	
 		statement.replace(0, statement.length(), newStatement)
