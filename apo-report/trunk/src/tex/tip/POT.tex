@@ -1,0 +1,50 @@
+\subsection{Pure Object Transaction}
+	\label{pot} 
+	Pure Object Transaction (POT) es la herramienta que implementa el aspecto
+	transaccional como se definió en la sección \ref{aspectoTransaccional}.
+	Está basado en una implementación anterior de Nicolás Passerini y Javier
+	Fernandes, que se actualizó para aprovechar el framework APO y facilitar su
+	integración con las demás herramientas desarrolladas.
+	
+	\medskip
+	 
+	Este framework intercepta todas las lecturas y escrituras de los atributos de
+	un objeto, delegando tanto las lecturas como las escrituras al
+	\emph{administrador de las transacciones}.
+	A su vez, el administrador de transacciones asocia el pedido con un contexto
+	transaccional, que guarda los valores de los atributos de un objeto que fueron
+	modificador durante la transacción en una estructura de la forma
+	\lstinline|[Objeto, [Atributo, Valor]]|.
+	Cada contexto transaccional esta asociado a un \emph{thread}. Esto
+	permite manejar la concurrencia en el acceso a la información de los objetos.
+	La herramienta provee también soporte para transacciones anidadas.
+	 
+	Al momento de hacer el \emph{commit} en una transacción, los valores
+	contenidos en el contexto transaccional son impactados en la transacción
+	padre.
+	En caso de tratarse de una trasacción de primer nivel, los cambios se impactan
+	en los objetos de dominio.
+	Esta forma de implementación permite que la identidad del objeto se
+	mantenga, ya que el objeto no se modifica ni se clona, solo se intercepta el
+	acceso a sus atributos.
+	
+	Para agregarle este aspecto a una clase se utiliza la \emph{Annotation}
+	\emph{Transactional}.
+			
+		\begin{lstlisting} 
+			@Transactional
+			public class Client {
+			}
+		\end{lstlisting}
+	
+	\medskip
+	
+	Otro agregado a la versión original es la intercepción de las modificaciones 
+	a un objeto de tipo \lstinline|Collection|, por ejemplo agregar o quitar
+	objetos de una colección.
+	Esto presenta un desafío especial ya que habitualmente en los programas Java
+	se utilizan las implementaciones de colecciones provistas por el propio
+	lenguaje y no es posible aplicar aspectos sobre estas clases. 
+	En la nueva versión, este problema se resuelve reemplazando en forma
+	automática las colecciones del lenguaje Java por
+	implementaciones propias de las mismas interfaces.

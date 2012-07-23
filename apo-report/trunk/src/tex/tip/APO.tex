@@ -1,0 +1,106 @@
+\section{Nuestra herramienta: }
+
+	En esta sección se explica como se llevó a cabo la implementación de la solución
+	propuesta en la Sección \ref{sec:Solucion}, y cumpliendo el objetivo detallado
+	en la Sección \ref{sec:Objetivo}. Se desarrollaron dos herramientas
+	fundamentales para lo planteado. \emph{Pure Objects Observable} (POO) para atacar a la
+	problemática de la observabilidad y \emph{Pure Object Transaction} (POT) para
+	atacar a la problemática transaccional.
+		
+	\subsection{Selección de un framework de aspectos}  
+		Un primer paso para la implementación de la herramienta fue la selección de una
+		tecnología que permitiera desarrollar utilizando programación orientada a
+		aspectos.
+		Con ese objetivo, se evaluaron dos frameworks: Javassist \cite{??} y AspectJ
+		\cite{KiczalesHHKPG01}.
+		
+		\medskip 
+		Encontramos que AspectJ es una herramienta de más alto nivel, que extiende
+		el lenguaje Java agregando construcciones específicas para trabajar con
+		los conceptos de la teoría de programación orientada a aspectos.
+		Por otro lado AspectJ requiere que el programador que use nuestro framework
+		utilice un compilador específico. Consideramos que esta característica es muy
+		negativa, por condicionar el entorno de trabajo de los usuarios de nuestra
+		herramienta.
+		En cambio Javassist agrega los aspectos al momento de la carga de las clases,
+		sólo requiere que utilicemos un \emph{ClassLoader} específico.
+		
+		Elegimos Javassist por su menor impacto para el programador que utilice el
+		framework como usuario.
+		Para minimizar los problemas asociados a utilizar un framework de tan bajo
+		nivel desarrollamos una herramienta que simplifica su uso agregando algunas
+		abstracciones útiles. Esta herramienta se describe en la sección siguiente.
+
+	\subsection{Desarrollo de Aspect for Pure Objects}
+
+		El framework Javassist permite modificar directamente el \emph{bytecode} de
+		una clase en el momento de cargarla.
+		Por ser de tan bajo nivel es uno de los frameworks de aspectos más poderosos,
+		pero a su vez el código se hace poco entendible.
+		Por eso se desarrolló una herramienta llamada \emph{Aspect for Pure Objects} (APO), 
+		que permite configurar aspectos utilizando conceptos de más alto nivel y
+		aplicárselo a un grupo de objetos.
+		
+		La Figura \ref{aopImage} muestra esquemáticamente el diseño de la herramienta.
+		Una instancia de \code{AdviceWeaver} se ocupa de aplicar los cambios sobre las
+		clases.
+		Para ello cuenta con un conjunto de \code{Advice} que consisten de un
+		\code{Predicate} (que determina el conjunto de clases sobre el que aplica el
+		advice) y un objeto que implemente la interfaz \code{ExprEditor} (que
+		será el responsable de realizar las modificaciones sobre
+		las clases alcanzadas por el advice).
+		Finalmente una instancia de \code{APOClassLoader}, instalada como class loader
+		del sistema permite que antes de utilizar cualquier clase esta pueda ser procesada por el \code{AdviceWeaver}
+		
+		Para implementar las modificaciones se provee una implementación de
+		\code{ExprEditor} que contiene una colección de modificaciones expresadas en un
+		lenguaje de alto nivel y las traduce al lenguaje de bajo nivel que requiere el
+		framework Javassist.
+		La Figura \ref{pooCode} muestra un ejemplo de código de este lenguaje de alto nivel,
+		tomado del framework POO, que se describe en la Sección \ref{poo}.
+		
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=400px, height=250px]{img/aop}
+			\caption{Diagrama UML de la herramienta APO}
+			\label{aopImage}
+		\end{figure}	
+		
+		
+		A su vez, la Tabla \ref{table} describe las expresiones propias del lenguaje
+		definido por APO, su traducción al lenguaje de expresiones de
+		Javassist y su significado.
+		
+		\begin{figure}[h]
+			\begin{lstlisting}
+				$Object oldValue = $oldValue;
+			  	$originalAsigment;
+			  	$this.firePropertyChange('$fieldName', oldValue, $newValue);
+			\end{lstlisting}
+			\caption{Fragmento de código del framework POO}
+			\label{pooCode}
+		\end{figure}
+		
+		\begin{table}[h]
+			\begin{tabular}{|+l^l^l|}
+				\rowstyle{\bfseries}%
+					Expresión APO & Expresión Javassist & Significado \\
+				\hline
+					\$Object & java.lang.Object & El nombre completo de la clase Object \\
+				\hline
+					\$this & \$0 & El objeto receptor del mensage.\\
+				\hline
+					\$newValue & \$1 & El primer parametro del método. \\
+				\hline
+					\$oldValue &  \$0.getAtribute() & El valor del atributo antes de
+				la asignación que está siendo modificada.\\
+				\hline
+					\$originalAsigment & \$0.atribute = \$1 & La asignación del atributo con el
+				primer parametro del método.\\
+				\hline
+					'\$fieldName' & ``atribute'' & El nombre del atributo como un String.\\
+				\hline
+			\end{tabular} 
+			\caption{Tabla de equivalencia}
+			\label{table}
+		\end{table}

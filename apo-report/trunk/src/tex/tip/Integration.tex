@@ -1,0 +1,55 @@
+\subsection{Integración de POT, POO y Arena}
+Para integar el framework Arena con el aspecto transaccional (POT) se definió
+la clase \lstinline|TransactionalDialog|. 
+Definir una ventana como una subclase de
+\lstinline|TransactionalDialog| permite asociar a esa ventana con un contexto
+transaccional.
+Al abrirse la ventana se efectúa la operación de \emph{beginTransaction}.
+Luego, botones \emph{Aceptar} y \emph{Cancelar} (que por defecto son agregados
+por la superclase) efectúan las acciones de \emph{commit} y
+\emph{rollback}.
+
+Como se explicó en la sección \ref{sec:Union}, para integrar los dos aspectos
+entre sí se requiere filtrar los eventos disparados por los objetos de dominio, 
+limitándolos a las ventanas que se encuentran dentro del mismo contexto
+transaccional. 
+Se implementaron tres niveles de aislamiento de los eventos:
+\begin{description}
+	\item[\emph{Fire All}] Todos los eventos disparados por el dominio son
+	escuchados, sin importar si están en un transacción.
+
+	\item[\emph{Fire Committed}] Solo se escucha los eventos de las transacciones
+		comiteadas
+	
+	\item[\emph{Fire olnly in my transaction}] solo se escucha los eventos que
+		ocurren dentro de su translación.
+ \end{description}
+ 
+El framework se puede configurar para utilizar uno, otro o ambos
+aspectos, según se requiera.
+Los objetos pueden ser anotados con \emph{Observable} y
+\emph{Transactional} como vimos previamente, 
+o bien utilizar \emph{TransactionalAndObservable} que es una union de ambas.
+
+	\begin{lstlisting} 
+		@TransactionalAndObservable
+		public class Client{
+		}
+	\end{lstlisting}
+
+\subsection{Otras mejoras al Arena}
+	La integración se realizo con el lenguaje de programación Scala
+	\cite{???}. Para llevar al cabo la integración se agregó algunas
+	mejoras en el Arena. 
+	Algunas mejoras fueron:
+	\begin{description}
+	  \item[Monitor de Transacciones]
+		 Con arena también se desarrolló un \emph{Monitor de Transacciones}, que 
+		 muestra el estado actual de la transacción, incluyendo las transacciones
+		 anidadas. Mostrando los objetos afectados por la transacción y los
+		 atributos se modificaron.
+	  \item[Nuevos componentes] Se Implementaron algunas estructuras visuales como
+	  Arboles y Listas.
+	  \item[Bindinds Anidados] Se implemento bindings para las propiedades
+	  anidadas de los objetos.
+	\end{description}
