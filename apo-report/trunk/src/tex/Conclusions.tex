@@ -1,11 +1,26 @@
 \section{Conclusiones}
 \label{sec:conclusions}
+A pesar de que hoy en día existe gran cantidad de herramientas para el
+desarrollo de interfaces de usuario, existen problemas que
+aparecen con frecuencia en los desarrollos industriales que no son resueltos por
+dichas herramientas.
+ Cuando esto sucede, los programadores deben recurrir a soluciones \emph{ad-hoc}
+que con frecuencia implican atacar problemas generales de forma manual y
+escribiendo grandes cantidades de código rutinario, que con frecuencia resulta
+propenso a errores.
 
-El presente trabajo tenia tres objetivos principales. El primero era automatizar
-la comunicación entre el modelo de dominio y la interfaz de usuario. El segundo
-objetivo era proveer un soporte para transacciones; Y el tercer objetivo era
-proveer una sistema de monitoreo para las transacciones.
+En este trabajo atacamos dos problemas rutinarios de las interfaces de usuarios:
+por un lado la sincronización de datos entre la vista y el modelo de dominio; y
+por otro la posibilidad de modelar operaciones que se realicen atómicamente.
 
+%lo pudimos hacer y quedó algo piola
+Utilizando las ideas de la programación orientada a aspectos pudimos desarrollar
+una herramienta que soluciona ambos problemas en forma tranparente, dado que no
+requiere que hagamos modificaciones en el código del dominio, y genérica, dado
+que es aplicable a un gran conjunto de posibles dominios.
+
+%por qué es piola?
+% qué cosas son más simples?
 De cara a estos objetivos surgieron las siguientes cuestiones para destacar
 
 \begin{quote}
@@ -24,9 +39,25 @@ De cara a estos objetivos surgieron las siguientes cuestiones para destacar
 	
 \end{quote}
 
-Se probo las transacciones en una aplicacion mas compleja como la de un Kiosco.
+%pruebas, cómo nos convencemos de que lo que hicimos sirve
+Se probaron las transacciones en una aplicacion mas compleja como la de un
+Kiosco.
 La aplicación se realizo toda en scala-swing. Y donde mas se veia la utilidad de
 las transacciones era en las ventas. Cuando estaba en una venta, se agregaban
 productos, pero al momento de confirmar la venta, el cliente puede cancelar la
 venta tambien, y en ese momento es donde le damos rollback y nada mas! \ldots
 \comment{no se si va esto}
+
+% otras cosas útiles
+Y el tercer objetivo era
+proveer una sistema de monitoreo para las transacciones.
+¿QUé es lo bueno de esto?
+
+Apo
+
+extensiones al arena.
+
+%utilidad en la docencia.
+Mejoramos el Arena, lo van a usar en UNQ, UTN y UNSAM.
+Simplfica el aprendizaje porque antes tenían que ver el tema eventos a mano, era
+complicado. Permite focalizarse en otras cosas.

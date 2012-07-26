@@ -1,17 +1,14 @@
 \section{Aplicación de ejemplo}
-
-Para comprender mejor esta problemática veamos un ejemplo. Supongamos una simple
-aplicación, donde los clientes de un banco pueden transferir dinero de
-una cuenta a otra. Al realizar una transferencia, hay que extraer el monto
-indicado de una cuenta, y depositarlo en otra. 
+Para ilustrar el uso de las herramientas desarrolladas utilizaremos como ejemplo
+una aplicación bancaria, en la que los clientes de un banco pueden transferir
+dinero de una cuenta a otra. 
+Realizar una transferencia implica extraer el
+monto indicado de una cuenta, y depositarlo en otra. 
 Al ejecutar cualquiera de estas dos operaciones se pueden producir errores,
 como por ejemplo, que no haya saldo saldo suficiente, o que el depósito supere
 el máximo permitido.
-
-La figura \ref{example} muestra el diagrama de clases de la aplicación de
-ejemplo
-
-	\medskip
+La figura \ref{example} muestra las clases que implementan la lógica del
+dominio.
 
 	\begin{figure}[h]
 		\centering
@@ -19,20 +16,16 @@ ejemplo
 		\caption{Diagrama UML de la aplicación de ejemplo}
 		\label{example}
 	\end{figure}	
-	
-La aplicación de ejemplo tiene los siguientes casos de uso:
 
-\begin{enumerate}
-  \item{\bf{Transferir Dinero}} 
+A continuación se describirán las dos pantallas más importantes de la
+aplicación, que nos permitirán mostrar las diferentes utilidades brindadas por
+nuestra propuesta.
+ 
+\subsection{Transferencia simple} 
 	Tres ventajas:
 	- queda más simple
 	- menos posibilidad de mandármela
 	- concurrencia.
-  	
-  \item{\bf{Transferencias múltiples}}
-	muchas transferencias en una única transacción\ldots fijate si sale algo y si no
-	lo volamos.
-\end{enumerate}
 
 La figura \ref{executeTransaction} muestra el método  \lstinline|execute| de la
 clase \lstinline|Transaction| \begin{figure}[h]
@@ -45,3 +38,8 @@ clase \lstinline|Transaction| \begin{figure}[h]
 	\caption{Fragmento de código de la Clase Transaction}
 	\label{executeTransaction}
 \end{figure}
+  	
+\subsection{Transferencias múltiples}
+	muchas transferencias en una única transacción\ldots fijate si sale algo y si no
+	lo volamos.
+
