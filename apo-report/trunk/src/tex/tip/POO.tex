@@ -1,6 +1,6 @@
 \subsection{Pure Observable Objects}
 	\label{poo}
-	Pure Observable Objects (POO) es el framework que implementa el
+	\emph{Pure Observable Objects} (POO) es el framework que implementa el
 	aspecto Observable planteado en la Sección \ref{aspectoObservable}.
 	La implementación interna del aspecto agrega un
 	atributo llamado \lstinline|changeSupport| del tipo
@@ -24,8 +24,8 @@
 	\end{figure}
 	
 	Para agregarle este aspecto a una clase se utiliza la \emph{Annotation}
-	\lstinline|Observable|.
-	
+	 \lstinline|Observable|, como
+	se muestra en la siguiente porción de código:
 	\begin{lstlisting} 
 		@Observable
 		public class Client{

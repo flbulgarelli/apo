@@ -73,18 +73,19 @@
 		
 		\begin{figure}[h]
 			\begin{lstlisting}
-				$Object oldValue = $oldValue;
-			  	$originalAsigment;
-			  	$this.firePropertyChange('$fieldName', oldValue, $newValue);
+	$Object oldValue = $oldValue;
+	$originalAsigment;
+	$this.firePropertyChange('$fieldName', oldValue, $newValue);
 			\end{lstlisting}
 			\caption{Fragmento de código del framework POO}
 			\label{pooCode}
 		\end{figure}
 		
 		\begin{table}[h]
-			\begin{tabular}{|+l^l^l|}
+			\begin{tabular}{|+l^l^p{7cm}|}
+				\hline
 				\rowstyle{\bfseries}%
-					Expresión APO & Expresión Javassist & Significado \\
+					Expr. APO & Expr. Javassist & Significado \\
 				\hline
 					\$Object & java.lang.Object & El nombre completo de la clase Object \\
 				\hline
@@ -101,6 +102,6 @@
 					``\$fieldName'' & ``atribute'' & El nombre del atributo como un String.\\
 				\hline
 			\end{tabular} 
-			\caption{Tabla de equivalencia}
+			\caption{Tabla de equivalencia {explicar ``atribute''}}
 			\label{table}
 		\end{table}
