@@ -19,7 +19,7 @@
 		
 		Este mecanismo permite asociar acciones específicas que se disparan cada vez
 		que el objeto es modificado. En particular, se utiliza para mantener
-		sincronizada la interfaz de usuario con los objetos del dominio.
+		sincronizada la UI con los objetos del dominio.
 
 	\subsection{Aspecto Transaccional}
 	\label{aspectoTransaccional}
@@ -50,11 +50,11 @@
 		Esta funcionalidad permite dividir una transacción en partes que pueden ser
 		revertidas o confirmadas individualmente.
 		
-	\subsection{Integración de ambos aspectos entre sí y con la interfaz de usuario}
+	\subsection{Integración de ambos aspectos entre sí y con la UI}
 	\label{sec:Union}
 		Al utilizar ambos aspectos simultáneamente aparecen situaciones complejas que
 		deben ser tenidas en cuenta. También es necesario estudiar la forma en que
-		puedan integrar ambos aspectos con la interfaz de usuario.
+		puedan integrar ambos aspectos con la UI.
 		Para atacar estos problemas se tomaron tres acciones:
 		
 		\begin{enumerate}
@@ -62,7 +62,7 @@
 		  atributo de un objeto de dominio, debe registrarse como listener de ese
 		  atributo.
 		  De esa forma, en caso de producirse un cambio en el valor del atributo, la
-		  interfaz de usuario podrá reflejar esa modificación en forma inmediata.
+		  UI podrá reflejar esa modificación en forma inmediata.
 		  
 		  \item Siempre que desde la UI el usuario tenga la posibilidad de cancelar
 		  una acción que comenzó a realizar, se debe utilizar un contexto

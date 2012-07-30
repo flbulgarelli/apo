@@ -5,9 +5,9 @@ presente trabajo: la comunicación dominio-vista y el manejo de transacciones
 dentro de las interfaces de usuario.
 
 \subsection{Estrategias para la comunicación dominio-vista}
-La interfaz de usuario necesita obtener información del dominio para presentar
+La UI necesita obtener información del dominio para presentar
 al usuario, así como actualizar esa información a partir de las acciones del usuario.
-La necesidad de intercambiar información entre dominio e interfaz de usuario
+La necesidad de intercambiar información entre dominio e UI
 entra en conflicto con el objetivo de minimizar el conocimiento entre ambas,
 como propone el patrón MVC.
 
@@ -58,7 +58,7 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 
 	En esta estrategia, durante la edición no se hace un \emph{binding} de los
 	datos contra el modelo de dominio. En cambio, se almacenan en un lugar
-	intermedio, dentro de la interfaz de usuario, y no hay ninguna comunicación
+	intermedio, dentro de la UI, y no hay ninguna comunicación
 	con el dominio hasta que el usuario no confirme la acción. En ese momento se
 	transfieren todos los datos juntos, en un único paquete.
 	
@@ -80,9 +80,8 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	
 	En aplicaciones de escritorio sin \emph{binding} se puede tener una estrategia
 	similar. En lugar de tener un formulario que se envía como un paquete, los
-	datos editados se guardan en los propios \emph{controles} de la interfaz de
-	usuario. Cuando el usuario confirma la acción, manualmente se toman los datos
-	de los controles y se transfieren al dominio.
+	datos editados se guardan en los propios \emph{controles} de la UI. Cuando el
+	usuario confirma la acción, manualmente se toman los datos de los controles y se transfieren al dominio.
 
 	\medskip
 	
@@ -94,7 +93,7 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	aplicaciones web tradicionales, muchas veces no se validan los datos hasta que
 	no se intenta confirmar la operación, lo que es bastante molesto para el
 	usuario. En otros casos, para poder hacer validaciones a medida que el usuario
-	edita, la interfaz de usuario tiene su propia implementación de las validaciones. 
+	edita, la UI tiene su propia implementación de las validaciones. 
 	Es decir, la lógica de validación está duplicada.
 	 		
 \subsection{Manejo de transacciones en la UI}
@@ -117,7 +116,7 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	  atributos necesarios y ningún comportamiento. \comment{Acá se podría citar
 	  http://martinfowler.com/eaaCatalog/dataTransferObject.html, pero del libro,
 	  no de la web.}
-	  \item Los propios componentes de la interfaz de usuario (por
+	  \item Los propios componentes de la UI (por
 	  ejemplo una instancia de la clase \texttt{TextBox}).
 	  \item En aplicaciones Web, el \emph{request} cubre ese rol.
 	  \item Una copia (\emph{clone}) del objeto original.

@@ -35,4 +35,24 @@
 		Se podrian realizar mejoras en la herramienta para brindar mas usabilidad al
 		momento de crear los aspectos. como por ejemplo brindar cpnfiguraciones para
 		interceptar métodos, constructores, instanciaciones, excepciones, ect.
+		
+	\subsection{Monitoreo y debuggin de transacciones}
+		Proveer una interfaz para monitoreo remoto en tiempo real. Podrian ser plugins
+		de eclipse que permitan ver las transacciones activas. 
+		Poder browsear los objetos modificados, comparar contra diferentes valores en otras transac-
+		ciones. Un grafo de transacciones, etc. 
+		Estadisticas de los casos de uso mas utilizados, los
+		objetos mas editados, modificados, creados, borrados. 
+		Estadisticas de uso por usuarios, etc. Se podria
+		utilizar para entender cada usuario que es lo que mas
+		utiliza del sistema, o identificar roles.
+
+	
+	\subsection{Integrar POO y POT independientemente del Arena}
+		Actualmente la integración ambos aspectos se realizó utilizando conceptos
+		implementados en Arena, ya que para la integración se utiliza una clase
+		\lstinline|TransactionalObservableValue| que extiende de
+		\lstinline|AbstractObservableValue|. \emph{TransactionalObservableValue}
+		intercepta la notificación de cambio, evaluando según que
+		\lstinline|IsolationLevelEvents| se esté utilizando en el momento.
 		 
