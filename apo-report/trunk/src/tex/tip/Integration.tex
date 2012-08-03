@@ -49,6 +49,21 @@ o bien utilizar \emph{TransactionalAndObservable} que es una union de ambas.
 	\cite{???}. Para llevar al cabo la integración fue necesario agregar algunas
 	mejoras en Arena:
 	\begin{description}
+
+	  \item[Bindings anidados] Como se vió en la Sección \ref{binding},
+		  el \emph{binding} es una conección de propiedades entre dos objetos. Con
+		  esta idea se dessarrolló un tipo de binding que permite conectar propiedades
+		  anidadas entre dos objetos, por ejemplo,  la figura \ref{bindAnidado}
+
+			\begin{figure}[h]
+			\centering
+					\begin{lstlisting}
+						bindProperty("source.owner.name	") 
+					\end{lstlisting}
+			\caption{Ejemplo de binding de con la Clase Transaction}
+			\label{bindAnidado}
+		\end{figure}	
+
 	  \item[Monitor de Transacciones]
 		 Se desarrolló un \emph{Monitor de Transacciones}, que permite
 		 \emph{debuggear} las transacciones abiertas actualmente, mostrando
@@ -65,6 +80,4 @@ o bien utilizar \emph{TransactionalAndObservable} que es una union de ambas.
 	
 	  \item[Nuevos componentes] Se agregaron algunas estructuras visuales como
 	  arboles y listas.
-	  \item[Bindings Anidados] Se implementaron bindings para las propiedades
-	  anidadas de los objetos.
 	\end{description}
