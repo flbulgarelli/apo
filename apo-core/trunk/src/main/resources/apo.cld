@@ -69,8 +69,8 @@
             <constraint>
               <height>-1</height>
               <width>-1</width>
-              <x>114</x>
-              <y>501</y>
+              <x>300</x>
+              <y>737</y>
             </constraint>
             <sourceConnections>
               <net.java.amateras.uml.classdiagram.model.AggregationModel>
@@ -102,8 +102,8 @@
                   <constraint>
                     <height>-1</height>
                     <width>-1</width>
-                    <x>795</x>
-                    <y>479</y>
+                    <x>354</x>
+                    <y>457</y>
                   </constraint>
                   <sourceConnections>
                     <net.java.amateras.uml.classdiagram.model.AggregationModel>
@@ -184,8 +184,8 @@
                               <constraint>
                                 <height>-1</height>
                                 <width>-1</width>
-                                <x>36</x>
-                                <y>22</y>
+                                <x>75</x>
+                                <y>90</y>
                               </constraint>
                               <sourceConnections/>
                               <targetConnections>
@@ -217,8 +217,8 @@
                                     <constraint>
                                       <height>-1</height>
                                       <width>-1</width>
-                                      <x>481</x>
-                                      <y>166</y>
+                                      <x>107</x>
+                                      <y>202</y>
                                     </constraint>
                                     <sourceConnections>
                                       <net.java.amateras.uml.classdiagram.model.AggregationModel reference="../../.."/>
@@ -251,8 +251,8 @@
                                           <constraint>
                                             <height>-1</height>
                                             <width>-1</width>
-                                            <x>552</x>
-                                            <y>349</y>
+                                            <x>119</x>
+                                            <y>356</y>
                                           </constraint>
                                           <sourceConnections>
                                             <net.java.amateras.uml.classdiagram.model.AggregationModel>
@@ -302,8 +302,8 @@
                                                 <constraint>
                                                   <height>-1</height>
                                                   <width>-1</width>
-                                                  <x>118</x>
-                                                  <y>159</y>
+                                                  <x>82</x>
+                                                  <y>497</y>
                                                 </constraint>
                                                 <sourceConnections/>
                                                 <targetConnections>
@@ -335,8 +335,8 @@
                                                       <constraint>
                                                         <height>-1</height>
                                                         <width>-1</width>
-                                                        <x>4</x>
-                                                        <y>366</y>
+                                                        <x>8</x>
+                                                        <y>625</y>
                                                       </constraint>
                                                       <sourceConnections>
                                                         <net.java.amateras.uml.classdiagram.model.GeneralizationModel reference="../../.."/>
@@ -662,8 +662,8 @@
                                                       <constraint>
                                                         <height>-1</height>
                                                         <width>-1</width>
-                                                        <x>240</x>
-                                                        <y>360</y>
+                                                        <x>205</x>
+                                                        <y>628</y>
                                                       </constraint>
                                                       <sourceConnections>
                                                         <net.java.amateras.uml.classdiagram.model.GeneralizationModel reference="../../.."/>
@@ -790,7 +790,7 @@
                                                         <null/>
                                                       </java.beans.PropertyChangeSupport>
                                                     </listeners>
-                                                    <visibility class="net.java.amateras.uml.classdiagram.model.Visibility$1" reference="../../../targetConnections/net.java.amateras.uml.classdiagram.model.GeneralizationModel[2]/source/parent/children/net.java.amateras.uml.classdiagram.model.InterfaceModel[2]/children/net.java.amateras.uml.classdiagram.model.AttributeModel/visibility"/>
+                                                    <visibility class="net.java.amateras.uml.classdiagram.model.Visibility$1"/>
                                                     <name>evaluate</name>
                                                     <type>boolean</type>
                                                     <params>
@@ -816,7 +816,7 @@
                                                         <null/>
                                                       </java.beans.PropertyChangeSupport>
                                                     </listeners>
-                                                    <visibility class="net.java.amateras.uml.classdiagram.model.Visibility$1" reference="../../../targetConnections/net.java.amateras.uml.classdiagram.model.GeneralizationModel[2]/source/parent/children/net.java.amateras.uml.classdiagram.model.InterfaceModel[2]/children/net.java.amateras.uml.classdiagram.model.AttributeModel/visibility"/>
+                                                    <visibility class="net.java.amateras.uml.classdiagram.model.Visibility$1" reference="../../net.java.amateras.uml.classdiagram.model.OperationModel/visibility"/>
                                                     <name>evaluate</name>
                                                     <type>boolean</type>
                                                     <params>
@@ -1232,8 +1232,8 @@
                         <constraint>
                           <height>-1</height>
                           <width>-1</width>
-                          <x>896</x>
-                          <y>292</y>
+                          <x>437</x>
+                          <y>340</y>
                         </constraint>
                         <sourceConnections/>
                         <targetConnections>
@@ -1328,8 +1328,8 @@
                       <type>void</type>
                       <params>
                         <net.java.amateras.uml.classdiagram.model.Argument>
-                          <name>FieldAccess</name>
-                          <type>int</type>
+                          <name>f</name>
+                          <type>FieldAccess</type>
                         </net.java.amateras.uml.classdiagram.model.Argument>
                       </params>
                       <isAbstract>false</isAbstract>
@@ -1354,8 +1354,8 @@
                       <type>void</type>
                       <params>
                         <net.java.amateras.uml.classdiagram.model.Argument>
-                          <name>FieldAccess</name>
-                          <type>int</type>
+                          <name>f</name>
+                          <type>FieldAccess</type>
                         </net.java.amateras.uml.classdiagram.model.Argument>
                       </params>
                       <isAbstract>false</isAbstract>
@@ -1380,8 +1380,8 @@
                       <type>void</type>
                       <params>
                         <net.java.amateras.uml.classdiagram.model.Argument>
-                          <name>FieldAccess</name>
-                          <type>int</type>
+                          <name>f</name>
+                          <type>FieldAccess</type>
                         </net.java.amateras.uml.classdiagram.model.Argument>
                       </params>
                       <isAbstract>false</isAbstract>
@@ -1406,34 +1406,8 @@
                       <type>boolean</type>
                       <params>
                         <net.java.amateras.uml.classdiagram.model.Argument>
-                          <name>FieldAccess</name>
-                          <type>int</type>
-                        </net.java.amateras.uml.classdiagram.model.Argument>
-                      </params>
-                      <isAbstract>false</isAbstract>
-                      <isStatic>false</isStatic>
-                    </net.java.amateras.uml.classdiagram.model.OperationModel>
-                    <net.java.amateras.uml.classdiagram.model.OperationModel>
-                      <backgroundColor reference="../../../../../../../../../backgroundColor"/>
-                      <foregroundColor reference="../../../../../../../../../foregroundColor"/>
-                      <showIcon>true</showIcon>
-                      <parent class="net.java.amateras.uml.classdiagram.model.ClassModel" reference="../../.."/>
-                      <listeners serialization="custom">
-                        <java.beans.PropertyChangeSupport>
-                          <default>
-                            <source class="net.java.amateras.uml.classdiagram.model.OperationModel" reference="../../../.."/>
-                            <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
-                          </default>
-                          <null/>
-                        </java.beans.PropertyChangeSupport>
-                      </listeners>
-                      <visibility class="net.java.amateras.uml.classdiagram.model.Visibility$1" reference="../../../sourceConnections/net.java.amateras.uml.classdiagram.model.GeneralizationModel/target/parent/children/net.java.amateras.uml.classdiagram.model.ClassModel[3]/targetConnections/net.java.amateras.uml.classdiagram.model.AggregationModel/source/sourceConnections/net.java.amateras.uml.classdiagram.model.AggregationModel[2]/target/sourceConnections/net.java.amateras.uml.classdiagram.model.AggregationModel[2]/target/targetConnections/net.java.amateras.uml.classdiagram.model.GeneralizationModel[2]/source/parent/children/net.java.amateras.uml.classdiagram.model.InterfaceModel[2]/children/net.java.amateras.uml.classdiagram.model.AttributeModel/visibility"/>
-                      <name>addFieldAccessInterceptor</name>
-                      <type>WeavingInstrumentor</type>
-                      <params>
-                        <net.java.amateras.uml.classdiagram.model.Argument>
-                          <name>field</name>
-                          <type>FieldAccessInterceptor</type>
+                          <name>f</name>
+                          <type>FieldAccess</type>
                         </net.java.amateras.uml.classdiagram.model.Argument>
                       </params>
                       <isAbstract>false</isAbstract>
@@ -1509,11 +1483,11 @@
                 <type>void</type>
                 <params>
                   <net.java.amateras.uml.classdiagram.model.Argument>
-                    <name>writerStatement</name>
+                    <name>statement</name>
                     <type>StringBuffer</type>
                   </net.java.amateras.uml.classdiagram.model.Argument>
                   <net.java.amateras.uml.classdiagram.model.Argument>
-                    <name>field</name>
+                    <name>f</name>
                     <type>FieldAccess</type>
                   </net.java.amateras.uml.classdiagram.model.Argument>
                 </params>
@@ -1539,11 +1513,11 @@
                 <type>void</type>
                 <params>
                   <net.java.amateras.uml.classdiagram.model.Argument>
-                    <name>writerStatement</name>
+                    <name>statement</name>
                     <type>StringBuffer</type>
                   </net.java.amateras.uml.classdiagram.model.Argument>
                   <net.java.amateras.uml.classdiagram.model.Argument>
-                    <name>field</name>
+                    <name>f</name>
                     <type>FieldAccess</type>
                   </net.java.amateras.uml.classdiagram.model.Argument>
                 </params>
@@ -1573,7 +1547,7 @@
                     <type>StringBuffer</type>
                   </net.java.amateras.uml.classdiagram.model.Argument>
                   <net.java.amateras.uml.classdiagram.model.Argument>
-                    <name>field</name>
+                    <name>f</name>
                     <type>FieldAccess</type>
                   </net.java.amateras.uml.classdiagram.model.Argument>
                 </params>
@@ -1603,7 +1577,7 @@
                     <type>StringBuffer</type>
                   </net.java.amateras.uml.classdiagram.model.Argument>
                   <net.java.amateras.uml.classdiagram.model.Argument>
-                    <name>field</name>
+                    <name>f</name>
                     <type>FieldAccess</type>
                   </net.java.amateras.uml.classdiagram.model.Argument>
                 </params>
@@ -1673,8 +1647,8 @@
       <constraint>
         <height>-1</height>
         <width>-1</width>
-        <x>795</x>
-        <y>10</y>
+        <x>452</x>
+        <y>192</y>
       </constraint>
       <sourceConnections>
         <net.java.amateras.uml.classdiagram.model.AggregationModel reference="../../parent/children/net.java.amateras.uml.classdiagram.model.ClassModel/sourceConnections/net.java.amateras.uml.classdiagram.model.AggregationModel/target/sourceConnections/net.java.amateras.uml.classdiagram.model.GeneralizationModel/target/parent/children/net.java.amateras.uml.classdiagram.model.ClassModel[3]/targetConnections/net.java.amateras.uml.classdiagram.model.AggregationModel/source/targetConnections/net.java.amateras.uml.classdiagram.model.AggregationModel"/>
@@ -1697,12 +1671,12 @@
               <null/>
             </java.beans.PropertyChangeSupport>
           </listeners>
-          <visibility class="net.java.amateras.uml.classdiagram.model.Visibility$1"/>
+          <visibility class="net.java.amateras.uml.classdiagram.model.Visibility$1" reference="../../../parent/children/net.java.amateras.uml.classdiagram.model.ClassModel/sourceConnections/net.java.amateras.uml.classdiagram.model.AggregationModel/target/sourceConnections/net.java.amateras.uml.classdiagram.model.GeneralizationModel/target/parent/children/net.java.amateras.uml.classdiagram.model.ClassModel[3]/targetConnections/net.java.amateras.uml.classdiagram.model.AggregationModel/source/sourceConnections/net.java.amateras.uml.classdiagram.model.AggregationModel[2]/target/sourceConnections/net.java.amateras.uml.classdiagram.model.AggregationModel[2]/target/children/net.java.amateras.uml.classdiagram.model.OperationModel/visibility"/>
           <name>applyAdviceToCtClass</name>
           <type>void</type>
           <params>
             <net.java.amateras.uml.classdiagram.model.Argument>
-              <name>class</name>
+              <name>ctc</name>
               <type>CtClass</type>
             </net.java.amateras.uml.classdiagram.model.Argument>
             <net.java.amateras.uml.classdiagram.model.Argument>
@@ -1727,12 +1701,12 @@
               <null/>
             </java.beans.PropertyChangeSupport>
           </listeners>
-          <visibility class="net.java.amateras.uml.classdiagram.model.Visibility$1" reference="../../net.java.amateras.uml.classdiagram.model.OperationModel/visibility"/>
+          <visibility class="net.java.amateras.uml.classdiagram.model.Visibility$1" reference="../../../parent/children/net.java.amateras.uml.classdiagram.model.ClassModel/sourceConnections/net.java.amateras.uml.classdiagram.model.AggregationModel/target/sourceConnections/net.java.amateras.uml.classdiagram.model.GeneralizationModel/target/parent/children/net.java.amateras.uml.classdiagram.model.ClassModel[3]/targetConnections/net.java.amateras.uml.classdiagram.model.AggregationModel/source/sourceConnections/net.java.amateras.uml.classdiagram.model.AggregationModel[2]/target/sourceConnections/net.java.amateras.uml.classdiagram.model.AggregationModel[2]/target/children/net.java.amateras.uml.classdiagram.model.OperationModel/visibility"/>
           <name>addInstrumentors</name>
           <type>void</type>
           <params>
             <net.java.amateras.uml.classdiagram.model.Argument>
-              <name>class</name>
+              <name>cp</name>
               <type>ClassPool</type>
             </net.java.amateras.uml.classdiagram.model.Argument>
             <net.java.amateras.uml.classdiagram.model.Argument>
@@ -1757,12 +1731,12 @@
               <null/>
             </java.beans.PropertyChangeSupport>
           </listeners>
-          <visibility class="net.java.amateras.uml.classdiagram.model.Visibility$1" reference="../../net.java.amateras.uml.classdiagram.model.OperationModel/visibility"/>
+          <visibility class="net.java.amateras.uml.classdiagram.model.Visibility$1" reference="../../../parent/children/net.java.amateras.uml.classdiagram.model.ClassModel/sourceConnections/net.java.amateras.uml.classdiagram.model.AggregationModel/target/sourceConnections/net.java.amateras.uml.classdiagram.model.GeneralizationModel/target/parent/children/net.java.amateras.uml.classdiagram.model.ClassModel[3]/targetConnections/net.java.amateras.uml.classdiagram.model.AggregationModel/source/sourceConnections/net.java.amateras.uml.classdiagram.model.AggregationModel[2]/target/sourceConnections/net.java.amateras.uml.classdiagram.model.AggregationModel[2]/target/children/net.java.amateras.uml.classdiagram.model.OperationModel/visibility"/>
           <name>configureInstrumentor</name>
           <type>void</type>
           <params>
             <net.java.amateras.uml.classdiagram.model.Argument>
-              <name>instrumentor</name>
+              <name>wi</name>
               <type>WeavingInstrumentor</type>
             </net.java.amateras.uml.classdiagram.model.Argument>
           </params>
