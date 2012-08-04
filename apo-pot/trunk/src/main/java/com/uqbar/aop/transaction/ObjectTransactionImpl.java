@@ -224,7 +224,6 @@ public class ObjectTransactionImpl implements ObjectTransaction {
     		synchronized (keyWrapper.getKey()) {
     			for (Entry<String, Object> entry : this.getValueMap(keyWrapper).entrySet()) {
     				try {
-//    					RefactormeUtils.forceFieldValue(keyWrapper.getKey(), entry.getKey(), entry.getValue());
     					ReflectionUtils.invokeSetter(keyWrapper.getKey(), entry.getKey(), entry.getValue());
     				}
     				catch (RuntimeException exception) {
