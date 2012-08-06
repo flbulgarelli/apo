@@ -20,35 +20,35 @@
 		\end{itemize}
 		
 	\subsection{Niveles de Aislamiento en las Transacciones}
-	Actualmente solo soporta el nivel \emph{Read committed}, estaria bueno
+	Actualmente solo soporta el nivel \emph{Read committed}, estaría bueno
 	implementar los demás niveles de aislamiento \ref{isolation}.
 	
-	\subsection{Aspectear Arrays}
+	\subsection{Aplicación de aspecto observable en Colecciones}
 		Actualmente los cambios realizados en las propiedades de los objetos como
-		Arrays, Listas, Mapas, ect, no se aplican el aspecto de Observabilidad cuando
+		Arrays, Listas, Mapas, etc, no se aplica el aspecto observable cuando
 		se operan con ellos. Por ejemplo en las operaciones de \emph{add}, \emph{remove} o
 		equivalentes, no estamos realizando una nueva asignación del atributo, sino
 		que internamente la estructura se modifica, entonces el objeto de dominio no
 		tira eventos de cambio y por ende la interfaz no se actualiza.
 		
 	\subsection{Mejorar APO}
-		Se podrian realizar mejoras en la herramienta para brindar mas usabilidad al
-		momento de crear los aspectos. como por ejemplo brindar cpnfiguraciones para
-		interceptar métodos, constructores, instanciaciones, excepciones, ect.
+		Se podrían realizar mejoras en la herramienta para brindar mas usabilidad al
+		momento de crear los aspectos. como por ejemplo brindar configuraciones para
+		interceptar métodos, constructores, instanciaciones, excepciones, etc.
 		
-	\subsection{Monitoreo y debuggin de transacciones}
-		Proveer una interfaz para monitoreo remoto en tiempo real. Podrian ser plugins
+	\subsection{Monitoreo y debugging de transacciones}
+		Proveer una interfaz para monitoreo remoto en tiempo real. Podrían ser plugins
 		de eclipse que permitan ver las transacciones activas. 
-		Poder browsear los objetos modificados, comparar contra diferentes valores en otras transac-
-		ciones. Un grafo de transacciones, etc. 
-		Estadisticas de los casos de uso mas utilizados, los
+		Poder browsear los objetos modificados, comparar contra diferentes valores en
+		otras transacciones. Un grafo de transacciones, etc.
+		Estadísticas de los casos de uso mas utilizados, los
 		objetos mas editados, modificados, creados, borrados. 
-		Estadisticas de uso por usuarios, etc. Se podria
+		Estadísticas de uso por usuarios, etc. Se podría
 		utilizar para entender cada usuario que es lo que mas
 		utiliza del sistema, o identificar roles.
 
 	
-	\subsection{Integrar POO y POT independientemente del Arena}
+	\subsection{Integración POO y POT independientemente del Arena}
 		Actualmente la integración ambos aspectos se realizó utilizando conceptos
 		implementados en Arena, ya que para la integración se utiliza una clase
 		\lstinline|TransactionalObservableValue| que extiende de
