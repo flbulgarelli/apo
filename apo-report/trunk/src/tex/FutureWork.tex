@@ -2,57 +2,36 @@
 \section{Trabajo futuro}
 \label{sec:futurework}
 
-
 	\subsection{Estrategias de resolución de conflictos en las Transacciones}
-	
-		\begin{itemize}
-	
-			\item{\bf Optimista:} Que las múltiples  transacciones simultaneas puedan ser
-			mejorado con un simple feedback y la información de alerta al
-			usuario final diciendo que alguien más está editando el mismo objeto.
-			Se podría ser más especifico, si se aumenta el nivel de detalle que especifica
-			``quien'' y ``que objetos'' se comparten y ``cual de ellos se ha cambiado e
-			otra operación ''
-		
-			\item{\bf Pesimista:} Se  bloquea el casos de uso, cuando alguien ya esta
-			manipulando uno de los objetos involucrados. 
-	
-		\end{itemize}
-		
+		Actualmente el aspecto transaccional no cuenta con una estrategia de
+		resolucion de conflictos en	 el momento que dos o mas transacciones
+		confirman sus cambios sobre los mismos atributos de un objeto.
+		Una estrategia posible puede ser que se notifique al usuario que ese
+		objeto esta siendo modificado por otra transaccion.
+		Otra estrategia podria ser que se bloquee el caso de uso cuando otra
+		transaccion este manipulando alguno de los objetos involucrados.
+
 	\subsection{Niveles de Aislamiento en las Transacciones}
-	Actualmente solo soporta el nivel \emph{Read committed}, estaría bueno
-	implementar los demás niveles de aislamiento \ref{isolation}.
+		Actualmente solo soporta el nivel \emph{Read committed}, estaría bueno
+		implementar los demás niveles de aislamiento \ref{isolation}.
 	
-	\subsection{Aplicación de aspecto observable en Colecciones}
+	\subsection{Aplicación de aspecto observable en las Colecciones}
 		Actualmente los cambios realizados en las propiedades de los objetos como
-		Arrays, Listas, Mapas, etc, no se aplica el aspecto observable cuando
-		se operan con ellos. Por ejemplo en las operaciones de \emph{add}, \emph{remove} o
-		equivalentes, no estamos realizando una nueva asignación del atributo, sino
-		que internamente la estructura se modifica, entonces el objeto de dominio no
-		tira eventos de cambio y por ende la interfaz no se actualiza.
+		\lstinline|Arrays|, \lstinline|Listas|, \lstinline|Mapas|, etc, no se aplica
+		el aspecto observable cuando se operan con ellos. Por ejemplo en las
+		operaciones de \emph{add}, \emph{remove} o equivalentes, no se esta 
+		realizando una nueva asignación del atributo, sino que internamente la
+		estructura se modifica, entonces el objeto de dominio no tira eventos de
+		cambio y por ende la interfaz no se actualiza.
 		
 	\subsection{Mejorar APO}
 		Se podrían realizar mejoras en la herramienta para brindar mas usabilidad al
 		momento de crear los aspectos. como por ejemplo brindar configuraciones para
 		interceptar métodos, constructores, instanciaciones, excepciones, etc.
 		
-	\subsection{Monitoreo y debugging de transacciones}
-		Proveer una interfaz para monitoreo remoto en tiempo real. Podrían ser plugins
-		de eclipse que permitan ver las transacciones activas. 
-		Poder browsear los objetos modificados, comparar contra diferentes valores en
-		otras transacciones. Un grafo de transacciones, etc.
-		Estadísticas de los casos de uso mas utilizados, los
-		objetos mas editados, modificados, creados, borrados. 
-		Estadísticas de uso por usuarios, etc. Se podría
-		utilizar para entender cada usuario que es lo que mas
-		utiliza del sistema, o identificar roles.
-
-	
-	\subsection{Integración POO y POT independientemente del Arena}
+	\subsection{Integración de POO y POT independientemente del Arena}
 		Actualmente la integración ambos aspectos se realizó utilizando conceptos
 		implementados en Arena, ya que para la integración se utiliza una clase
 		\lstinline|TransactionalObservableValue| que extiende de
-		\lstinline|AbstractObservableValue|. \emph{TransactionalObservableValue}
-		intercepta la notificación de cambio, evaluando según que
-		\lstinline|IsolationLevelEvents| se esté utilizando en el momento.
-		 
+		\lstinline|AbstractObservableValue|. \emph{AbstractObservableValue} es una
+		clase de el framework que utiliza Arena para realizar el binding.

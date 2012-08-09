@@ -12,7 +12,7 @@ dominio.
 
 	\begin{figure}[h!]
 		\centering
-		\includegraphics[width=500px, height=285px]{img/transaccion}
+		\includegraphics[width=450px, height=250px]{img/transaccion}
 		\caption{Diagrama UML de la aplicación de ejemplo}
 		\label{example}
 	\end{figure}	
@@ -21,23 +21,41 @@ A continuación se describirán las dos pantallas más importantes de la
 aplicación, que nos permitirán mostrar las diferentes utilidades brindadas por
 nuestra propuesta.
  
-\subsection{Transferencia simple} 
-	Tres ventajas:
-	- queda más simple
-	- menos posibilidad de mandármela
-	- concurrencia.
-
-La figura \ref{executeTransaction} muestra el método  \lstinline|execute| de la
-clase \lstinline|Transaction| \begin{figure}[h]
-	\begin{lstlisting}
-		public void execute(){
-			this.source.withdraw(this.amount);
-			this.destination.deposit(this.amount);
-		}
-	\end{lstlisting}
-	\caption{Fragmento de código de la Clase Transaction}
-	\label{executeTransaction}
-\end{figure}
+\subsection{Transferencia simple}
+	La primera pantalla que describe una transferencia \ref{trasferenciaSimple},
+	pemite elegir una de las cuentas de un cliente, y otra cuenta que este dentro
+	del sistema, y realizar una transferencia de la primera hacia la segunda con el
+	monto indicado. Utilizar ambos aspectos se llegan a destacar tes ventajas:
+	
+	\begin{description}
+		\item[Código simple] El código solo se concentra en lo importante, que es
+		debitar y extraer el monto.
+		La figura \ref{executeTransaction} muestra el método  \lstinline|execute| de la
+		clase \lstinline|Transaction| 
+		\begin{figure}[h]
+			\begin{lstlisting}
+				public void execute(){
+					this.source.withdraw(this.amount);
+					this.destination.deposit(this.amount);
+				}
+			\end{lstlisting}
+			\caption{Fragmento de código de la Clase Transaction}
+			\label{executeTransaction}
+		\end{figure}
+		 
+		\item[Menos posibilidad de cometer un error] Dado que código de dominio es
+		limpio, no hay comportamiento fuera de la logica de negocio que pueda provocar
+		un error.
+		\item[concurrencia]???
+	\end{description}
+	
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=450px, height=375px]{img/simple-transferencia}
+		\caption{Pantalla de transferencia}
+		\label{trasferenciaSimple}
+	\end{figure}
   	
 \subsection{Transferencias múltiples}
 	muchas transferencias en una única transacción\ldots fijate si sale algo y si no
