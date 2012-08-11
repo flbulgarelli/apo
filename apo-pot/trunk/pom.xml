@@ -1,5 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+	http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>uqbar</groupId>
 	<artifactId>pot</artifactId>
@@ -19,8 +20,12 @@
 	</properties>
 
 	<scm>
-		<connection>scm:svn:http://xp-dev.com/svn/uqbar/projects/apo/apo-pot/trunk</connection>
-		<developerConnection>scm:svn:http://xp-dev.com/svn/uqbar/projects/apo/apo-pot/trunk</developerConnection>
+		<connection>
+			scm:svn:http://xp-dev.com/svn/uqbar/projects/apo/apo-pot/trunk
+		</connection>
+		<developerConnection>
+			scm:svn:http://xp-dev.com/svn/uqbar/projects/apo/apo-pot/trunk
+		</developerConnection>
 		<url>http://xp-dev.com/svn/uqbar/projects/apo/apo-pot/trunk</url>
 	</scm>
 
