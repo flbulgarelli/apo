@@ -17,7 +17,7 @@ public class POOPropertyChangeSupport extends PropertyChangeSupport implements P
 	
     @Override
 	public void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
-    	super.firePropertyChange(propertyName,  oldValue, newValue);
+    	super.firePropertyChange(propertyName, oldValue, newValue);
     }
     
 	public void addPropertyChangeListener(String propertyName, EventListener listener) {
@@ -27,5 +27,4 @@ public class POOPropertyChangeSupport extends PropertyChangeSupport implements P
 	public void removePropertyChangeListener(String propertyName, EventListener listener) {
     	super.removePropertyChangeListener(propertyName, (PropertyChangeListener) listener);
     }
-
 }

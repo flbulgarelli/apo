@@ -23,6 +23,7 @@ class ObservableBehavior {
     addFieldChangeSupport(ctClass);
     addGeterChangeSupport(ctClass);
     addFirePropertyChangeMethod(ctClass);
+    //addFirePropertyChangeMethodDouble(ctClass);    
     addAddPropertyChangeListenerMethod(ctClass);
     addRemovePropertyChangeListenerMethod(ctClass);
   }
@@ -103,6 +104,27 @@ class ObservableBehavior {
       withOwner(ctClassOwner)
       witBody(firePropertyChangeBody)
       withparameterClass(ctClsString, ctClsObject, ctClsObject)
+    }.build()
+
+    addMethod(ctClassOwner, method);
+
+  }
+
+  private def addFirePropertyChangeMethodDouble(ctClassOwner: CtClass) {
+    val ctClsString = getClass(classOf[String], ctClassOwner);
+    val ctClsObject = getClass(classOf[Object], ctClassOwner);
+    val ctClsDouble = getClass(classOf[Double], ctClassOwner);
+
+    var firePropertyChangeBody = "{" +
+      "$this.getChangeSupport().firePropertyChange($argument1, $argument2, $argument3);}";
+
+    var method = new CtMethodBuilder() {
+      withName("firePropertyChange")
+      withModifier(Modifier.PUBLIC)
+      withReturnType(CtClass.voidType)
+      withOwner(ctClassOwner)
+      witBody(firePropertyChangeBody)
+      withparameterClass(ctClsString, ctClsObject, ctClsDouble)
     }.build()
 
     addMethod(ctClassOwner, method);
