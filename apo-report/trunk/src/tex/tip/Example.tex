@@ -21,43 +21,56 @@ A continuación se describirán las dos pantallas más importantes de la
 aplicación, que nos permitirán mostrar las diferentes utilidades brindadas por
 nuestra propuesta.
  
-\subsection{Transferencia simple}
-	La primera pantalla que describe una transferencia \ref{trasferenciaSimple},
-	pemite elegir una de las cuentas de un cliente, y otra cuenta que este dentro
-	del sistema, y realizar una transferencia de la primera hacia la segunda con el
-	monto indicado. Utilizar ambos aspectos se llegan a destacar tes ventajas:
-	
-	\begin{description}
-		\item[Código simple] El código solo se concentra en lo importante, que es
-		debitar y extraer el monto.
-		La figura \ref{executeTransaction} muestra el método  \lstinline|execute| de la
-		clase \lstinline|Transaction| 
-		\begin{figure}[h]
-			\begin{lstlisting}
-				public void execute(){
-					this.source.withdraw(this.amount);
-					this.destination.deposit(this.amount);
-				}
-			\end{lstlisting}
-			\caption{Fragmento de código de la Clase Transaction}
-			\label{executeTransaction}
-		\end{figure}
-		 
-		\item[Menos posibilidad de cometer un error] Dado que código de dominio es
-		limpio, no hay comportamiento fuera de la logica de negocio que pueda provocar
-		un error.
-		\item[concurrencia]???
-	\end{description}
-	
-	
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=450px, height=375px]{img/simple-transferencia}
-		\caption{Pantalla de transferencia}
-		\label{trasferenciaSimple}
-	\end{figure}
-  	
-\subsection{Transferencias múltiples}
-	muchas transferencias en una única transacción\ldots fijate si sale algo y si no
-	lo volamos.
+\begin{description}
 
+	\item[Transferencia simple]
+		La primera pantalla que describe una transferencia \ref{trasferenciaSimple},
+		pemite elegir una de las cuentas de un cliente, y otra cuenta que este dentro
+		del sistema, y realizar una transferencia de la primera hacia la segunda con el
+		monto indicado. Utilizar ambos aspectos se llegan a destacar tes ventajas:
+		
+		\begin{description}
+			\item[Código simple] El código solo se concentra en lo importante, que es
+			debitar y extraer el monto.
+			La figura \ref{executeTransaction} muestra el método  \lstinline|execute| de la
+			clase \lstinline|Transaction| 
+			\begin{figure}[h]
+				\begin{lstlisting}
+					public void execute(){
+						this.source.withdraw(this.amount);
+						this.destination.deposit(this.amount);
+					}
+				\end{lstlisting}
+				\caption{Fragmento de código de la Clase Transaction}
+				\label{executeTransaction}
+			\end{figure}
+			 
+			\item[Menos posibilidad de cometer un error] Dado que código de dominio es
+			limpio, no hay comportamiento fuera de la logica de negocio que pueda provocar
+			un error.
+			\item[concurrencia]???
+		\end{description}
+		
+		
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=450px, height=375px]{img/simple-transferencia}
+			\caption{Pantalla de transferencia}
+			\label{trasferenciaSimple}
+		\end{figure}
+		
+	\item[Transferencias múltiples]
+		La segunda pantalla mas importante de la aplicación es la que permite realizar
+		multiples transferencias, y al final hacer la confirmación de todas ellas. Al
+		igual que la transferencia simple, solo se concentra en la debitar y depositar
+		el dinero en las cuentas correspondiente pero además agrega una lista
+		de las transferencias que se llevan a cabo.
+	
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=450px, height=380px]{img/multTransferencias}
+			\caption{Pantalla de transferencia}
+			\label{trasferenciaSimple}
+		\end{figure}
+		
+\end{description}
