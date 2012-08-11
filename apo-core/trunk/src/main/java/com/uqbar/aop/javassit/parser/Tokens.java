@@ -2,6 +2,8 @@ package com.uqbar.aop.javassit.parser;
 
 import com.uqbar.commons.StringUtils;
 
+import javassist.CtClass;
+import javassist.CtPrimitiveType;
 import javassist.NotFoundException;
 import javassist.expr.FieldAccess;
 
@@ -60,8 +62,9 @@ public enum Tokens {
 	},
 	
 	
-	//Shortcuts
-	
+	// **********************************************************
+	// ** Shortcuts
+	// **********************************************************
 	
 	DEFAULT_VALUE_ASSIGMENT("$defaultValueAssignment") {
 		@Override
@@ -109,6 +112,23 @@ public enum Tokens {
 		public String getJavassistExp(FieldAccess fieldAccess) {
 			return ARGUMENT.getJavassistExp(fieldAccess)+"1";
 		}
+	},
+
+	COERCE_TO_OBJECT("$coerceToObject") {
+		@Override
+		public String getJavassistExp(FieldAccess fieldAccess) {
+			try {
+				CtClass type = fieldAccess.getField().getType();
+				if (type.isPrimitive()) {
+					return "new " + ((CtPrimitiveType) type).getWrapperName();
+				}
+				else { 
+					return "";
+				}
+			} catch (NotFoundException e) {
+				throw new RuntimeException(e);
+			}
+		}
 	};
 
 	private String regExp;
@@ -125,8 +145,5 @@ public enum Tokens {
 		return regExp;
 	}
 
-
 	public abstract String getJavassistExp(FieldAccess fieldAccess);
-	
-
 }
