@@ -2,36 +2,38 @@
 \section{Trabajo futuro}
 \label{futurework}
 
-	\subsection{Estrategias de resolución de conflictos en las Transacciones}
+\begin{description}
+
+	\item[Estrategias de resolución de conflictos en las Transacciones]
 		Actualmente el aspecto transaccional no cuenta con una estrategia de
 		resolucion de conflictos en	 el momento que dos o mas transacciones
 		confirman sus cambios sobre los mismos atributos de un objeto.
-		Una estrategia posible puede ser que se notifique al usuario que ese
+		Una estrategia posible es que se notifique al usuario que ese
 		objeto esta siendo modificado por otra transaccion.
-		Otra estrategia podria ser que se bloquee el caso de uso cuando otra
+		Otra estrategia podría ser que se bloquee el caso de uso cuando otra
 		transaccion este manipulando alguno de los objetos involucrados.
 
-	\subsection{Niveles de Aislamiento en las Transacciones}
-		Actualmente solo soporta el nivel \emph{Read committed}, estaría bueno
+	\item[Niveles de Aislamiento en las Transacciones]
+		Actualmente solo soporta el nivel \emph{Read committed}, sería conveniente
 		implementar los demás niveles de aislamiento \ref{isolation}.
 	
-	\subsection{Aplicación de aspecto observable en las Colecciones}
-		Actualmente los cambios realizados en las propiedades de los objetos como
-		\lstinline|Arrays|, \lstinline|Listas|, \lstinline|Mapas|, etc, no se aplica
-		el aspecto observable cuando se operan con ellos. Por ejemplo en las
-		operaciones de \emph{add}, \emph{remove} o equivalentes, no se esta 
-		realizando una nueva asignación del atributo, sino que internamente la
-		estructura se modifica, entonces el objeto de dominio no tira eventos de
-		cambio y por ende la interfaz no se actualiza.
+	\item[Aplicación de aspecto observable en las Colecciones]
+		Actualmente, a los cambios realizados en las propiedades de los objetos
+		como \lstinline|Arrays|, \lstinline|Listas|, \lstinline|Mapas|, etc no se les
+		aplica el aspecto observable cuando se opera con ellos. Por ejemplo, las
+		operaciones de \emph{add} o \emph{remove} de una colección no producen
+		eventos.
 		
-	\subsection{Mejorar APO}
-		Se podrían realizar mejoras en la herramienta para brindar mas usabilidad al
+	\item[Mejorar APO]
+		Se podrían realizar mejoras en la herramienta para brindar más usabilidad al
 		momento de crear los aspectos. como por ejemplo brindar configuraciones para
 		interceptar métodos, constructores, instanciaciones, excepciones, etc.
 		
-	\subsection{Integración de POO y POT independientemente del Arena}
+	\item[Integración de POO y POT independientemente del Arena]
 		Actualmente la integración ambos aspectos se realizó utilizando conceptos
 		implementados en Arena, ya que para la integración se utiliza una clase
 		\lstinline|TransactionalObservableValue| que extiende de
 		\lstinline|AbstractObservableValue|. \emph{AbstractObservableValue} es una
-		clase de el framework que utiliza Arena para realizar el binding.
+		clase de el framework que utiliza Arena para realizar el \emph{binding}.
+
+\end{description}

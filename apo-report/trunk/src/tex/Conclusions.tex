@@ -1,13 +1,13 @@
 \section{Conclusiones}
 \label{conclusions}
-A pesar de que hoy en día existe gran cantidad de herramientas para el
-desarrollo de interfaces de usuario, existen problemas que
-aparecen con frecuencia en los desarrollos industriales que no son resueltos por
-dichas herramientas.
- Cuando esto sucede, los programadores deben recurrir a soluciones \emph{ad-hoc}
-que con frecuencia implican atacar problemas generales de forma manual y
-escribiendo grandes cantidades de código rutinario, que con frecuencia resulta
-propenso a errores.
+Hoy en día existe gran cantidad de herramientas para el
+desarrollo de interfaces de usuario. Sin embargo algunos problemas que
+aparecen con frecuencia en los desarrollos industriales no son resueltos
+adecuadamente por dichas herramientas.
+ Cuando esto sucede, los programadores deben recurrir a soluciones
+\emph{ad-hoc},  que con frecuencia implican atacar problemas generales de forma
+manual y escribiendo grandes cantidades de código rutinario, que con
+frecuencia resulta propenso a errores.
 
 En este trabajo atacamos dos problemas rutinarios de las interfaces de usuarios:
 por un lado la sincronización de datos entre la vista y el modelo de dominio; y
@@ -15,30 +15,33 @@ por otro la posibilidad de modelar operaciones que se realicen atómicamente.
 
 %lo pudimos hacer y quedó algo piola
 Utilizando las ideas de la programación orientada a aspectos pudimos desarrollar
-una herramienta que soluciona ambos problemas en forma transparente, dado que no
-requiere que hagamos modificaciones en el código del dominio, y genérica, dado
-que es aplicable a un gran conjunto de posibles dominios.
-
-%por qué es piola?
-% qué cosas son más simples?
+una herramienta que soluciona ambos problemas en forma \emph{transparente}, dado
+que no requiere que hagamos modificaciones en el código del dominio, y \emph{genérica},
+dado que es aplicable a un gran conjunto de posibles dominios.
 
 %pruebas, cómo nos convencemos de que lo que hicimos sirve
-Se probaron las transacciones en un a aplicación mas grande que la del ejemplo
-que se desarrollo en este trabajo. La aplicación que se utilizo el aspecto
-transaccional fue en la de un Kiosco, escrita en su totalidad en scala  y
-utilizando el framework Swing de Java para la interfaz de usuario.
+\medskip
+
+Para poner a prueba el aspecto transaccional se lo utilizó en una aplicación de
+mayor envergadura a los ejemplos mostrados en este trabajo.
+Para eso se desarrolló la aplicación de un Kiosco, escrita en su totalidad en
+scala y utilizando el framework Swing de Java para la interfaz de usuario.
+Este desarrollo además nos permite comprobar que los aspectos están desacoplados
+entre sí y pueden ser utilizados independientemente del framework Arena.
 
 % otras cosas útiles
-Se desarrollo un sistema de monitorieo para las transacciones. Este sistema
-permite debuggear las transacciones, proveyendo una interfaz que muestra los
+%Apo
+
+Por otro lado, se desarrolló un sistema de monitoreo para las transacciones.
+Este sistema permite debuggear las transacciones, proveyendo una interfaz que muestra los
 objetos afectados por la transaccion.
 
-Apo
 
 %utilidad en la docencia.
-Las mejoras que se realizaron en el Arena, simplifica el aprendizaje porque
-antes los alumnos tenian que tirar los eventos a mano, y eso implicaba explicar
-conceptos complicados y no permitia folalizarse en las cosas que se creen importantes.
-Ademas el Arena a va se usado no solo en la Universiad Nacional de Quilmes,
-sinó, En la Universidad Tecnológica Nacional (UTN) y en la Universidad Nacional
-De San Martin (UNSAM)
+Las mejoras que se realizaron en el Arena simplifican el aprendizaje.
+En las versiones previas los estudiantes tenian que tirar los eventos en forma
+manual, y eso implicaba explicar conceptos complejos, distrayendo la atención de
+los conceptos fundamentales de la materia.
+A partir de estas modificaciones, el framework Arena será utilizado no
+sólo en la Universiad Nacional de Quilmes, sino también en la Universidad
+Tecnológica Nacional (UTN) y en la Universidad Nacional De San Martin (UNSAM).

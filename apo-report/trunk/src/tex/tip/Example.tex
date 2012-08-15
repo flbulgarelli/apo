@@ -2,11 +2,12 @@
 Para ilustrar el uso de las herramientas desarrolladas utilizaremos como ejemplo
 una aplicación bancaria, en la que los clientes de un banco pueden transferir
 dinero de una cuenta a otra. 
-Realizar una transferencia implica extraer el
-monto indicado de una cuenta, y depositarlo en otra. 
-Al ejecutar cualquiera de estas dos operaciones se pueden producir errores,
-como por ejemplo, que no haya saldo saldo suficiente, o que el depósito supere
-el máximo permitido.
+Realizar una transferencia implica extraer de una cuenta el
+monto indicado, y depositarlo en otra. 
+En cualquiera de los dos pasos de la transferencia (extraer y depositar) se
+pueden producir errores.
+Por ejemplo, el saldo puede ser insuficiente o el depósito puede superar el
+máximo permitido.
 La figura \ref{example} muestra las clases que implementan la lógica del
 dominio.
 
@@ -19,38 +20,15 @@ dominio.
 
 A continuación se describirán las dos pantallas más importantes de la
 aplicación, que nos permitirán mostrar las diferentes utilidades brindadas por
-nuestra propuesta.
+nuestra herramienta.
  
 \begin{description}
 
-	\item[Transferencia simple]
-		La primera pantalla que describe una transferencia \ref{trasferenciaSimple},
-		pemite elegir una de las cuentas de un cliente, y otra cuenta que este dentro
-		del sistema, y realizar una transferencia de la primera hacia la segunda con el
-		monto indicado. Utilizar ambos aspectos se llegan a destacar tes ventajas:
-		
-		\begin{description}
-			\item[Código simple] El código solo se concentra en lo importante, que es
-			debitar y extraer el monto.
-			La figura \ref{executeTransaction} muestra el método  \lstinline|execute| de la
-			clase \lstinline|Transaction| 
-			\begin{figure}[h]
-				\begin{lstlisting}
-					public void execute(){
-						this.source.withdraw(this.amount);
-						this.destination.deposit(this.amount);
-					}
-				\end{lstlisting}
-				\caption{Fragmento de código de la Clase Transaction}
-				\label{executeTransaction}
-			\end{figure}
-			 
-			\item[Menos posibilidad de cometer un error] Dado que código de dominio es
-			limpio, no hay comportamiento fuera de la logica de negocio que pueda provocar
-			un error.
-			\item[concurrencia]???
-		\end{description}
-		
+	\item[Pantalla de Transferencia Simple]
+		Esta primera pantalla permite elegir una de las cuentas propias, otra cuenta
+		de cualquier otro cliente del sistema y realizar una transferencia de la
+		primera hacia la segunda con el monto indicado. Esta pantalla se
+		muestra en la figura \ref{trasferenciaSimple}.
 		
 		\begin{figure}[h]
 			\centering
@@ -58,19 +36,39 @@ nuestra propuesta.
 			\caption{Pantalla de transferencia}
 			\label{trasferenciaSimple}
 		\end{figure}
+
+		Desarrollar esta utilidad con nuestra herramienta nos permite que el código
+		solo se concentre en lo importante, que es debitar y extraer el monto. %Manejo de errores
+		La figura \ref{executeTransaction} muestra el método  \lstinline|execute| de la
+		clase \lstinline|Transaction| 
+		Dado que código de dominio es limpio, no hay comportamiento fuera de la logica
+		de negocio que pueda provocar un error.
+
+		\begin{figure}[h]
+			\begin{lstlisting}
+				public void execute(){
+					this.source.withdraw(this.amount);
+					this.destination.deposit(this.amount);
+				}
+			\end{lstlisting}
+			\caption{Fragmento de código de la Clase Transaction}
+			\label{executeTransaction}
+		\end{figure}
+		 
 		
-	\item[Transferencias múltiples]
-		La segunda pantalla mas importante de la aplicación es la que permite realizar
-		multiples transferencias, y al final hacer la confirmación de todas ellas. Al
-		igual que la transferencia simple, solo se concentra en la debitar y depositar
-		el dinero en las cuentas correspondiente pero además agrega una lista
-		de las transferencias que se llevan a cabo.
+	\item[Pantalla de Transferencias Múltiples]
+		Esta segunda pantalla nos permite realizar multiples transferencias
+		simultáneamente.
+		Estas transferencias pueden ser confirmadas o canceladas en su todalidad en
+		cualquier momento.
+		A diferencia de la transferencia simple, se agrega una
+		lista con las transferencias que se llevan a cabo.
 	
 		\begin{figure}[h]
 			\centering
 			\includegraphics[width=450px, height=380px]{img/multTransferencias}
 			\caption{Pantalla de transferencia}
-			\label{trasferenciaSimple}
+			\label{trasferenciaMultiple}
 		\end{figure}
 		
 \end{description}
