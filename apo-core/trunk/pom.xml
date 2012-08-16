@@ -10,9 +10,10 @@
 
 	<parent>
 		<groupId>uqbar</groupId>
-		<artifactId>arena-parent</artifactId>
-		<version>1.1</version>
+		<artifactId>apo-parent</artifactId>
+		<version>1.0</version>
 	</parent>
+
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -77,24 +78,8 @@
 			<artifactId>commons-lang</artifactId>
 			<version>2.2</version>
 		</dependency>
-
-		<!-- SCALA -->
-		<dependency>
-			<groupId>org.scala-lang</groupId>
-			<artifactId>scala-library</artifactId>
-			<version>2.9.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.scalatest</groupId>
-			<artifactId>scalatest_2.9.1</artifactId>
-			<version>1.6.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.scala-tools.testing</groupId>
-			<artifactId>specs_2.9.1</artifactId>
-			<version>1.6.9</version>
-		</dependency>
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -105,28 +90,9 @@
 					<tagBase>${scm.svnServer.xpdev}/${scm-xpdev-apo}/tags</tagBase>
 				</configuration>
 			</plugin>
-
-			<plugin>
-				<groupId>org.scala-tools</groupId>
-				<artifactId>maven-scala-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>scala-compile-first</id>
-						<phase>process-resources</phase>
-						<goals>
-							<!-- <goal>add-source</goal> -->
-							<goal>compile</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>scala-test-compile</id>
-						<phase>process-test-resources</phase>
-						<goals>
-							<goal>testCompile</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
+
+
+
 </project>
