@@ -38,11 +38,12 @@ nuestra herramienta.
 		\end{figure}
 
 		Desarrollar esta utilidad con nuestra herramienta nos permite que el código
-		solo se concentre en lo importante, que es debitar y extraer el monto. %Manejo de errores
+		solo se concentre en lo importante, que es debitar y extraer el monto. 
 		La figura \ref{executeTransaction} muestra el método  \lstinline|execute| de la
-		clase \lstinline|Transaction| 
+		clase \lstinline|Transaction|. 
 		Dado que código de dominio es limpio, no hay comportamiento fuera de la logica
-		de negocio que pueda provocar un error.
+		de negocio que pueda provocar un error. Otra cosa que se puede apreciar del el
+		código es que no tiene ningún manejo de excepciones.
 
 		\begin{figure}[h]
 			\begin{lstlisting}
