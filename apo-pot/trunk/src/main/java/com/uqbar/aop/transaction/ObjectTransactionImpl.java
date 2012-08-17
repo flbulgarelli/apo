@@ -102,23 +102,23 @@ public class ObjectTransactionImpl implements ObjectTransaction {
     	return oldValue;
     }
 
-    public Integer fieldRead(Object owner, String fieldName, int value) {
+    public int fieldRead(Object owner, String fieldName, int value) {
     	return ((Integer) this.fieldRead(owner, fieldName, Integer.valueOf(value)));
     }
     
-    public Boolean fieldRead(Object owner, String fieldName, boolean value) {
+    public boolean fieldRead(Object owner, String fieldName, boolean value) {
     	return ((Boolean) this.fieldRead(owner, fieldName, Boolean.valueOf(value))).booleanValue();
     }
     
-    public Double fieldRead(Object owner, String fieldName, double value) {
+    public double fieldRead(Object owner, String fieldName, double value) {
     	return ((Double) this.fieldRead(owner, fieldName, Double.valueOf(value)));
     }
     
-    public Float fieldRead(Object owner, String fieldName, float value) {
+    public float fieldRead(Object owner, String fieldName, float value) {
     	return ((Float) this.fieldRead(owner, fieldName, Float.valueOf(value)));
     }
     
-    public Long fieldRead(Object owner, String fieldName, long value) {
+    public long fieldRead(Object owner, String fieldName, long value) {
     	return ((Long) this.fieldRead(owner, fieldName, Long.valueOf(value)));
     }
     
