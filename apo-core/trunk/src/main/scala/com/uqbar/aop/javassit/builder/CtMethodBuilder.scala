@@ -1,5 +1,6 @@
 package com.uqbar.aop.javassit.builder
 import javassist.CtClass
+
 import scala.collection.JavaConversions._
 import javassist.CtMethod
 import javassist.CtNewMethod

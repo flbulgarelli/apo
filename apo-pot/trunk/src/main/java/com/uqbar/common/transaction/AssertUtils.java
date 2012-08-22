@@ -8,6 +8,10 @@ import com.uqbar.commons.exceptions.ProgramException;
  */
 public class AssertUtils {
 
+	public static void assertNull(String message, Object obj) {
+		assertTrue(message, obj == null);
+	}
+
 	public static void assertNotNull(String message, Object obj) {
 		assertTrue(message, obj != null);
 	}

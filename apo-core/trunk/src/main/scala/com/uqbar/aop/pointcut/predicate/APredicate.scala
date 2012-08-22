@@ -1,4 +1,5 @@
 package com.uqbar.aop.pointcut.predicate
+
 import javassist.CtField
 import javassist.CtClass
 
