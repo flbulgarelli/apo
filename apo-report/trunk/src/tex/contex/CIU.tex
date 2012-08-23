@@ -4,8 +4,8 @@
 	\subsubsection{MVC}
 	El patrón Modelo-Vista-Controlador (MVC) es un estilo de arquitectura de
 	software que separa el modelo de dominio, la UI,
-	y la relación entre ellos \emph{(Controlador)} en tres componentes distintos.
-	\cite{burbeck87}
+	y la relación entre ellos \emph{(Controlador)} en tres componentes distintos
+	\cite{burbeck87}.
 	
 	La idea principal de MVC, y que influyó a la mayoría de los frameworks de
 	presentación posteriores, es la de Presentación Separada \emph{(Separated
@@ -13,11 +13,11 @@
 	dominio que modelan nuestra percepción del mundo real y objetos de presentación, 
 	que son los elementos UI que vemos en la pantalla. 
 	Esto nos brinda una clara separación de responsabilidades entre interfaz,
-	lógica de negocio y de control. Además nos permite soportar múltiples
-	presentaciones para un mismo modelo de información. \cite{reenskaug79}
+	lógica de negocio y control. Además nos permite soportar múltiples
+	presentaciones para un mismo modelo de información \cite{reenskaug79}.
 	\bigskip
 	
-	A continuación en la figura \ref{mvc} se describen los tres componentes.  
+	En la figura \ref{mvc} se describen los tres componentes.  
 	
 	\begin{figure}[h]
 		\centering
@@ -36,7 +36,7 @@
 			
 		\item {\bf Vista}
 			La Vista muestra la información del modelo al usuario e interactúa y recibe
-			las acciones.
+			las acciones del mismo.
 			
 		\item {\bf Controlador}
 			Es el intermediario entre el modelo y la vista.
@@ -47,14 +47,14 @@
 	\end {itemize}
 
 \subsubsection{Eventos}
-\label{sec:Eventos}
+\label{Eventos}
 
 Un evento es un suceso en el sistema, tal como una interacción del usuario con
 la máquina, o un mensaje enviado por un objeto.  
 El sistema maneja el evento enviando el mensaje adecuado al objeto pertinente. 
 
 Muchas implementaciones de eventos en el patrón MVC, se construyen utilizando el
-patrón observer \cite{Gamma1995}:
+patrón observer \cite{Gamma1995}.
 
 \begin{quote}
 
@@ -80,8 +80,8 @@ patrón observer \cite{Gamma1995}:
 
 	El \emph{binding} es una conección de propiedades entre dos objetos. 
 	Nos permite sincronizar los valores de las propiedades de dos objetos
-	diferentes, por ejemplo: vista y modelo. Habitualmente esto se logra a través de
-	el uso de eventos.
+	diferentes, por ejemplo: vista y modelo. Habitualmente esto se logra a través
+	del uso de eventos.
 	Cada vez que el valor de una propiedad cambia, el objeto notifica, dispara un
 	evento, y todas las propiedades que estén conectadas a él,
 	reflejan los cambios automáticamente, dando la posibilidad de transformar y
@@ -101,14 +101,14 @@ patrón observer \cite{Gamma1995}:
 		
 		\bigskip
 	
-	La ausencia de \emph{binding} implica mayor trabajo \ldots y como consecuencias
-	\comment{conlleva} mayor tiempo de desarrollo en  traspasar la información de los
+	La ausencia de \emph{binding} implica mayor trabajo  y como consecuencia
+	conlleva mayor tiempo de desarrollo en  traspasar la información de los
 	objetos de dominio hacia los componentes de la interfaz gráfica y viceversa, repitiendo muchas lineas de código.
 	
 	Podemos tener información inconsistente, como por ejemplo, al mostrarse la interfaz,
 	muestra el valor actual de la propiedad de un objeto de dominio, y después el
 	objeto de dominio cambia el valor de su propiedad, la interfaz no se actualiza,
-	y la información queda inconsistentes.
+	y la información queda inconsistente.
 	
 	\bigskip
 	
@@ -123,9 +123,9 @@ patrón observer \cite{Gamma1995}:
 		
 		\item {\bf Bidireccional}
 		En este tipo de asociación el flujo se produce en ambas direcciones. Los cambios
-		realizados en el modelo se ven reflejados  en la vista y viceversa. (Este es el
-		tipo de binding que tenemos en el Arena). Esto es posible, gracias a la
-		utilización de los eventos, tanto desde el dominio como de la interfaz.
+		realizados en el modelo se ven reflejados  en la vista y viceversa. 
+		Esto es posible, gracias a la utilización de los eventos, tanto desde el
+		dominio como de la interfaz.
 		En nuestro trabajo nos enfocamos en este tipo de binding.
 		
 	
@@ -133,7 +133,7 @@ patrón observer \cite{Gamma1995}:
 	
 
 
-\subsubsection{Limitaciones}
+\subsubsubsection{Limitaciones}
 	Para poder utilizar el \emph{binding}, se necesita que los objetos de dominio, 
 	conozcan el concepto de eventos.
 	
@@ -143,9 +143,12 @@ patrón observer \cite{Gamma1995}:
 
 	
 \subsubsection{Framework Arena}
-	Arena es un Framework muy sencillo que implementa los principios de diseño y
+	Arena es un Framework sencillo que implementa los principios de diseño y
 	organización de interfaces de usuario que se ven en la materia Creación de
-	Interfaces de Usuario.
+	Interfaces de Usuario\footnote{Creación de Interfaces de Usuario
+	es una materia del Núcleo avanzado obligatorio de la Tecnicatura
+	Universitaria en Programación Informática de la Universidad Nacional de
+	Quilmes}.
 	
 	Esta creado con fines educativos y por lo tanto se focaliza en la puesta en
 	práctica de los conceptos mas relevantes.

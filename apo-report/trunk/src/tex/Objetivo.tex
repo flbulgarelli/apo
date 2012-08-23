@@ -12,11 +12,11 @@ Toda esta funcionalidad debe poder ser implementada en forma transparente,
 sin modificar el dominio ni imponerle restricciones.
 
 El segundo objetivo es proveer un soporte para transacciones, que
-permita automatizar el \emph{rollback} de que la operación en curso no se pueda
+permita automatizar el \emph{rollback} en la operación en curso que no se pueda
 finalizar o que el usuario decida cancelarla.
 Además, dos usuarios deberán poder trabajar con la misma información
 simultáneamente con un grado de aislamiento \emph{read committed}.
 
 El tercer objetivo es proveer una sistema de monitoreo para las transacciones,
 que permita ver el estado de todas las transacciones actuales, y una descripción
-sobre los objetos y los fields que están afectados por la transacción.
+sobre los objetos y los atributos que están afectados por la transacción.

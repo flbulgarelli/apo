@@ -22,7 +22,7 @@
 	Al momento de hacer el \emph{commit} en una transacción, los valores
 	contenidos en el contexto transaccional son impactados en la transacción
 	padre.
-	En caso de tratarse de una trasacción de primer nivel, los cambios se impactan
+	En caso de tratarse de una transacción de primer nivel, los cambios se impactan
 	en los objetos de dominio.
 	Esta forma de implementación permite que la identidad del objeto se
 	mantenga, ya que el objeto no se modifica ni se clona, solo se intercepta el
@@ -39,7 +39,7 @@
 	
 	\medskip
 	
-	Otro agregado a la versión original es la intercepción de las modificaciones 
+	Otro agregado a la versión original es la intersección de las modificaciones 
 	a un objeto de tipo \lstinline|Collection|, por ejemplo agregar o quitar
 	objetos de una colección.
 	Esto presenta un desafío especial ya que habitualmente en los programas Java

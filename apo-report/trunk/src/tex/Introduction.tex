@@ -1,3 +1,59 @@
 \section{Introducción}
 
-sdfsf
+Este trabajo se centra en automatizar dos tareas comunes en el desarrollo
+de aplicaciones orientadas a objetos. El primero es el traspaso de datos
+entre los objetos del dominio y los componentes de la interfaz gráfica. Y el
+segundo es tener un mecanismo de cancelación de las operaciones que se estén
+realizando, asegurando la atomicidad y consistencia de los datos.
+
+
+
+\ldots TODO:Sin revisión\ldots
+
+
+Al desarrollar interfaces de usuario, con frecuencia gran parte del tiempo se
+destina pocas tareas rutinarias, como el traspaso de datos entre los objetos
+del dominio y los componentes de la interfaz gráfica. Si bien esta tarea es
+simple, cuando su realización es manual la vuelve propensa a errores.
+Adicionalmente, muchas interfaces de usuario requieren la posibilidad de que el
+usuario cancele la operación que está realizando. En una aplicación
+multiusuario, las tareas para garantizar consistencia ante una cancelación no
+son sencillas. En este trabajo se propone una posible solución a estos
+problemas basada en programación orientada a aspectos. Un primer aspecto
+permite que los objetos de dominio en forma transparente disparen eventos al
+ser modificados, de forma de actualizar la interfaz de usuario (UI) acorde a
+esos cambios. Un segundo aspecto automatiza las operatoria relacionada con las
+cancelaciones, permitiendo que las modificaciones a los objetos del dominio se
+realicen siguiendo el concepto de transacción, y concentrándonos en las
+propiedades de atomicidad y consistencia.
+
+
+Contexto
+	Construcción de interfaces de usuario usando el patrón MVC
+		MVC
+		Eventos
+		Binding
+		Framework Arena
+	Transacciones
+		Propiedades ACID
+		Niveles de aislamiento
+	Programación orientada a Aspectos
+		Definición de un Aspecto
+Estado del arte
+	Estrategias para la comunicación dominio-vista
+		Binding con eventos manuales
+		Formularios
+	Manejo de transacciones en la UI
+Objetivo
+Solucion propuesta
+	Aspecto Observable
+ 	Aspecto Transaccional
+ 	Integración de ambos aspectos entre sí y con la UI 
+Nuestra herramienta
+	Selección de un framework de aspectos
+ 	Desarrollo de Aspect for Pure Objects
+ 	Pure Object Transaction
+ 	Pure Observable Objects
+ 	Integración de POT, POO y Arena
+  	Otras mejoras al Arena 
+Aplicacion d 	

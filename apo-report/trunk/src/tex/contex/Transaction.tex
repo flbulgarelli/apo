@@ -42,8 +42,9 @@ antes de comenzar la tarea.
 
 \subsubsection{Propiedades ACID}
 \label{sec:ACID}
-Se denomina ACID a las propiedades de las transacciones que debe mantener el
-SGBD para garantizar la integridad de los datos. \cite{HaerderReuter83}.
+Se denomina ACID a las propiedades de las transacciones que debe mantener
+el \comment{sistema de gestion de transacciones (SGT)} para garantizar la
+integridad de los datos \cite{HaerderReuter83}.
 
 	\begin{description}
 	\item[Atomicidad]
@@ -56,48 +57,30 @@ SGBD para garantizar la integridad de los datos. \cite{HaerderReuter83}.
 	  
 	\item[Aislamiento]	
 		El aislamiento asegura que ninguna transacción debe interferir con la
-		ejecución de otra transacción.
+		ejecución de otra transacción, para ello se ofrecen unos \emph{niveles
+		de aislamiento} \cite{ANSI:1992:ANSd} que controlan el grado de bloqueo
+		durante el acceso a los datos.
 		
-		Un SGBD generalmente hace un bloqueo de los datos o implementa un Control de
-		concurrencia mediante versiones múltiples, lo que puede resultar en una
-		pérdida de concurrencia. Por ello se necesita añadir lógica adicional al
-		programa que accede a los datos para su funcionamiento correcto.
-		La mayor parte de los SGBD ofrecen unos ciertos \emph{niveles de aislamiento}
-		que controlan el grado de bloqueo durante el acceso a los datos.
-		
-		Los niveles de aislamiento están definidos por \emph{ANSI/ISO SQL}, y se listan
-		a continuación.
+		\medskip
+
+		A continuacion se listan los niveles de aislamiento que presentan mayor
+		interez en este trabajo:
 		
 		\subsubsection{Niveles de aislamiento}
 		\label{isolation}
 	
 		\begin{description}
-
-			\item [Read uncommitted]
-				Este es el menor nivel de aislamiento. En él se permiten las lecturas
-				sucias, es decir, una transacción pude ver cambios no confirmados
-				aún por otra transacción.
-			
 			\item [Read committed]
 				En este nivel solo se pueden ver los datos que están confirmados, es decir si
 				una  transacción esta haciendo una modificación, esta no es visible a otra
 				transacción hasta que sea confirmada.
 				
-			\item [Repeatable reads] 
-				En este nivel de aislamiento, un SGBD que implemente el control de
-				concurrencia basado en bloqueos, mantiene los bloqueos de lectura y escritura
-				-de los datos seleccionados- hasta el final de la transacción. Sin embargo, no
-				se gestionan los bloqueos de rango, por lo que las lecturas fantasma pueden
-				ocurrir.
-			
-				
 		  \item [Serializable]
 				Este es el nivel de aislamiento más alto. Especifica que todas las
 				transacciones ocurran de modo aislado, o dicho de otro modo, como si todas las
 				transacciones se ejecutaran secuencialmente, es decir, una tras otra. 
-			
 			\end{description}
-	  	
+			
 	\item[Durabilidad]
 		
 		Durabilidad significa que una vez que una transacción ha sido comiteada, ésta
