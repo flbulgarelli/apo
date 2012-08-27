@@ -23,11 +23,13 @@
 
 	\subsection{Aspecto Transaccional}
 	\label{aspectoTransaccional}
-		El aspecto Transaccional permite controlar la visibilidad de las modificaciones
+		El aspecto transaccional permite controlar la visibilidad de las modificaciones
 		realizadas a un objeto.
 		Para ello, se define el concepto de \emph{contexto transaccional}.
 		Un contexto transaccional es un espacio de trabajo en el cual se pueden
 		hacer modificaciones a un objeto que no serán vistas fuera de ese contexto.
+		El aspecto transaccional posibilita al objeto que se le aplica el aspecto,
+		estar dentro del contrexto transaccional.
 	
 		Los contextos transaccionales se delimitan por las
 		operaciones detalladas en la Sección \ref{ctxTransactional}
@@ -43,7 +45,7 @@
 		El contexto transaccional permite el trabajo concurrente, permitiendo que
 		varios procesos puedan acceder a un mismo objeto al mismo
 		tiempo, con un aislamiento de nivel \emph{read commited}.
-		 
+				 
 		También se da soporte para \emph{transacciones anidadas}, es decir, la
 		posibilidad de abrir un nuevo contexto transaccional dentro de otro contexto,
 		denominado \emph{contexto padre}.
