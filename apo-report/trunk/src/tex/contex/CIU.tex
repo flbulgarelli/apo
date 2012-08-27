@@ -49,28 +49,29 @@
 \subsubsection{Eventos}
 \label{Eventos}
 
-Un evento es un suceso en el sistema, tal como una interacción del usuario con
-la máquina, o un mensaje enviado por un objeto.  
-El sistema maneja el evento enviando el mensaje adecuado al objeto pertinente. 
-
-Muchas implementaciones de eventos en el patrón MVC, se construyen utilizando el
-patrón observer \cite{Gamma1995}.
-
-\begin{quote}
-
-\begin{description}
-   
-\item [Objetivo] Definir una dependencia 1:n de forma que cuando el objeto
-	1 cambie su estado, los n objetos sean notificados y se actualicen
-	automáticamente, a estos objetos se los conoce como \emph{listener}. Esto me
-	permite tener relaciones entre objetos sin acoplamiento.
-
-\item [Motivación] En la construcción de interfaces de usuarios, se tiende
-	a separar los objetos de presentación (vistas) de los objetos de dominio, de
-	forma que se puedan tener varias vistas sincronizadas de la misma información.
-
-\end{description}
-\end{quote}
+	Un evento es un suceso en el sistema, tal como una interacción del usuario con
+	la máquina, o un mensaje enviado por un objeto.  
+	El sistema maneja el evento enviando el mensaje adecuado al objeto pertinente. 
+	
+	\begin{quote}
+	
+	\begin{description}
+	   
+	\item [Objetivo] Definir una dependencia 1:n de forma que cuando el objeto
+		1 cambie su estado, los n objetos sean notificados y se actualicen
+		automáticamente, a estos objetos se los conoce como \emph{listener}. Esto me
+		permite una comunicación entre objetos con muy bajo acoplamiento.
+	
+	\item [Motivación] En la construcción de interfaces de usuarios, se tiende
+		a separar los objetos de presentación (vistas) de los objetos de dominio, de
+		forma que se puedan tener varias vistas sincronizadas de la misma información.
+	
+	\end{description}
+	\end{quote}
+	
+	Muchas implementaciones del patrón MVC se construyen utilizando el 
+	patrón Observer. Donde el patrón Observer se contruye
+	utilizando eventos \cite{Gamma1995}.
 
 %\comment{Hay MVC's que en su implementación no utilizan eventos: TODO citar.}%
 
@@ -117,17 +118,23 @@ patrón observer \cite{Gamma1995}.
 	\begin {itemize}
 	
 		\item {\bf Unidireccional}
-		Con este tipo de binding el flujo de información se realiza en una sola dirección.
-		{Completar más}
-		
+		El \emph{binding} unidireccional permite que los cambios en la propiedad de
+		origen (modelo) actualicen automáticamente la propiedad de destino (vista),
+		pero los cambios en la propiedad del modelo no se propagan de nuevo a la
+		propiedad de la vista.
+		Este tipo de \emph{binding} es adecuado si el control que se va a enlazar es
+		de sólo lectura de forma implícita.		
 		
 		\item {\bf Bidireccional}
-		En este tipo de asociación el flujo se produce en ambas direcciones. Los cambios
-		realizados en el modelo se ven reflejados  en la vista y viceversa. 
+		El \emph{binding} bidireccional permite que los cambios realizados en la
+		propiedad del modelo o de la vista se actualicen automáticamente en el
+		otro. Este tipo de \emph{binding} es adecuado para formularios modificables u
+		otros escenarios de interfaz de usuario totalmente interactivos.
 		Esto es posible, gracias a la utilización de los eventos, tanto desde el
 		dominio como de la interfaz.
+	
 		En nuestro trabajo nos enfocamos en este tipo de binding.
-		
+		 
 	
 	\end {itemize}
 	
