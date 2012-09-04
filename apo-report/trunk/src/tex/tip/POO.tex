@@ -4,7 +4,7 @@
 	aspecto Observable planteado en la Sección \ref{aspectoObservable}.
 	Los objetos cuyos atributos se desea poder observar deben ser marcados con
 	la \emph{Annotation} \lstinline|Observable|, como
-	se muestra en la siguiente porción de código:
+	se muestra en la siguiente fracción de código:
 	
 	\begin{lstlisting} 
 		@Observable
@@ -15,18 +15,17 @@
 	La implementación interna del aspecto agrega a las clases observables un
 	atributo llamado \lstinline|changeSupport| del tipo
 	\lstinline|PropertySupport|\footnote{\lstinline|PropertySupport| es una
-	interfaz, la implementación concreta a utilizar se obtiene del el archivo de
+	interfaz, la implementación concreta a utilizar se obtiene del archivo de
 	configuración.}.
 	Adicionalmente, se agregan los métodos 
 	\lstinline|addPropertyChangeListener| y
 	\lstinline|removePropertyChangeListener| que permiten agregar 
 	y remover observadores respectivamente, y \lstinline|firePropertyChange|
 	que notifica a los observadores que un atributo ha cambiado.
-	La figura \ref{fig:poo} muestra
-	esquemáticamente el diseño de la herramienta.
+	La figura \ref{fig:poo} muestra esquemáticamente el diseño de la herramienta.
 	
 	\begin{figure}[h]
-		\includegraphics[width=450px, height=450px]{img/poo}
+		\includegraphics[width=450px, height=245px]{img/poo}
 	 	\label{fig:poo}
 	 	\caption{}
 	\end{figure}

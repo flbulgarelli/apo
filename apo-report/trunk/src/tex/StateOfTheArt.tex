@@ -13,16 +13,15 @@ como propone el patrón MVC.
 
 Para solucionar esta contradicción la teoría MVC propone que la
 comunicación entre dominio y vista se realice a través de eventos. 
-Como se explicó en la Sección \ref{sec:Eventos}, los eventos
+Como se explicó en la Sección \ref{Eventos}, los eventos
 permiten formas de comunicación con un muy bajo acoplamiento. 
 Sin embargo, son pocos los lenguajes que incorporan un manejo automático de
 eventos, por eso se requiere utilizar herramientas tecnológicas adicionales.
 A continuación detallaremos las estrategias más utilizadas para atacar este problema.
 
 \subsubsection{\emph{Binding} con eventos manuales}
-	En algunas tecnologías que no tienen manejo automático de eventos obliga a
-	los objetos de dominio a disparar eventos \emph{explícitamente} cada vez cambia
-	el valor de una de sus propiedades.
+	En algunas tecnologías que no tienen manejo automático de eventos es necesario que los objetos de dominio disparen eventos 
+	\emph{explícitamente} cada vez cambia el valor de una de sus propiedades.
 	
 	Esta técnica es utilizada en
 	frameworks como \emph{JFace-DataBinding}\footnote{JFace-DataBinding es un
@@ -51,7 +50,7 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	permite una comunicación fluida y desacoplada entre la vista y el modelo.
 	El problema es que, al disparar los eventos \\
 	manualmente se ensucian las clases del dominio\footnote{Ensuciar el dominio es
-	agregar código que no aporta al comportamiento del objeto}. Además, obliga a
+	agregar código que no aporta al comportamiento del objeto}. Además, implica
 	escribir mucho código repetitivo, que hace que sea muy fácil cometer errores.
 
 \subsubsection{Formularios}

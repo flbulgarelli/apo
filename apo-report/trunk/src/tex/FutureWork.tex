@@ -6,7 +6,7 @@
 
 	\item[Estrategias de resolución de conflictos en las Transacciones]
 		Actualmente el aspecto transaccional no cuenta con una estrategia de
-		resolución de conflictos en	 el momento que dos o mas transacciones
+		resolución de conflictos en	 el momento que dos o más transacciones
 		confirman sus cambios sobre los mismos atributos de un objeto.
 		Una estrategia posible es que se notifique al usuario que ese
 		objeto esta siendo modificado por otra transacción.
@@ -30,10 +30,10 @@
 		interceptar métodos, constructores, instanciaciones, excepciones, etc.
 		
 	\item[Integración de POO y POT independientemente del Arena]
-		Actualmente la integración ambos aspectos se realizó utilizando conceptos
-		implementados en Arena, ya que para la integración se utiliza una clase
+		Actualmente la integración de ambos aspectos se realizó utilizando conceptos
+		implementados en Arena. Para llevar a cabo la integración se utilizó la clase
 		\lstinline|TransactionalObservableValue| que extiende de
 		\lstinline|AbstractObservableValue|. \emph{AbstractObservableValue} es una
-		clase de el framework que utiliza Arena para realizar el \emph{binding}.
+		clase del framework que utiliza Arena para realizar el \emph{binding}.
 
 \end{description}

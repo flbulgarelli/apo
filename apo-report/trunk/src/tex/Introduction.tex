@@ -3,21 +3,8 @@
 Este trabajo se centra en automatizar dos tareas comunes en el desarrollo
 de aplicaciones orientadas a objetos. El primero es el traspaso de datos
 entre los objetos del dominio y los componentes de la interfaz gráfica. Y el
-segundo es tener un mecanismo de cancelación de las operaciones que se estén
-realizando, asegurando la atomicidad y consistencia de los datos.
-
-
-
-\ldots TODO:Sin revisión\ldots
-
-
-Al desarrollar interfaces de usuario, con frecuencia gran parte del tiempo se
-destina pocas tareas rutinarias, como el traspaso de datos entre los objetos
-del dominio y los componentes de la interfaz gráfica. Si bien esta tarea es
-simple, cuando su realización es manual la vuelve propensa a errores.
-Adicionalmente, muchas interfaces de usuario requieren la posibilidad de que el
-usuario cancele la operación que está realizando. En una aplicación
-multiusuario, las tareas para garantizar consistencia ante una cancelación no
+segundo es tener un mecanismo de cancelación de las operaciones.
+En una aplicación multiusuario, las tareas para garantizar consistencia ante una cancelación no
 son sencillas. En este trabajo se propone una posible solución a estos
 problemas basada en programación orientada a aspectos. Un primer aspecto
 permite que los objetos de dominio en forma transparente disparen eventos al
@@ -27,6 +14,9 @@ cancelaciones, permitiendo que las modificaciones a los objetos del dominio se
 realicen siguiendo el concepto de transacción, y concentrándonos en las
 propiedades de atomicidad y consistencia.
 
+
+
+\ldots TODO:Sin revisión\ldots
 
 Contexto
 	Construcción de interfaces de usuario usando el patrón MVC
