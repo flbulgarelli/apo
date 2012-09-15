@@ -27,7 +27,6 @@
 	\end{figure}  
 	
 	\begin {itemize}
-	
 		\item {\bf Modelo}
 			El modelo maneja el comportamiento y la información del dominio de la
 			aplicación, responde a los pedidos de información sobre su estado, 
@@ -35,24 +34,28 @@
 			
 			
 		\item {\bf Vista}
-			La Vista muestra la información del modelo al usuario e interactúa y recibe
-			las acciones del mismo.
+			La vista tiene la responsabilidad de interactuar con el usuario. La
+			comunicación con el usuario es bidireccional. Por un lado le muestra
+			información proveniente del modelo. Por el otro lado recibe acciones de parte
+			del usuario y las representa como eventos.
 			
 		\item {\bf Controlador}
 			Es el intermediario entre el modelo y la vista.
-			Captura los eventos emanados tanto del modelo como de la interfaz, y coordina
-			la interacción entre ambos.
-			
-	
+			Captura los eventos emanados de ambos y coordina la interacción entre los
+			dos.
 	\end {itemize}
 
 \subsubsection{Eventos}
 \label{Eventos}
 
-	Un evento es un suceso en el sistema, tal como una interacción del usuario con
-	la máquina, o un mensaje enviado por un objeto.  
-	El sistema maneja el evento enviando el mensaje adecuado al objeto pertinente. 
-	
+	Un evento es un suceso en el sistema, como una interacción del usuario con
+	la máquina, o un cambio en el estado interno de un objeto.
+	En un sistema orientado a eventos, existen fuentes que producen eventos y
+	\emph{listeners} que se registran para ser notificados de esos eventos y poder
+	actuar en consecuencia.	
+	El patrón \emph{Observer} \cite{Gamma1995} es una forma común de implementar la
+	idea de evento en lenguajes orientados a objetos.
+
 	\begin{quote}
 	
 	\begin{description}
@@ -69,26 +72,26 @@
 	\end{description}
 	\end{quote}
 	
-	Muchas implementaciones del patrón MVC se construyen utilizando el 
-	patrón Observer. Donde el patrón Observer se contruye
-	utilizando eventos \cite{Gamma1995}.
-
 %\comment{Hay MVC's que en su implementación no utilizan eventos: TODO citar.}%
 
 
 \subsubsection{Binding}
 \label{binding}
 
-	El \emph{binding} es una conección de propiedades entre dos objetos. 
-	Nos permite sincronizar los valores de las propiedades de dos objetos
-	diferentes, por ejemplo: vista y modelo. Habitualmente esto se logra a través
-	del uso de eventos.
-	Cada vez que el valor de una propiedad cambia, el objeto notifica, dispara un
-	evento, y todas las propiedades que estén conectadas a él,
-	reflejan los cambios automáticamente, dando la posibilidad de transformar y
-	validar la información.\\
-	También automatiza el procedimiento del traspaso de la información del
-	modelo a la interfaz y viceversa.\\
+	El \emph{binding} es una conección de propiedades entre dos objetos, que
+	permite mantener sincronizado el valor de una propiedad en el primero de esos
+	objetos con el valor alguna propiedad del segundo objeto.
+	Habitualmente esto se logra a través del uso de eventos.
+	
+	En la construcción de interfaces de usuario es habitual utilizar el concepto de
+	binding para sincronizar los datos que está viendo o modificando el usuario
+	con la información contenida en el modelo.
+	Cada vez que el usuario ingresa o modifica un valor en la pantalla, la
+	vista dispara un evento indicando el cambio de ese valor. Todas las
+	propiedades del modelo que estén conectadas con esa propiedad, serán
+	actualizadas automáticamente, dando la posibilidad de validar la información.
+	En caso que las dos propiedades no sean del mismo tipo, el binding provee
+	estrategias para realizar las conversiones que fueran necesarias.
 	
 	A continuación en la figura \ref{fig:binding} se describe el esquema de
 		\emph{binding}
