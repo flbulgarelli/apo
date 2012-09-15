@@ -33,13 +33,11 @@
 	
 	\begin{description}
 		\item[\emph{Join Point}] Un \emph{Join Point} puede ser definido como un punto
-		en la ejecución de una aplicación, como por ejemplo: la creación de una instancia, el manejo de una
-		excepción, una llamada a un método, el retorno de un método, la asignación de
-		un valor a una variable, etc.
+		de interés en el código, como por ejemplo: la instanciación de una clase, el manejo de una
+		excepción, una llamada a un método, el retorno de un método, la asignación a variable de instancia, etc.
 		
-		\item[\emph{Point Cut}] Un \emph{Point Cut} hace referencia a un conjunto de
-		Join Point que cumplen cierta condición, es decir, permiten exponer el contexto de
-		ejecución de dichos \emph{points}.
+		\item[\emph{Point Cut}] Un \emph{Point Cut} es un predicado o condición para la aplicación de un aspecto.
+		 Contiene uno o varios \emph{Join Point} que exponen el contexto de ejecución de dichos \emph{points}.
 		
 		\item[\emph{Advices}] Y por último los \emph{Advices}, éstos pueden definirse
 		como: acciones que se ejecutan en cada \emph{Join Point} dentro de un mismo
