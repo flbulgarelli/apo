@@ -27,6 +27,7 @@
 	\end{figure}  
 	
 	\begin {itemize}
+	
 		\item {\bf Modelo}
 			El modelo maneja el comportamiento y la información del dominio de la
 			aplicación, responde a los pedidos de información sobre su estado, 
@@ -43,19 +44,21 @@
 			Es el intermediario entre el modelo y la vista.
 			Captura los eventos emanados de ambos y coordina la interacción entre los
 			dos.
+			
+	
 	\end {itemize}
 
 \subsubsection{Eventos}
 \label{Eventos}
 
-	Un evento es un suceso en el sistema, como una interacción del usuario con
+		Un evento es un suceso en el sistema, como una interacción del usuario con
 	la máquina, o un cambio en el estado interno de un objeto.
 	En un sistema orientado a eventos, existen fuentes que producen eventos y
 	\emph{listeners} que se registran para ser notificados de esos eventos y poder
 	actuar en consecuencia.	
 	El patrón \emph{Observer} \cite{Gamma1995} es una forma común de implementar la
 	idea de evento en lenguajes orientados a objetos.
-
+	
 	\begin{quote}
 	
 	\begin{description}
@@ -72,9 +75,6 @@
 	\end{description}
 	\end{quote}
 	
-%\comment{Hay MVC's que en su implementación no utilizan eventos: TODO citar.}%
-
-
 \subsubsection{Binding}
 \label{binding}
 
@@ -92,6 +92,7 @@
 	actualizadas automáticamente, dando la posibilidad de validar la información.
 	En caso que las dos propiedades no sean del mismo tipo, el binding provee
 	estrategias para realizar las conversiones que fueran necesarias.
+
 	
 	A continuación en la figura \ref{fig:binding} se describe el esquema de
 		\emph{binding}
@@ -143,7 +144,7 @@
 	
 
 
-\subsubsubsection{Limitaciones}
+\paragraph{Limitaciones}
 	Para poder utilizar el \emph{binding}, se necesita que los objetos de dominio, 
 	conozcan el concepto de eventos.
 	

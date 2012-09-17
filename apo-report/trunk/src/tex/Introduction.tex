@@ -15,9 +15,6 @@ cambios.
 En el contexto de la programacion orientada a objetos, estas operaciones son
 modificaciones en el estado de un objeto.
 
-%En una aplicación multiusuario, las tareas para garantizar consistencia ante
-% una cancelación no son sencillas porque \ldots 
-
 En este trabajo se propone una posible solución a estos problemas basada en
 \emph{programación orientada a aspectos}.
 Un primer aspecto llamado \emph{Observable} (POO) permite que, en forma
@@ -37,8 +34,6 @@ conceptos fundamentales y complejos del framework \emph{Javassist}.
 APO es independiente de POT y POO, se puede utilizar
 para la creación de otros aspectos.
 
-%Si bien las herramientas desarrolladas son independientes entre sí, también se
-% desarrollaron herramientas auxiliares que permiten integrarlas.
 Para mostrar la posibilidad de componer los aspectos POO y POT se los integró en
 una extensión del framework Arena.
 Arena es un framework educativo para la creacion de interfaces de usuario
@@ -47,25 +42,23 @@ Las extensiones desarrolladas en el marco de este trabajo han sido incorporadas
 a la última versión del Arena que ya está siendo utilizada en la materia de
 Construcción de UIs de la Universidad Nacional de Quilmes, entre otras.
 
-%Esta integracion tiene como objetivo facilitar el uso del Arena, ya que se
-% utiliza con fines educativos.
-  
+\bigskip
 
-\ldots TODO\ldots
+\subsection{Estructura de este trabajo}
 
-		MVC
-		Eventos
-		Framework Arena
-	Transacciones
-		Propiedades ACID
-	Programación orientada a Aspectos
-Objetivo
-Solucion propuesta
-	Aspecto Observable
- 	Aspecto Transaccional
- 	Integración de ambos aspectos entre sí y con la UI 
-Nuestra herramienta
- 	Desarrollo de Aspect for Pure Objects
- 	Pure Object Transaction
- 	Pure Observable Objects
- 	Integración de POT, POO y Arena
+Este trabajo consta con las siguientes secciones.
+
+\begin{itemize}
+	\item {\bf Contexto}\\
+		En la Sección \ref{Context} se definen algunos de los conceptos básicos que son necesarios para la compresión del trabajo.
+	\item {\bf Estado del Arte}\\	
+		En la Sección \ref{StateOfTheArt} se describen las estrategias más comunes utilizadas actualmente en la industria para solucionar 		atacados por este trabajo.
+	\item{\bf Objetivo y Solución}\\
+		La Sección \ref{Objective} detalla el objetivo de este trabajo y la Sección \ref{Solucion} describe la estrategia propuesta para 		alcanzarlo.
+	\item{\bf Implementación y Ejemplo}\\
+		Las Secciones \ref{Implementacion} y \ref{Example} describen la implementación de la herramienta y proveen ejemplos de utilización 		de la misma.
+	\item{\bf Conclusiones y Trabajo futuro}\\		
+		En las Secciones \ref{Conclusions} y \ref{Futurework} se detallan las conlcuciones del trabajo y y posibles caminos para 
+		continuarlo.  
+\end{itemize}
+
