@@ -1,11 +1,12 @@
 \section{Nuestra herramienta: }
 
 	En esta sección se explica como se llevó a cabo la implementación de la solución
-	propuesta en la Sección \ref{Solucion}, y cumpliendo el objetivo detallado
-	en la Sección \ref{Objetivo}. Se desarrollaron dos herramientas
-	fundamentales para lo planteado. \emph{Pure Objects Observable} (POO) para atacar a la
-	problemática de la observabilidad y \emph{Pure Object Transaction} (POT) para
-	atacar a la problemática transaccional.
+	propuesta en la Sección \ref{Solucion}, cumpliendo a su vez el objetivo
+	detallado en la Sección \ref{Objetivo}. Para ello se desarrollaron dos
+	herramientas:
+	\emph{Pure Objects Observable} (POO) para atacar a la problemática de la
+	observabilidad, y \emph{Pure Object Transaction} (POT) para atacar a la
+	problemática transaccional.
 		
 	\subsection{Selección de un framework de aspectos}  
 		Un primer paso para la implementación de la herramienta fue la selección de una
@@ -18,39 +19,48 @@
 		Encontramos que AspectJ es una herramienta de más alto nivel, que extiende
 		el lenguaje Java agregando construcciones específicas para trabajar con
 		los conceptos de la teoría de programación orientada a aspectos.
-		Por otro lado AspectJ requiere que el programador que use nuestro framework
-		utilice un compilador específico. Consideramos que esta característica es muy
-		negativa, por condicionar el entorno de trabajo de los usuarios de nuestra
-		herramienta.
-		En cambio Javassist agrega los aspectos al momento de la carga de las clases,
-		sólo requiere que utilicemos un \emph{ClassLoader} específico.
+		Sin embargo, AspectJ requiere que el programador que use nuestro framework
+		utilice un compilador específico, provisto por AspectJ. 
+		Consideramos que esta característica es negativa, por condicionar el
+		entorno de trabajo de los usuarios de nuestra herramienta.
 		
-		Elegimos Javassist por su menor impacto para el programador que utilice el
-		framework como usuario.
+		Javassist, por su lado, aplica los aspectos al momento de
+		la carga de las clases, sólo requiere que utilicemos un \emph{ClassLoader}
+		específico, resultando menos invasivo para los programadores de aplicaciones
+		basadas en nuestra herramienta.
+		Como aspecto negativo, notamos que es un framework de muy bajo nivel que
+		carece de las abstracciones necesarias para modelar con aspectos y en cambio
+		obliga a pensar a nivel de edición de expresiones en el bytecode de una clase
+		compilada.
+		
+		Elegimos Javassist porque priorizamos minimizar el impacto hacia los usuarios
+		de nuestra herramienta.
 		Para minimizar los problemas asociados a utilizar un framework de tan bajo
-		nivel desarrollamos una herramienta que simplifica su uso agregando algunas
+		nivel, desarrollamos una herramienta que simplifica su uso agregando algunas
 		abstracciones útiles. Esta herramienta se describe en la sección siguiente.
 
 	\subsection{Desarrollo de Aspect for Pure Objects}
-
 		El framework Javassist permite modificar directamente el \emph{bytecode} de
 		una clase en el momento de cargarla.
 		Por ser de tan bajo nivel es uno de los frameworks de aspecto más poderosos,
-		pero a su vez el código que requiere es poco entendible.
+		pero a su vez el código que requiere es muy poco entendible.
 		Por eso se desarrolló una herramienta llamada \emph{Aspect for Pure Objects} (APO), 
-		que permite configurar aspectos utilizando conceptos de más alto nivel y
+		que permite definir aspectos utilizando conceptos de más alto nivel y
 		aplicárselo a un grupo de objetos. 
 		
 		La Figura \ref{aopImage} muestra esquemáticamente el diseño de la herramienta.
 		Una instancia de \code{AdviceWeaver} se ocupa de aplicar los cambios sobre las
 		clases.
-		Para ello cuenta con un conjunto de \code{Advice} que consisten de un
-		\code{Predicate} (que determina el conjunto de clases sobre el que aplica el
-		advice) y un objeto del tipo  \code{WeavingInstrumentor} (que
-		será el responsable de realizar las modificaciones sobre
-		las clases alcanzadas por el advice).
-		Finalmente una instancia de \code{APOClassLoader}, instalada como class loader
-		del sistema permite que antes de utilizar cualquier clase esta pueda ser procesada por el \code{AdviceWeaver}
+		Cada uno de los cambios que debe realizar el \code{AdviceWeaver} está
+		modelado por un \code{Advice}, que consiste de un \code{Predicate} y un
+		\code{WeavingInstrumentor}.
+		El \code{Predicate} tiene la responsabilidad de determinar el conjunto de
+		clases sobre el que aplica el advice, mientras que el
+		\code{WeavingInstrumentor} será el responsable de realizar las modificaciones
+		sobre las clases seleccionadas.
+		Finalmente una instancia de \code{APOClassLoader}, instalada como \emph{class
+		loader} del sistema permite que antes de utilizar cualquier clase, esta pueda
+		ser procesada por el \code{AdviceWeaver}.
 		
 		Para implementar las modificaciones se provee una implementación de
 		\code{ExprEditor} que contiene una colección de modificaciones expresadas en un

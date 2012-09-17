@@ -1,34 +1,54 @@
 \section{Introducción}
 
-Este trabajo se centra en automatizar dos tareas comunes en el desarrollo
-de aplicaciones orientadas a objetos.
+Este trabajo tiene por objetivo automatizar dos tareas comunes en el
+desarrollo de aplicaciones orientadas a objetos.
 
-El primero es el traspaso de datos entre los objetos del dominio y los componentes de la interfaz gráfica.
-En el contexto de creación de interfaces de usuario, siguiendo el patrón MVC. 
+La primera de estas tareas es el traspaso de datos entre los objetos del dominio
+y los componentes de la vista en el contexto de la creación de interfaces de
+usuario siguiendo el patrón \emph{MVC}.
  
-El segundo es tener un mecanismo de cancelación de las operaciones realizadas dentro de un contexto.
-En la Programacion orientada a objetos, estas operaciones son modificaciones en el estado de un objeto.
+La segunda tarea es proveer un mecanismo que permita deshacer los cambios
+realizado en el contexto de una tarea que no se desea o no es posible terminar.
+Por ejemplo, cuando uno usuario cancela una operación desde la interfaz o bien
+cuando una excepción impide terminar un procedimiento que ya comenzó a realizar
+cambios.
+En el contexto de la programacion orientada a objetos, estas operaciones son
+modificaciones en el estado de un objeto.
 
-En una aplicación multiusuario, las tareas para garantizar consistencia ante una cancelación no
-son sencillas porque \ldots 
+%En una aplicación multiusuario, las tareas para garantizar consistencia ante
+% una cancelación no son sencillas porque \ldots 
 
-En este trabajo se propone una posible solución a estos problemas basada en programación orientada a aspectos. 
-Un primer aspecto llamado POO permite que los objetos de dominio en forma transparente disparen eventos al ser modificados,
-de forma de actualizar la interfaz de usuario (UI) acorde a esos cambios. 
+En este trabajo se propone una posible solución a estos problemas basada en
+\emph{programación orientada a aspectos}.
+Un primer aspecto llamado \emph{Observable} (POO) permite que, en forma
+transparente, los objetos de dominio disparen eventos al ser modificados, de
+forma que la interfaz de usuario pueda actualizarse para reflejar esos cambios.
 
-Un segundo aspecto llamado POT automatiza las operatoria relacionada con las cancelaciones, permitiendo que las modificaciones
-a los objetos del dominio se realicen siguiendo el concepto de transacción, y concentrándonos en las
-propiedades de atomicidad y consistencia.
+Un segundo aspecto llamado \emph{Transaccional} (POT) automatiza la cancelación
+de una operación garantizando que todos los objetos quedan en el mismo estado en
+el que estaban antes de comenzar. Esto permite que las modificaciones a los
+objetos del dominio se realicen respetando el concepto de transacción, en
+particular las propiedades de atomicidad y consistencia.
 
-Para desarrollar POT y POO se construyó una herramienta llamada APO.
-APO es una herramienta de programacion orientada a aspecto, que abstrae conceptos fundamentales y complejos del 
-framework Javassist. APO es independiente de POT y POO, se puede utilizar para casi cualquier aspecto que se desee crear.
+Para desarrollar POT y POO se construyó una herramienta llamada
+\emph{Aspects for Pure Objects} (APO).
+APO es una herramienta para programacion orientada a aspectos que abstrae
+conceptos fundamentales y complejos del framework \emph{Javassist}. 
+APO es independiente de POT y POO, se puede utilizar
+para la creación de otros aspectos.
 
-Todas las herramientas mencionadas anteriormente son mutuamente exluyentes, es decir son indemendientes entre sí.
-Pero tambien se pueden mezclar los aspectos desarrollados. Para demostrar la posibilidad de compoder los aspectos se integró
-POO, POT, y Arena. Arena es un framework para la creacion de interfaces de usuario.
+%Si bien las herramientas desarrolladas son independientes entre sí, también se
+% desarrollaron herramientas auxiliares que permiten integrarlas.
+Para mostrar la posibilidad de componer los aspectos POO y POT se los integró en
+una extensión del framework Arena.
+Arena es un framework educativo para la creacion de interfaces de usuario
+utilizado.
+Las extensiones desarrolladas en el marco de este trabajo han sido incorporadas
+a la última versión del Arena que ya está siendo utilizada en la materia de
+Construcción de UIs de la Universidad Nacional de Quilmes, entre otras.
 
-Esta integracion tiene como objetivo facilitar el uso del Arena, ya que se utiliza con fines educativos.
+%Esta integracion tiene como objetivo facilitar el uso del Arena, ya que se
+% utiliza con fines educativos.
   
 
 \ldots TODO\ldots
