@@ -25,23 +25,12 @@ class HasAnnotationPredicate extends APredicate {
     this.annotationTypeName = annotationTypeName;
   }
 
-  override def evaluate(clazz: CtClass): Boolean = {
-    clazz.getAnnotations().foreach(annotationProxy => {
-      if (implementsAnnotationInterface(annotationProxy.getClass().getInterfaces())) {
-        return true;
-      }
-    })
-    return false;
-  }
+  override def evaluate(clazz: CtClass): Boolean =
+    !clazz.isAnnotation() && clazz.getAnnotations().exists(implementsAnnotationInterface)
 
-  def implementsAnnotationInterface[A](interfaces: Array[Class[_]]): Boolean = {
-    interfaces.foreach(interface => {
-      if (this.annotationTypeName.equals(interface.getName())) {
-        return true;
-      }
-    })
-    return false;
-  }
+  def implementsAnnotationInterface[A](annotationProxy: Object): Boolean =
+    annotationProxy.getClass().getInterfaces().exists(interface =>
+      this.annotationTypeName.equals(interface.getName()))
 
   def getAnnotationType: CtClass = {
     if (this.annotationType == null) {
