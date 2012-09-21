@@ -1,22 +1,36 @@
 \subsection{Construcción de interfaces de usuario usando el patrón MVC}
 
 	\subsubsection{MVC}
-	El patrón Modelo-Vista-Controlador (MVC) es un estilo de arquitectura de
-	software que separa el modelo de dominio, la UI,
-	y la relación entre ellos \emph{(Controlador)} en tres componentes distintos
-	\cite{burbeck87}.
-	
+	El patrón \emph{Modelo-Vista-Controlador} (MVC) es una forma de construir
+	interfaces de usuario (UI) que propone dividir el comportamiento de una
+	aplicación en tres partes \cite{reenskaug79}:
+		\begin {itemize}
+		\item {\bf Modelo}
+			El modelo representa nuestra percepción del mundo real. 
+			Maneja el comportamiento y la información del dominio de la aplicación,
+			responde a los pedidos de información sobre su estado y tiene la
+			responsabilidad última de llevar a cabo el comportamiento del sistema.
+			
+		\item {\bf Vista}
+			La vista tiene la responsabilidad de interactuar con el usuario, es la
+			parte más fácil de identificar ya que es la que vemos en pantalla.
+			La comunicación con el usuario es bidireccional:
+			por un lado le muestra información proveniente del modelo y el otro lado
+			recibe acciones de parte del usuario, que representa internamente como eventos.
+			
+		\item {\bf Controlador}
+			Es el intermediario entre el modelo y la vista.
+			Captura los eventos emanados de ambos y coordina la interacción entre los
+			dos.
+	\end {itemize}
+	 
 	La idea principal de MVC, y que influyó a la mayoría de los frameworks de
 	presentación posteriores, es la de Presentación Separada \emph{(Separated
-	Presentation)}, que consiste en hacer una división clara entre objetos de 
-	dominio que modelan nuestra percepción del mundo real y objetos de presentación, 
-	que son los elementos UI que vemos en la pantalla. 
+	Presentation)} \cite{burbeck87}.
 	Esto nos brinda una clara separación de responsabilidades entre interfaz,
 	lógica de negocio y control. Además nos permite soportar múltiples
-	presentaciones para un mismo modelo de información \cite{reenskaug79}.
-	\bigskip
-	
-	En la figura \ref{mvc} se describen los tres componentes.  
+	presentaciones para un mismo modelo de información.
+	La figura \ref{mvc} muestra las relaciones entre los tres componentes.  
 	
 	\begin{figure}[h]
 		\centering
@@ -25,28 +39,6 @@
 		\label{mvc}
 	\end{figure}  
 	
-	\begin {itemize}
-	
-		\item {\bf Modelo}
-			El modelo maneja el comportamiento y la información del dominio de la
-			aplicación, responde a los pedidos de información sobre su estado, 
-			y responde a las instrucciones para cambiar su estado. 
-			
-			
-		\item {\bf Vista}
-			La vista tiene la responsabilidad de interactuar con el usuario. La
-			comunicación con el usuario es bidireccional. Por un lado le muestra
-			información proveniente del modelo. Por el otro lado recibe acciones de parte
-			del usuario y las representa como eventos.
-			
-		\item {\bf Controlador}
-			Es el intermediario entre el modelo y la vista.
-			Captura los eventos emanados de ambos y coordina la interacción entre los
-			dos.
-			
-	
-	\end {itemize}
-
 \subsubsection{Eventos}
 \label{Eventos}
 
