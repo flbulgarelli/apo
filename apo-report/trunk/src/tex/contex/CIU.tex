@@ -83,10 +83,7 @@
 	actualizadas automáticamente, dando la posibilidad de validar la información.
 	En caso que las dos propiedades no sean del mismo tipo, el binding provee
 	estrategias para realizar las conversiones que fueran necesarias.
-
-	
-	A continuación en la figura \ref{fig:binding} se describe el esquema de
-		\emph{binding}
+	La figura \ref{fig:binding} describe el esquema de \emph{binding}.
 		
 		\begin{figure}[h]
 			\centering
@@ -97,60 +94,82 @@
 		
 		\bigskip
 	
-	La ausencia de \emph{binding} implica mayor trabajo  y como consecuencia
-	conlleva mayor tiempo de desarrollo en  traspasar la información de los
-	objetos de dominio hacia los componentes de la interfaz gráfica y viceversa, repitiendo muchas lineas de código.
+	El binding provee una estrategia de muy alto para comunicar información entre
+	los objetos de dominio y los componentes de la vista.
+	En entornos sin binding, resolver esta problemática suele requerir gran
+	cantidad de trabajo, incrementando los tiempos de desarrollo y la probabilidad
+	de ocurrencia de errores en tareas repetitivas.
+	Por ejemplo, es posible que mientras se está mostrando el valor de una
+	propiedad en pantalla, este valor cambie; si no contamos con una herramienta
+	para automatizar la actualización de la información mostrada en
+	pantalla, es posible que la pantalla no se actualice ante el cambio
+	y la información mostrada quede inconsistente.
+
+	\medskip
+
+	Este trabajo se enfoca en bindings \emph{bidireccionales}, es decir, aquellos
+	que permiten que el flujo de información vaya en ambos sentidos: si el
+	modelo cambia se actualiza la vista y si la vista cambia se actualiza el
+	modelo.
+	Este tipo de \emph{binding} es adecuado para formularios modificables u otros
+	escenarios de interfaz de usuario totalmente interactivos.
+	Esto es posible, gracias a la utilización de los eventos, tanto desde el
+	dominio como de la interfaz.
 	
-	Podemos tener información inconsistente, como por ejemplo, al mostrarse la interfaz,
-	muestra el valor actual de la propiedad de un objeto de dominio, y después el
-	objeto de dominio cambia el valor de su propiedad, la interfaz no se actualiza,
-	y la información queda inconsistente.
-	
-	\bigskip
-	
-	Se pueden diferenciar dos tipos de \emph{binding}:
-	
-	\begin {itemize}
-	
-		\item {\bf Unidireccional}
-		El \emph{binding} unidireccional permite que los cambios en la propiedad de
-		origen (modelo) actualicen automáticamente la propiedad de destino (vista),
-		pero los cambios en la propiedad del modelo no se propagan de nuevo a la
-		propiedad de la vista.
-		Este tipo de \emph{binding} es adecuado si el control que se va a enlazar es
-		de sólo lectura de forma implícita.		
-		
-		\item {\bf Bidireccional}
-		El \emph{binding} bidireccional permite que los cambios realizados en la
-		propiedad del modelo o de la vista se actualicen automáticamente en el
-		otro. Este tipo de \emph{binding} es adecuado para formularios modificables u
-		otros escenarios de interfaz de usuario totalmente interactivos.
-		Esto es posible, gracias a la utilización de los eventos, tanto desde el
-		dominio como de la interfaz.
-	
-		En nuestro trabajo nos enfocamos en este tipo de binding.
-		 
-	
-	\end {itemize}
-	
+% 	\bigskip
+% 	
+% 	Se pueden diferenciar dos tipos de \emph{binding}:
+% 	
+% 	\begin {itemize}
+% 	
+% 		\item {\bf Unidireccional}
+% 		El \emph{binding unidireccional} permite que los cambios en la propiedad de
+% 		origen (vista) actualicen automáticamente la propiedad de destino (modelo),
+% 		pero los cambios en la propiedad del modelo no se propagan de nuevo a la
+% 		propiedad de la vista.
+% 		Este tipo de \emph{binding} es adecuado si el control que se va a enlazar es
+% 		de sólo lectura de forma implícita.		
+% 		
+% 		\item {\bf Bidireccional}
+% 		El \emph{binding} bidireccional permite que los cambios realizados en la
+% 		propiedad del modelo o de la vista se actualicen automáticamente en el
+% 		otro. Este tipo de \emph{binding} es adecuado para formularios modificables u
+% 		otros escenarios de interfaz de usuario totalmente interactivos.
+% 		Esto es posible, gracias a la utilización de los eventos, tanto desde el
+% 		dominio como de la interfaz.
+% 	
+% 		En nuestro trabajo nos enfocamos en este tipo de binding.
+% 		 
+% 	
+% 	\end {itemize}
+% 	
 
 
-\paragraph{Limitaciones}
-	Para poder utilizar el \emph{binding}, se necesita que los objetos de dominio, 
-	conozcan el concepto de eventos.
+%\paragraph{Limitaciones}
+	Para poder utilizar bindings bidireccionales, se necesita que los objetos de
+	dominio produzcan eventos. Sin embargo, esto representa una contradicción con
+	los principios básicos del MVC, que sugieren que se debería evitar modificar
+	los objetos de dominio para adaptarlos a las necesidades de la vista.
 	
-	Otro problema que aparece frecuentemente es que el binding en su versión más 
-	sencilla modifica los objetos directamente, por lo que al cancelar una operación 
-	se debe volver al estado anterior, y este proceso es repetitivo y propenso a errores. 
-
+	Otro problema que aparece frecuentemente es que el binding modifica los objetos
+	directamente, al menos en su versión más 
+	sencilla. 
+	Esto significa que cada vez que el usuario ingresa un valor en la
+	pantalla, se modifica el objeto de dominio asociado, aún cuando la navegación de la aplicación podría
+	permitirle al usuario cancelar la operación que está realizando.
+	En caso de cancelarse la operación, los cambios realizados sobre los objetos
+	deben deshacerse para retrotraer el objeto al estado que tenía al comenzar la
+	operación. Implementar este proceso en forma manual es una tarea repetitiva y
+	por lo tanto propensa a que ocurran errores por parte del programador.
 	
 \subsubsection{Framework Arena}
-	Arena es un Framework sencillo que implementa los principios de diseño y
-	organización de interfaces de usuario que se ven en la materia Creación de
-	Interfaces de Usuario\footnote{Creación de Interfaces de Usuario
-	es una materia del Núcleo avanzado obligatorio de la Tecnicatura
-	Universitaria en Programación Informática de la Universidad Nacional de
-	Quilmes}.
-	
+	Arena es un Framework para la construcción de interfaces de usuario. 
 	Esta creado con fines educativos y por lo tanto se focaliza en la puesta en
-	práctica de los conceptos mas relevantes.
+	práctica de algunos principios de diseño y organización de
+	interfaces de usuario.
+	El framework fue diseñado e implementado por el equipo docente de la materia de
+	Construcción de Interfaces de Usuario de la Tecnicatura Universitaria en Programación
+	Informática de la Universidad Nacional de Quilmes, en conjunto con docentes de
+	la Universidad de San Martín y de la Facultad Regional Buenos Aires.
+	
+	
