@@ -4,28 +4,34 @@ Este trabajo tiene por objetivo automatizar dos tareas comunes en el
 desarrollo de aplicaciones orientadas a objetos.
 
 La primera de estas tareas es el traspaso de datos entre los objetos del dominio
-y los componentes de la vista en el contexto de la creación de interfaces de
+y los componentes de la vista, en el contexto de la creación de interfaces de
 usuario siguiendo el patrón \emph{MVC}.
  
-La segunda tarea es proveer un mecanismo que permita deshacer los cambios
-realizado en el contexto de una tarea que no se desea o no es posible terminar.
-Por ejemplo, cuando uno usuario cancela una operación desde la interfaz o bien
-cuando una excepción impide terminar un procedimiento que ya comenzó a realizar
-cambios.
+La segunda tarea es proveer un mecanismo que permita deshacer cambios que se
+hubieran realizado como parte de una operación que se comenzó y que no se puede
+o no se desea finalizar.
 En el contexto de la programacion orientada a objetos, estas operaciones son
 modificaciones en el estado de un objeto.
+Por ejemplo, si un usuario cancela una operación desde
+la interfaz o si se produce una excepción durante la ejecución, la aplicación
+debe garantizar que todos los objetos afectados se devuelvan al estado que
+tenían antes de comenzar la operación inconclusa.
 
-En este trabajo se propone una posible solución a estos problemas basada en
+\medskip 
+
+En este trabajo se propone una posible solución a estos problemas, basada en
 \emph{programación orientada a aspectos}.
-Un primer aspecto llamado \emph{Observable} (POO) permite que, en forma
-transparente, los objetos de dominio disparen eventos al ser modificados, de
-forma que la interfaz de usuario pueda actualizarse para reflejar esos cambios.
+Un primer aspecto, llamado \emph{Observable} (POO), permite que, en forma
+transparente, los objetos de dominio disparen eventos al ser modificados.
+De esta forma la interfaz de usuario puede actualizarse y reflejar esos
+cambios en forma automática.
 
-Un segundo aspecto llamado \emph{Transaccional} (POT) automatiza la cancelación
-de una operación garantizando que todos los objetos quedan en el mismo estado en
-el que estaban antes de comenzar. Esto permite que las modificaciones a los
-objetos del dominio se realicen respetando el concepto de transacción, en
-particular las propiedades de atomicidad y consistencia.
+Un segundo aspecto, llamado \emph{Transaccional} (POT), automatiza la
+cancelación de una operación, garantizando que todos los objetos quedan en el
+mismo estado en el que estaban antes de comenzar. 
+Esto permite que las modificaciones a los objetos del dominio se realicen
+en forma \emph{transaccional}, en particular las propiedades de
+\emph{atomicidad} y \emph{consistencia}.
 
 Para desarrollar POT y POO se construyó una herramienta llamada
 \emph{Aspects for Pure Objects} (APO).
@@ -35,30 +41,33 @@ APO es independiente de POT y POO, se puede utilizar
 para la creación de otros aspectos.
 
 Para mostrar la posibilidad de componer los aspectos POO y POT se los integró en
-una extensión del framework Arena.
+una extensión del framework \emph{Arena}.
 Arena es un framework educativo para la creacion de interfaces de usuario
 utilizado.
 Las extensiones desarrolladas en el marco de este trabajo han sido incorporadas
 a la última versión del Arena que ya está siendo utilizada en la materia de
-Construcción de UIs de la Universidad Nacional de Quilmes, entre otras.
+Construcción de Interfaces de Usuario de la Universidad Nacional de Quilmes,
+entre otras.
 
 \bigskip
 
 \subsection{Estructura de este trabajo}
-
-Este trabajo consta con las siguientes secciones.
+\noindent Este trabajo consta de las siguientes secciones:
 
 \begin{itemize}
 	\item {\bf Contexto}\\
-		En la Sección \ref{Context} se definen algunos de los conceptos básicos que son necesarios para la compresión del trabajo.
-	\item {\bf Estado del Arte}\\	
-		En la Sección \ref{StateOfTheArt} se describen las estrategias más comunes utilizadas actualmente en la industria para solucionar 		atacados por este trabajo.
+		En la Sección \ref{Context} se introducen algunos de los conceptos básicos que
+		son necesarios para la compresión del trabajo.
+	\item {\bf Estado del Arte}\\
+		En la Sección \ref{StateOfTheArt} se describen las estrategias más comunes
+		utilizadas actualmente en la industria para solucionar atacados por este trabajo.
 	\item{\bf Objetivo y Solución}\\
-		La Sección \ref{Objective} detalla el objetivo de este trabajo y la Sección \ref{Solucion} describe la estrategia propuesta para 		alcanzarlo.
+		La Sección \ref{Objective} detalla el objetivo de este trabajo y la Sección
+		\ref{Solucion} describe la estrategia propuesta para alcanzarlo.
 	\item{\bf Implementación y Ejemplo}\\
-		Las Secciones \ref{Implementacion} y \ref{Example} describen la implementación de la herramienta y proveen ejemplos de utilización 		de la misma.
-	\item{\bf Conclusiones y Trabajo futuro}\\		
-		En las Secciones \ref{Conclusions} y \ref{Futurework} se detallan las conlcuciones del trabajo y y posibles caminos para 
-		continuarlo.  
+		Las Secciones \ref{Implementacion} y \ref{Example} describen la
+		implementación de la herramienta y proveen ejemplos de utilización de la misma.
+	\item{\bf Conclusiones y Trabajo futuro}\\
+		En las Secciones \ref{Conclusions} y \ref{Futurework} se detallan las
+		conclusiones del trabajo y y posibles caminos para continuarlo.
 \end{itemize}
-
