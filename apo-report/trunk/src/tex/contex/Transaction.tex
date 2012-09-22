@@ -3,6 +3,7 @@
 Una transacción es una unidad en la ejecución de un programa que se comporta 
 \emph{atómicamente}: debe ejecutarse por completo o fallar sin dejar rastro, no
 puede dejar los datos en un estado intermedio.
+
 Los objetivos de trabajar con transacciones son dos.
 En primer lugar, definir unidades de trabajo seguras, que permitan la
 recuperarse de los errores y mantener la coherencia de los datos, incluso en
@@ -10,6 +11,7 @@ los casos de fallas en el sistema.
 En segundo lugar, permitir el acceso concurrente, es decir, que múltiples
 usuarios utilicen la misma información al mismo tiempo sin interferir entre sí.
 
+\medskip
 Para poder trabajar con transacciones se deben contar con instrucciones
 especiales para marcar su inicio y su final:
 \begin{quote}
@@ -39,52 +41,64 @@ es que los datos de la aplicación queden en el estado exacto en el que estaba
 antes de comenzar la tarea.
 
 \bigskip
-
-\subsubsection{Propiedades ACID}
 \label{sec:ACID}
-Se denomina ACID a las propiedades de las transacciones que debe mantener
-el sistema de gestión de transacciones (SGT) para garantizar la
-integridad de los datos \cite{HaerderReuter83}.
+Para garantizar la integridad de los datos, se considera que un sistema de
+transaccional debe cumplir con un conjunto de propiedades denominadas por el
+acrónimo \emph{ACID} \cite{HaerderReuter83}.
+De las propiedades ACID, este trabajo se concentra en las de \emph{Atomicidad},
+\emph{Consistencia} y \emph{Aislamiento}. 
 
-	\begin{description}
+\begin{description}
 	\item[Atomicidad]
-		La atomicidad asegura que se realizan todas las operaciones de una transacción
-		o no se realiza ninguna.
+		Una operación en un sistema de software se considera \emph{atómica} cuando se
+		puede garantizar que no se realizará parcialmente aún cuando ocurran errores
+		durante su ejecución. 
+		En caso de operaciones complejas que constan de varias sub-operaciones, si una
+		de las sub-operaciones no se puede completar, ninguna de las sub-operaciones
+		debe ejecutarse. Si se detecta una falla después de que una de las
+		sub-operaciones ya fue realizada, se debe deshacer dicha
+		sub-operación, garantizando que el sistema vuelve al estado original antes de
+		comenzar la operación.
 		
 	\item[Consistencia]
-		 La consistencia asegura que una transacción no romperá con la integridad de
-		 los de datos.
+		Un sistema transaccional se considera que cumple con la propiedad de
+		\emph{consistencia} si existe una forma de garantizar la integridad de los
+		datos cada vez que termina una transacción.
+		En programación orientada a objetos, el encapsulamiento permite que cada
+		objeto se ocupe de su propia consistencia. 
+		Entonces, una estrategia para lograr consistencia es evitar que otras partes
+		de la aplicación manipulen los datos del dominio por fuera de los
+		propios objetos de dominio.
 	  
-	\item[Aislamiento]	
-		El aislamiento asegura que ninguna transacción debe interferir con la
-		ejecución de otra transacción, para ello se ofrecen unos \emph{niveles
-		de aislamiento} \cite{ANSI:1992:ANSd} que controlan el grado de bloqueo
-		durante el acceso a los datos.
-		
-		\medskip
+	\item[Aislamiento] \label{isolation}
+		Para cumplir la propiedad de \emph{aislamiento}, ninguna
+		transacción debe interferir con la ejecución de otra transacción.
+		Es una práctica común considerar diferentes \emph{niveles de aislamiento}
+		\cite{ANSI:1992:ANSd}, que miden el grado de independencia que tienen dos
+		transacciones ejecutándose al mismo tiempo.
 
-		A continuación se listan los niveles de aislamiento que presentan mayor
-		interés en este trabajo:
-		
-		\subsubsection{Niveles de aislamiento}
-		\label{isolation}
-	
-		\begin{description}
-			\item [Read committed]
-				En este nivel solo se pueden ver los datos que están confirmados, es decir si
-				una  transacción esta haciendo una modificación, esta no es visible a otra
-				transacción hasta que sea confirmada.
-				
-		  \item [Serializable]
-				Este es el nivel de aislamiento más alto. Especifica que todas las
-				transacciones ocurran de modo aislado, o dicho de otro modo, como si todas las
-				transacciones se ejecutaran secuencialmente, es decir, una tras otra. 
-			\end{description}
-			
-	\item[Durabilidad]
-		
-		Durabilidad significa que una vez que una transacción ha sido comiteada, ésta
-		persistirá sus cambios, incluso si el sistema falla.
+		Las técnicas propuestas en este trabajo intentarán alcanzar el nivel
+		denominado \emph{Read committed}.
+		En este nivel solo se pueden ver los datos que están confirmados, es decir, si
+		una transacción esta haciendo una modificación, esta no es visible a otra
+		transacción hasta que sea confirmada.
+
+% 	\item{\bf \emph{Read uncommitted}}
+% 				Este es el menor nivel de aislamiento. En él se permiten las lecturas
+% 				sucias, es decir, una transacción pude ver cambios no confirmados
+% 				aún por otra transacción.]
+
+% 		A continuación se listan los niveles de aislamiento que presentan mayor
+% 		interés en este trabajo:
+% 		
+% 		\begin{description}
+% 			\item []
+% 				
+% 		  \item [Serializable]
+% 				Este es el nivel de aislamiento más alto. Especifica que todas las
+% 				transacciones ocurran de modo aislado, o dicho de otro modo, como si todas las
+% 				transacciones se ejecutaran secuencialmente, es decir, una tras otra. 
+% 			\end{description}
 	
 	\end{description}
 		
