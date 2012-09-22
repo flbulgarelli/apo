@@ -48,13 +48,13 @@
 	
 	El \code{PointCut} tiene la responsabilidad de determinar el conjunto de
 	clases sobre el que aplica el advice. Se provee algunas implementaciones básicas
-	de \code{PointCuts}, por ejemplo, \code{SuperclassPointCut}, \code{FieldPointCut}, 
+	de \code{PointCuts}, por ejemplo, \code{ClassPointCut}, \code{FieldPointCut}, 
 	\code{MethodPointCut}, entre otros. Cada uno de estos \code{PointCuts} tienen un conjunto de funciones
-	de filtro, programadas por el usuario programador de la herramienta. 
+	de filtro, programadas por el usuario programador que use herramienta. 
 
 	El \code{JoinPoint} será el responsable de realizar las modificaciones 
 	sobre las clases seleccionadas. Para ello, tiene una coleccion de \code{Interceptors}.
- 	Los  \code{Interceptors} son objetos que le intereza interceptar un concepto especifíco,  por ejemplo
+ 	Los  \code{Interceptors} son objetos que interceptan una acción específica del código,  por ejemplo
  	llamadas a métodos, acceso a los atributos, ect. La herramienta provee algunas implementaciones de interceptors,
  	por ejemplo, \code{FieldInterceptor}, \code{MethodInterceptor}, ect. 
  	Cada \code{Interceptor} tiene un conjunto de \code{Behaviors}.
@@ -75,7 +75,7 @@
 	
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=450px, height=300px]{img/apo}
+		\includegraphics[width=450px, height=377px]{img/apo}
 		\caption{Diagrama UML de la herramienta APO}
 		\label{aopImage}
 	\end{figure}	 

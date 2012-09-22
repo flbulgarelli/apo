@@ -94,7 +94,7 @@
 		
 		\bigskip
 	
-	El binding provee una estrategia de muy alto para comunicar información entre
+	El binding provee una estrategia de muy alto nivel para comunicar información entre
 	los objetos de dominio y los componentes de la vista.
 	En entornos sin binding, resolver esta problemática suele requerir gran
 	cantidad de trabajo, incrementando los tiempos de desarrollo y la probabilidad
@@ -116,46 +116,16 @@
 	Esto es posible, gracias a la utilización de los eventos, tanto desde el
 	dominio como de la interfaz.
 	
-% 	\bigskip
 % 	
-% 	Se pueden diferenciar dos tipos de \emph{binding}:
-% 	
-% 	\begin {itemize}
-% 	
-% 		\item {\bf Unidireccional}
-% 		El \emph{binding unidireccional} permite que los cambios en la propiedad de
-% 		origen (vista) actualicen automáticamente la propiedad de destino (modelo),
-% 		pero los cambios en la propiedad del modelo no se propagan de nuevo a la
-% 		propiedad de la vista.
-% 		Este tipo de \emph{binding} es adecuado si el control que se va a enlazar es
-% 		de sólo lectura de forma implícita.		
-% 		
-% 		\item {\bf Bidireccional}
-% 		El \emph{binding} bidireccional permite que los cambios realizados en la
-% 		propiedad del modelo o de la vista se actualicen automáticamente en el
-% 		otro. Este tipo de \emph{binding} es adecuado para formularios modificables u
-% 		otros escenarios de interfaz de usuario totalmente interactivos.
-% 		Esto es posible, gracias a la utilización de los eventos, tanto desde el
-% 		dominio como de la interfaz.
-% 	
-% 		En nuestro trabajo nos enfocamos en este tipo de binding.
-% 		 
-% 	
-% 	\end {itemize}
-% 	
-
-
-%\paragraph{Limitaciones}
 	Para poder utilizar bindings bidireccionales, se necesita que los objetos de
 	dominio produzcan eventos. Sin embargo, esto representa una contradicción con
 	los principios básicos del MVC, que sugieren que se debería evitar modificar
 	los objetos de dominio para adaptarlos a las necesidades de la vista.
 	
 	Otro problema que aparece frecuentemente es que el binding modifica los objetos
-	directamente, al menos en su versión más 
-	sencilla. 
-	Esto significa que cada vez que el usuario ingresa un valor en la
-	pantalla, se modifica el objeto de dominio asociado, aún cuando la navegación de la aplicación podría
+	directamente, al menos en su versión más sencilla. 
+	Esto significa que cada vez que el usuario ingresa un valor en la pantalla,
+	se modifica el objeto de dominio asociado, aún cuando la navegación de la aplicación podría
 	permitirle al usuario cancelar la operación que está realizando.
 	En caso de cancelarse la operación, los cambios realizados sobre los objetos
 	deben deshacerse para retrotraer el objeto al estado que tenía al comenzar la
