@@ -11,7 +11,7 @@ import org.uqbar.commons.utils.ReflectionUtils;
 
 import com.uqbar.common.transaction.ObjectTransaction;
 import com.uqbar.common.transaction.TaskOwner;
-import com.uqbar.common.transaction.Collection.TransacionalList;
+import com.uqbar.common.transaction.Collection.STransacionalList;
 import com.uqbar.common.transaction.Collection.TransactionalMap;
 import com.uqbar.common.transaction.Collection.TransactionalSet;
 import com.uqbar.commons.collections.CollectionFactory;
@@ -81,7 +81,7 @@ public class ObjectTransactionImpl implements ObjectTransaction {
     }
     
     public List fieldWrite(Object owner, String fieldName, List newValue, List oldValue) {
-    	return ((List) this.fieldWrite(owner, fieldName, (Object)new TransacionalList(newValue), (Object)oldValue));
+    	return ((List) this.fieldWrite(owner, fieldName, (Object)new STransacionalList(newValue), (Object)oldValue));
     }
     
 	public Map fieldWrite(Object owner, String fieldName, Map newValue, Map oldValue) {

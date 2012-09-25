@@ -1,29 +1,30 @@
 package com.uqbar.poo.aop;
 
 import java.lang.Object
-
 import com.uqbar.aop.javassit.builder.CtMethodBuilder
 import com.uqbar.aop.AopConfig
-
 import javassist.CtClass
 import javassist.CtField
 import javassist.CtMethod
 import javassist.Modifier
 import javassist.NotFoundException
+import javassist.bytecode.AnnotationsAttribute
+import javassist.bytecode.annotation.Annotation
+import java.lang.reflect.Field
+import org.uqbar.commons.utils.ReflectionUtils
 
 /**
  * @author nnydjesus
  *
  */
 class ObservableBehavior {
-  
+
   val eventListenerClass = java.lang.Class.forName(AopConfig.getProperty("framework.aop.poo.propertyListener"))
 
   def addBehavior(ctClass: CtClass) {
     addFieldChangeSupport(ctClass);
     addGeterChangeSupport(ctClass);
     addFirePropertyChangeMethod(ctClass);
-    //addFirePropertyChangeMethodDouble(ctClass);    
     addAddPropertyChangeListenerMethod(ctClass);
     addRemovePropertyChangeListenerMethod(ctClass);
   }
@@ -38,12 +39,11 @@ class ObservableBehavior {
       ctClass.getField(fieldName);
     } catch {
       case e: NotFoundException => {
-        this.addField(ctClass, classOf[PropertySupport],
-          fieldName, Modifier.TRANSIENT);
+        this.addField(ctClass, classOf[PropertySupport], fieldName, Modifier.TRANSIENT);
       }
     }
   }
-
+  
   /**
    * Metodo que permite que un observador se registre a un evento
    * @param ctClassOwner
@@ -64,7 +64,6 @@ class ObservableBehavior {
     }.build()
 
     addMethod(ctClassOwner, method);
-
   }
 
   private def addRemovePropertyChangeListenerMethod(ctClassOwner: CtClass) {
@@ -110,44 +109,26 @@ class ObservableBehavior {
 
   }
 
-  private def addFirePropertyChangeMethodDouble(ctClassOwner: CtClass) {
-    val ctClsString = getClass(classOf[String], ctClassOwner);
-    val ctClsObject = getClass(classOf[Object], ctClassOwner);
-    val ctClsDouble = getClass(classOf[Double], ctClassOwner);
-
-    var firePropertyChangeBody = "{" +
-      "$this.getChangeSupport().firePropertyChange($argument1, $argument2, $argument3);}";
-
-    var method = new CtMethodBuilder() {
-      withName("firePropertyChange")
-      withModifier(Modifier.PUBLIC)
-      withReturnType(CtClass.voidType)
-      withOwner(ctClassOwner)
-      witBody(firePropertyChangeBody)
-      withparameterClass(ctClsString, ctClsObject, ctClsDouble)
-    }.build()
-
-    addMethod(ctClassOwner, method);
-
-  }
-
   /**
    * Geter para changeSupport, que instancia la variable si no es nula
    * @param ctClassOwner
    */
   private def addGeterChangeSupport(ctClassOwner: CtClass) {
     val changeSuportType = getClass(classOf[PropertySupport], ctClassOwner);
+    val classPool = ctClassOwner.getClassPool()
 
-    ctClassOwner.getClassPool().importPackage(classOf[PropertySupport].getPackage().getName());
+    classPool.importPackage(classOf[PropertySupport].getPackage().getName());
+    classPool.importPackage(classOf[Field].getPackage().getName());
+    classPool.importPackage(classOf[ReflectionUtils].getPackage().getName());
     var changeSupport = AopConfig.getProperty("framework.aop.poo.changeSupport")
 
     val getChangeSupportBody =
-      "{"+
-   		  "if($this.changeSupport == null) {"+
-  		  	" $this.changeSupport = new ${changeSupport}($this);" +
-          "}"+
-     	 "return $this.changeSupport;"+
-      "}"
+      "{" +
+        "if($this.changeSupport == null) {" +
+        "$this.changeSupport = new ${changeSupport}($this);"+
+        "}" +
+        "return $this.changeSupport;" +
+        "}"
 
     val method = new CtMethodBuilder() {
       withName("getChangeSupport")
@@ -173,12 +154,14 @@ class ObservableBehavior {
 
   def getClass(className: String, ctClass: CtClass) = ctClass.getClassPool().get(className);
 
-  private def addField(owner: CtClass, fieldClass: Class[_], name: String, modifier: Int) {
+  private def addField(owner: CtClass, fieldClass: Class[_], name: String, modifier: Int): CtField = {
     var ctField = new CtField(getClass(fieldClass.getName(), owner), name, owner);
     ctField.setModifiers(modifier);
     if (!owner.getFields().contains(ctField)) {
       owner.addField(ctField);
     }
+
+    ctField
 
   }
 

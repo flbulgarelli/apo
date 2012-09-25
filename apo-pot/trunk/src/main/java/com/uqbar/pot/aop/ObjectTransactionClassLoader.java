@@ -2,8 +2,8 @@ package com.uqbar.pot.aop;
 
 import javassist.ClassPool;
 
-import com.uqbar.aop.AdviceWeaver;
 import com.uqbar.aop.APOClassLoader;
+import com.uqbar.aop.AdviceWeaver;
 
 /**
  * Nuestro classloader, que al cargar una clase, le hace weaving para meterle la magia de aspectos.
@@ -20,7 +20,7 @@ public class ObjectTransactionClassLoader extends APOClassLoader{
 	
 	@Override
 	protected AdviceWeaver createAdviceWeaver(ClassPool cp) {
-		return new AdviceWeaver(cp, new TransactionalBehaviorAdviceWeaverStrategy());
+		return new TransactionalAdviceWeaver(cp);
 	}
 	
 }

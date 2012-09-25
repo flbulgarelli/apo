@@ -1,7 +1,8 @@
 package com.uqbar.poo.aop
-import javassist.ClassPool
 import com.uqbar.aop.APOClassLoader
 import com.uqbar.aop.AdviceWeaver
+
+import javassist.ClassPool
 
 /**
  * Nuestro classloader, que al cargar una clase, le hace weaving para meterle la magia de aspectos.
@@ -11,8 +12,8 @@ import com.uqbar.aop.AdviceWeaver
  */
 class ObservableClassLoader(parent:ClassLoader) extends APOClassLoader(parent){
 
-	override def createAdviceWeaver(cp:ClassPool):AdviceWeaver = {
-		return new AdviceWeaver(cp, new ObservableBehaviorAdviceWeaverStrategy());
+	def createAdviceWeaver(cp:ClassPool):AdviceWeaver = {
+		return new ObservableAdviceWeaver(cp);
 	}
 	
 }
