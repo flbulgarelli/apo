@@ -76,14 +76,14 @@ public enum Tokens {
 	ORIGINAL_STATEMENT_ASSIGMENT("$originalAsigment") {
 		@Override
 		public String getJavassistExp(FieldAccess fieldAccess) {
-			return DEFAULT_FIELD.getJavassistExp(fieldAccess) + " = " + Tokens.DEFAULT_VALUE_ASSIGMENT.getJavassistExp(fieldAccess)+ ";";
+			return DEFAULT_FIELD.getJavassistExp(fieldAccess) + " = " + DEFAULT_VALUE_ASSIGMENT.getJavassistExp(fieldAccess)+ ";";
 		}
 		
 	},
 	ORIGINAL_STATEMENT_READER("$originalReader") {
 		@Override
 		public String getJavassistExp(FieldAccess fieldAccess) {
-			return Tokens.RETURN.getJavassistExp(fieldAccess) + " " + Tokens.DEFAULT_FIELD.getJavassistExp(fieldAccess)+ ";";
+			return RETURN.getJavassistExp(fieldAccess) + " " + DEFAULT_FIELD.getJavassistExp(fieldAccess)+ ";";
 		}
 		
 	},

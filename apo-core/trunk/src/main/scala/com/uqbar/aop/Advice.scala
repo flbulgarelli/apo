@@ -1,7 +1,7 @@
 package com.uqbar.aop
-import javassist.expr.ExprEditor
-import com.uqbar.aop.pointcut.predicate.APredicate
+import com.uqbar.aop.pointcut.predicate.PointCut
+import javassist.expr.Expr
 
-class Advice(var predicate:APredicate, var instrument:ExprEditor) {
+class Advice(var pointCut:PointCut, var joinPoint:JoinPoint) {
 
 }

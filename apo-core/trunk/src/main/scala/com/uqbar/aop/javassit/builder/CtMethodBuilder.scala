@@ -31,6 +31,8 @@ class CtMethodBuilder {
 
   protected def createMethod(methodName: String, modifier: Int, returnType: CtClass, owner: CtClass,
     body: String, parametersType: Array[CtClass]): CtMethod = {
+    
+    val a = JavassistParser.parser(body);
 
     return CtNewMethod.make(
       modifier,
