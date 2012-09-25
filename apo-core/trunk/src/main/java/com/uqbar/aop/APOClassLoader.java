@@ -21,7 +21,7 @@ import javassist.NotFoundException;
  * @author jfernandes
  * @author npasserini
  */
-public class APOClassLoader extends ClassLoader {
+public abstract class APOClassLoader extends ClassLoader {
 	private Vector<String> notDefinedHere; // must be atomic.
 	private Vector<String> notDefinedPackages; // must be atomic.
 	private ClassPool classPool;
@@ -65,11 +65,10 @@ public class APOClassLoader extends ClassLoader {
 		
 		this.classPool = cp;
 		this.adviceWeaver = createAdviceWeaver(cp);
+		adviceWeaver.init();
 	}
 
-	protected AdviceWeaver createAdviceWeaver(ClassPool cp) {
-		return new AdviceWeaver(cp, null);
-	}
+	protected abstract AdviceWeaver createAdviceWeaver(ClassPool cp);
 
 	// ***************************
 	// ** Metodos
