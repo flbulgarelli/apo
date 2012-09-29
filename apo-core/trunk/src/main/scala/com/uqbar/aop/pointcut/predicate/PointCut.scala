@@ -6,6 +6,7 @@ import javassist.expr.FieldAccess
 import javassist.expr.MethodCall
 import scala.collection.mutable.Buffer
 import javassist.ClassPool
+import javassist.CtMethod
 
 abstract class PointCut {
   def evaluate(ctClass: CtClass): Boolean
@@ -17,7 +18,7 @@ trait InterceptMatchPointCut[T] extends PointCut {
 
   override def hasIntercept(any: Any): Boolean = {
     super.hasIntercept(any) || (any match {
-      case t: T => matchersIntercept.foldLeft(true)((c, f) => { c && f(t) })
+      case t:T => !matchersIntercept.exists(f => !f(t))
       case _ => false;
     })
   }
@@ -32,19 +33,19 @@ trait FieldPointCut extends PointCut with InterceptMatchPointCut[FieldAccess] {
   def matchField(fun: (FieldAccess) => Boolean) = matchIntercept(field => fun(field))
 }
 
-trait MethodPointCut extends MatchPointCut with InterceptMatchPointCut[MethodCall] {
-  def matchMethodName(fun: (String) => Boolean) = matchIntercept(method => fun(method.getMethodName()))
-  def matchMethod(fun: (MethodCall) => Boolean) = matchIntercept(fun)
+trait MethodPointCut extends MatchPointCut with InterceptMatchPointCut[CtMethod] {
+  def matchMethodName(fun: (String) => Boolean) = matchIntercept(method => fun(method.getName()))
+  def matchMethod(fun: (CtMethod) => Boolean) = matchIntercept(fun)
 
 }
 
 trait MatchPointCut extends PointCut {
   var matchs = Buffer[(CtClass) => Boolean]();
-  override def evaluate(ctClass: CtClass) = matchs.foldLeft(true)((c, f) => { c && f(ctClass) })
+  override def evaluate(ctClass: CtClass) = !matchs.exists(f => !f(ctClass))
 }
 
 trait ClassPointCut extends MatchPointCut {
-  def matchClassName(fun: (String) => Boolean) = matchs.append((ctClass) => fun(ctClass.getName()))
+  def matchClassName(fun: (String) => Boolean) = matchs.append((ctClass) => fun(ctClass.getSimpleName()))
   def matchPackage(fun: (String) => Boolean) = matchs.append((ctClass) => fun(ctClass.getPackageName()))
   def isSuperClas(className: String) = matchs.append((ctClass) => isSuperClass(ctClass, className))
 

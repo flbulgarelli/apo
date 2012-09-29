@@ -17,7 +17,7 @@ object JavassistParser {
     return result;
   }
   
-  def parser(expr: Expr, string: String): String = {
+  def parser[T](expr: T, string: String): String = {
     expr match {
       case fieldAI:FieldAccess => parser(fieldAI, string)
       case _ => parser(null, string)

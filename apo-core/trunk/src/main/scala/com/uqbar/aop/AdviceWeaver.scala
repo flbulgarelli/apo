@@ -8,6 +8,7 @@ import scala.collection.JavaConversions._
 import javassist.ClassPool
 import java.util.Map.Entry
 import scala.collection.mutable.Buffer
+import org.uqbar.commons.utils.ReflectionUtils
 
 /**
  * Colabora con el FrameworkClassLoader para construir los Aspectos que fueron declarados.
@@ -33,7 +34,7 @@ abstract class AdviceWeaver {
   
   def doApplyAdviceToCtClass(ctClass:CtClass, advice: Advice) {
   }
-
+  
   def applyAdvice(ctClass: CtClass) {
     if (!ctClass.isFrozen()) {
       this.advices.foreach(advice => {
@@ -47,7 +48,6 @@ abstract class AdviceWeaver {
 
   def applyAdviceToCtClass(ctClass: CtClass, advice: Advice) {
     doApplyAdviceToCtClass(ctClass, advice);
-    ctClass.instrument(advice.joinPoint);
+    advice.apply(ctClass)
   }
-
 }

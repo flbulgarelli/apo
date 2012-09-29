@@ -1,22 +1,25 @@
 package com.uqbar.aop
 
-import java.util.ArrayList
-import javassist.CannotCompileException
-import javassist.NotFoundException
-import javassist.expr.ExprEditor
-import javassist.expr.FieldAccess
+import scala.collection.mutable.Buffer
+import scala.reflect.Type
+
 import com.uqbar.aop.javassit.parser.JavassistParser
 import com.uqbar.aop.javassit.parser.Tokens
-import scala.collection.mutable.Buffer
-import javassist.expr.Expr
-import scala.reflect.Type
-import javassist.expr.MethodCall
 import com.uqbar.aop.pointcut.predicate.PointCut
+
+import javassist.expr.Expr
+import javassist.expr.ExprEditor
+import javassist.expr.FieldAccess
+import javassist.CannotCompileException
+import javassist.CtClass
+import javassist.CtMethod
+import javassist.NotFoundException
 
 /**
  * Intruduce bytecode para que se pueda interceptar todos los fields del objeto.
  *
  */
+
 class JoinPoint extends ExprEditor {
   /**
    * Lista con FieldAccessInterceptors, para armar el codigo que se va a agregar a los accesors.
@@ -44,16 +47,16 @@ class JoinPoint extends ExprEditor {
       fieldAccess.replace(JavassistParser.parser(fieldAccess, statement.toString()))
   }
 
-  override def edit(methodCall: MethodCall) {
-    var statement = new StringBuffer(methodCall.getMethod().getSignature())
-    edit[MethodCall](methodCall, statement, classOf[MethodCall])
+  def edit(method: CtMethod) {
+    var statement = new StringBuffer(method.getSignature())
+    edit[CtMethod](method, statement, classOf[CtMethod])
   }
 
   /**
    * @param fieldAccess
    * @param name Name of the field being processed
    */
-  def edit[T <: Expr](expr: T, statement: StringBuffer, classType: Class[T]): Boolean = {
+  def edit[T](expr: T, statement: StringBuffer, classType: Class[T]): Boolean = {
     var edit = false;
     if (aopEnabled) {
       try {
@@ -69,7 +72,11 @@ class JoinPoint extends ExprEditor {
       }
     }
     edit
+  }
 
+  def instrument(ctClass: CtClass) {
+    ctClass.instrument(this);
+    ctClass.getMethods().foreach(m => this.edit(m))
   }
 
   /**
@@ -89,7 +96,7 @@ class JoinPoint extends ExprEditor {
   // ***************************
 
   //TODO refactorizar esto
-  def filterInterceptor[T <: Expr](classOfT: java.lang.Class[T]): Buffer[Interceptor[T]] = {
+  def filterInterceptor[T](classOfT: java.lang.Class[T]): Buffer[Interceptor[T]] = {
     val filter = Buffer[Interceptor[T]]()
     this.interceptors.foreach(interceptor => {
       if (interceptor.getType.equals(classOfT)) {
@@ -100,13 +107,11 @@ class JoinPoint extends ExprEditor {
     return filter
   }
 
-  def getVerbosedException(ex: Exception, javaStatement: String, expr: Expr): RuntimeException = {
-    return new RuntimeException(ex.getMessage() + "\ncontainerClassName:" + expr.getEnclosingClass().getName()
-      + "\nlineNumber" + expr.getLineNumber() + "\ncontainerMethod" + expr.where().getMethodInfo()
-      + "\nJavassist Statement" + javaStatement, ex);
+  def getVerbosedException[T](ex: Exception, javaStatement: String, expr: T): RuntimeException = {
+    return new RuntimeException(javaStatement, ex);
   }
 
-  def addInterceptor[I <: Expr](interceptor: Interceptor[I]): JoinPoint = {
+  def addInterceptor[A](interceptor: Interceptor[A]): JoinPoint = {
     this.interceptors.append(interceptor);
     return this;
   }
