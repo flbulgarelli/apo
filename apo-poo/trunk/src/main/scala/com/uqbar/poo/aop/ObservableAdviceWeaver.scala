@@ -12,16 +12,16 @@ import com.uqbar.aop.JoinPoint
 import javassist.ClassPool
 import javassist.CtClass
 
+/**
+ * 
+ * @author ?
+ */
 trait TObservableAdviceWeaver extends AdviceWeaver {
-
   val observableFieldInterceptor = new ObservableFieldInterceptor()
-
   val observableBehavior = new ObservableBehavior()
 
   override def configureAdvices() {
-
-    this.advices.append(new Advice(
-      new PointCut with AnnotationPointCut with FieldPointCut {
+    this.advices.append(new Advice(new PointCut with AnnotationPointCut with FieldPointCut {
         hasAnnotation(classOf[Observable].getName())
       },
       new JoinPoint().addInterceptor(observableFieldInterceptor)))
@@ -39,7 +39,9 @@ trait TObservableAdviceWeaver extends AdviceWeaver {
 
 }
 
+/**
+ * @author ?
+ */
 class ObservableAdviceWeaver(cp: ClassPool) extends AdviceWeaver(cp) with TObservableAdviceWeaver {
   this.configureAdvices()
-
 }

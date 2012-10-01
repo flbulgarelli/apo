@@ -1,8 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
-	<groupId>uqbar</groupId>
 	<artifactId>apo-core</artifactId>
 	<version>${arena-version}</version>
 	<name>Aspect for Pure Objects</name>
@@ -11,7 +9,7 @@
 	<parent>
 		<groupId>uqbar</groupId>
 		<artifactId>apo-parent</artifactId>
-		<version>1.0</version>
+		<version>1.1-SNAPSHOT</version>
 	</parent>
 
 
@@ -34,19 +32,18 @@
 			<artifactId>util-commons</artifactId>
 			<version>${arena-version}</version>
 		</dependency>
-
 		<dependency>
-			<groupId>com.uqbar</groupId>
+			<groupId>uqbar</groupId>
 			<artifactId>uqbar-commons-collections</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>1.1-SNAPSHOT</version>
 		</dependency>
-
 		<dependency>
-			<groupId>com.uqbar</groupId>
+			<groupId>uqbar</groupId>
 			<artifactId>uqbar-commons-exceptions</artifactId>
-			<version>1.5-SNAPSHOT</version>
+			<version>1.6-SNAPSHOT</version>
 		</dependency>
-
+		<!-- /UQBAR DEPENDENCIES -->
+		
 		<dependency>
 			<groupId>javassist</groupId>
 			<artifactId>javassist</artifactId>
@@ -92,7 +89,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
 
 </project>

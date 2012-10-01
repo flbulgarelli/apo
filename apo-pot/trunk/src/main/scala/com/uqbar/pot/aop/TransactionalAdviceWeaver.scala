@@ -10,6 +10,10 @@ import javassist.expr.FieldAccess
 import com.uqbar.aop.pointcut.predicate.AnnotationPointCut
 import com.uqbar.aop.pointcut.predicate.PointCut
 
+/**
+ * 
+ * @author ?
+ */
 trait TTransactionalAdviceWeaver extends AdviceWeaver {
 
   val transactionInterceptor = new TransactionFieldInterceptor()
@@ -24,6 +28,6 @@ trait TTransactionalAdviceWeaver extends AdviceWeaver {
     super.configureJoinPoint(joinPoint)
     joinPoint.addInterceptor(transactionInterceptor)
   }
-
 }
+
 class TransactionalAdviceWeaver(cp: ClassPool) extends AdviceWeaver(cp) with TTransactionalAdviceWeaver

@@ -4,6 +4,11 @@ import scala.collection.mutable.Buffer
 import javassist.expr.FieldAccess
 import javassist.CtMethod
 
+/**
+ * 
+ * @author ?
+ * @param <A>
+ */
 //TODO hacer que se pueda componer los interceptors
 trait Interceptor[A] {
 

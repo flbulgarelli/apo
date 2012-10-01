@@ -2,8 +2,12 @@ package com.uqbar.common.transaction.Collection;
 
 import java.util.Collection
 
-
-abstract class TransactionalCollection[D<: Collection[E], E] extends TransactionalData[D] with Collection[E]{
+/**
+ * @author ?
+ * @param <D>
+ * @param <E>
+ */
+abstract class TransactionalCollection[D<: Collection[E], E] extends TransactionalData[D] with Collection[E] {
 	
 	override def size() = data.size();
 	override def isEmpty() = data.isEmpty()

@@ -5,8 +5,8 @@ import java.beans.PropertyChangeSupport;
 import java.util.EventListener;
 
 /**
+ * 
  * @author nnydjesus
- *
  */
 public class POOPropertyChangeSupport extends PropertyChangeSupport implements PropertySupport {
 	private static final long serialVersionUID = 1L;

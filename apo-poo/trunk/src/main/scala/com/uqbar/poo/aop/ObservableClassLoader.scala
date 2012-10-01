@@ -12,7 +12,7 @@ import javassist.ClassPool
  */
 class ObservableClassLoader(parent:ClassLoader) extends APOClassLoader(parent){
 
-	def createAdviceWeaver(cp:ClassPool):AdviceWeaver = {
+	def createAdviceWeaver(cp:ClassPool) : AdviceWeaver = {
 		return new ObservableAdviceWeaver(cp);
 	}
 	
