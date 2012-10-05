@@ -2,11 +2,9 @@ package com.uqbar.aop
 
 import scala.collection.mutable.Buffer
 import scala.reflect.Type
-
 import com.uqbar.aop.javassit.parser.JavassistParser
 import com.uqbar.aop.javassit.parser.Tokens
-import com.uqbar.aop.pointcut.predicate.PointCut
-
+import com.uqbar.aop.pointcut.PointCut
 import javassist.expr.Expr
 import javassist.expr.ExprEditor
 import javassist.expr.FieldAccess
@@ -14,6 +12,7 @@ import javassist.CannotCompileException
 import javassist.CtClass
 import javassist.CtMethod
 import javassist.NotFoundException
+import scala.reflect.Manifest
 
 /**
  * Intruduce bytecode para que se pueda interceptar todos los fields del objeto.
@@ -56,11 +55,11 @@ class JoinPoint extends ExprEditor {
    * @param fieldAccess
    * @param name Name of the field being processed
    */
-  def edit[T](expr: T, statement: StringBuffer, classType: Class[T]): Boolean = {
+  def edit[T:Manifest](expr: T, statement: StringBuffer, classType: Class[T]): Boolean = {
     var edit = false;
     if (aopEnabled) {
       try {
-        filterInterceptor(classType).foreach(interceptor => {
+        filterInterceptor[T]().foreach(interceptor => {
           if (pointCut.hasIntercept(expr)) {
             interceptor.intercept(statement, expr)
             edit = true;
@@ -96,10 +95,10 @@ class JoinPoint extends ExprEditor {
   // ***************************
 
   //TODO refactorizar esto
-  def filterInterceptor[T](classOfT: java.lang.Class[T]): Buffer[Interceptor[T]] = {
+  def filterInterceptor[T:Manifest](): Buffer[Interceptor[T]] = {
     val filter = Buffer[Interceptor[T]]()
     this.interceptors.foreach(interceptor => {
-      if (interceptor.getType.equals(classOfT)) {
+      if (interceptor.getType.equals(manifest[T].erasure)) {
         filter.append(interceptor.asInstanceOf[Interceptor[T]])
       }
     })

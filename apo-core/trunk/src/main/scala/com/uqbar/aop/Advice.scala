@@ -1,5 +1,5 @@
 package com.uqbar.aop
-import com.uqbar.aop.pointcut.predicate.PointCut
+import com.uqbar.aop.pointcut.PointCut
 import javassist.expr.Expr
 import javassist.CtClass
 

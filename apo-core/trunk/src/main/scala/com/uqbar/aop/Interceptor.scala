@@ -6,7 +6,7 @@ import javassist.CtMethod
 
 /**
  * 
- * @author ?
+ * @author nny
  * @param <A>
  */
 //TODO hacer que se pueda componer los interceptors

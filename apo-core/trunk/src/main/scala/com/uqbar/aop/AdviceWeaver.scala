@@ -2,7 +2,7 @@ package com.uqbar.aop
 
 import javassist.CtClass
 import scala.collection.mutable.HashMap
-import com.uqbar.aop.pointcut.predicate.PointCut
+import com.uqbar.aop.pointcut.PointCut
 import javassist.expr.ExprEditor
 import scala.collection.JavaConversions._
 import javassist.ClassPool
