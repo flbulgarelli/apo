@@ -1,4 +1,4 @@
-package com.uqbar.aop.pointcut.predicate
+package com.uqbar.aop.pointcut
 
 import javassist.CtField
 import javassist.CtClass
@@ -63,7 +63,7 @@ trait AnnotationPointCut extends MatchPointCut {
   def hasAnnotation(annotation: String): Unit = matchs.append((ctClass) => hasAnnotation(ctClass, annotation))
 
   protected def hasAnnotation(clazz: CtClass, annotation: String): Boolean = {
-    clazz.getAvailableAnnotations().exists(annotationProxy => {
+    !clazz.isAnnotation() && clazz.getAvailableAnnotations().exists(annotationProxy => {
       isImplementsAnnotation(annotationProxy.getClass().getInterfaces(), annotation)
     })
   }
