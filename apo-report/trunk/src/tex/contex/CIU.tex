@@ -1,5 +1,4 @@
 \subsection{Construcción de interfaces de usuario usando el patrón MVC}
-
 	\subsubsection{MVC}
 	El patrón \emph{Modelo-Vista-Controlador} (MVC) es una forma de construir
 	interfaces de usuario (UI) que propone dividir el comportamiento de una
@@ -69,10 +68,17 @@
 \subsubsection{Binding}
 \label{binding}
 
-	El \emph{binding} es una conección de propiedades entre dos objetos, que
-	permite mantener sincronizado el valor de una propiedad en el primero de esos
-	objetos con el valor alguna propiedad del segundo objeto.
+	El \emph{binding} es una conexión entre dos \emph{propiedades} de dos objetos, que
+	permite mantener sincronizado el valor de una propiedad en el primer
+	objeto con el valor de alguna propiedad en el segundo objeto.
 	Habitualmente esto se logra a través del uso de eventos.
+	
+	Una \emph{propiedad} es una característica que el objeto exibe hacia su exterior, 
+	permite consultar su valor y en algunos casos también actualizarlo.
+	Normalmente la implementación no será una variable de instancia, sino un mecanismo de más alto nivel.
+	Por ejemplo, en el lenguaje Java las propiedades siguiendo el contrato denominado JavaBeans, 
+	que especifica que un objeto que tenga la propiedad \code{nombre} 
+	debe proveer implementaciones para los mensajes \code{getNombre()} y (opcionalmente) \code{setNombre()}.
 	
 	En la construcción de interfaces de usuario es habitual utilizar el concepto de
 	binding para sincronizar los datos que está viendo o modificando el usuario
@@ -80,7 +86,9 @@
 	Cada vez que el usuario ingresa o modifica un valor en la pantalla, la
 	vista dispara un evento indicando el cambio de ese valor. Todas las
 	propiedades del modelo que estén conectadas con esa propiedad, serán
-	actualizadas automáticamente, dando la posibilidad de validar la información.
+	actualizadas automáticamente.
+	Esto permite que el modelo tome acciones en función de la información ingresada por el usuario, 
+	por ejemplo validarla y rechazarla en caso de ser incorrecta.
 	En caso que las dos propiedades no sean del mismo tipo, el binding provee
 	estrategias para realizar las conversiones que fueran necesarias.
 		
@@ -90,12 +98,12 @@
 	los objetos de dominio y los componentes de la vista.
 	En entornos sin binding, resolver esta problemática suele requerir gran
 	cantidad de trabajo, incrementando los tiempos de desarrollo y la probabilidad
-	de ocurrencia de errores en tareas repetitivas.
+	de que ocurran errores en tareas repetitivas.
 	Por ejemplo, es posible que mientras se está mostrando el valor de una
-	propiedad en pantalla, este valor cambie; si no contamos con una herramienta
+	propiedad en pantalla, algún otro proceso en curso modifique el valor de esa propiedad; 
+	si no contamos con una herramienta
 	para automatizar la actualización de la información mostrada en
-	pantalla, es posible que la pantalla no se actualice ante el cambio
-	y la información mostrada quede inconsistente.
+	pantalla, la pantalla quedará desactualizada y mostrará al usuario información incorrecta.
 
 	\medskip
 
@@ -103,16 +111,14 @@
 	que permiten que el flujo de información vaya en ambos sentidos: si el
 	modelo cambia se actualiza la vista y si la vista cambia se actualiza el
 	modelo.
-	Este tipo de \emph{binding} es adecuado para formularios modificables u otros
-	escenarios de interfaz de usuario totalmente interactivos.
-	Esto es posible, gracias a la utilización de los eventos, tanto desde el
-	dominio como de la interfaz.
+	Para que esto sea posible tanto el modelo como la vista deben disparar eventos 
+	cada vez que cambie el valor de alguna de sus propiedades.
 	
-% 	
-	Para poder utilizar bindings bidireccionales, se necesita que los objetos de
-	dominio produzcan eventos. Sin embargo, esto representa una contradicción con
-	los principios básicos del MVC, que sugieren que se debería evitar modificar
-	los objetos de dominio para adaptarlos a las necesidades de la vista.
+	La necesidad de que objetos de dominio disparen eventos plantea un problema si (como en muchos casos) 
+	no tenemos soporte del lenguaje para eso.
+	La implementación de eventos más habitual mediante un patrón observer (\ref{Eventos}), 
+	implica modificar los objetos del dominio para adaptarlos a una necesidad de la vista y
+	esto es indeseable si seguimos los principios del patrón MVC.
 	
 	Otro problema que aparece frecuentemente es que el binding modifica los objetos
 	directamente, al menos en su versión más sencilla. 
@@ -125,13 +131,13 @@
 	por lo tanto propensa a que ocurran errores por parte del programador.
 	
 \subsubsection{Framework Arena}
-	Arena es un Framework para la construcción de interfaces de usuario. 
+	Arena es un framework para la construcción de interfaces de usuario. 
 	Esta creado con fines educativos y por lo tanto se focaliza en la puesta en
 	práctica de algunos principios de diseño y organización de
 	interfaces de usuario.
 	El framework fue diseñado e implementado por el equipo docente de la materia de
 	Construcción de Interfaces de Usuario de la Tecnicatura Universitaria en Programación
 	Informática de la Universidad Nacional de Quilmes, en conjunto con docentes de
-	la Universidad de San Martín y de la Facultad Regional Buenos Aires.
+	la Universidad de San Martín y de la Facultad Regional Buenos Aires de la Universidad Tecnológica Nacional.
 	
 	

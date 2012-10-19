@@ -1,31 +1,18 @@
 \subsection{Programación orientada a Aspectos}
 
-	La programación orientada a aspectos (POA) es un paradigma de programación cuya
-	intención es permitir una adecuada modularización de las aplicaciones
-	y posibilitar una mejor separación de conceptos. Ganando expresividad,
-	disminuyendo la dispersión del código asociado a un concepto y haciendo que
-	las implementaciones resulten más comprensibles, adaptables y reutilizables.
-
-
-\subsubsection{Definición de un Aspecto}
-	Según el trabajo seminal de Gregor Kiczales y otros, un aspecto es 
-	``una unidad modular que se disemina por la estructura de
-	otras unidades funcionales. Los aspectos existen tanto en la etapa de
-	diseño como en la etapa de implementación. Un aspecto de diseño es
-	una unidad modular que se entremezcla en la estructura de otras partes
-	del diseño. Un aspecto de programa o de código es una unidad modular
-	del programa que aparece en otra unidades del programa.'' \cite{Kicz97a}
+	La programación orientada a aspectos (AOP) es un paradigma de programación cuya
+	intención es mejorar la modularización de las aplicaciones.
+	En este paradigma se considera que en una aplicación existen problemas 
+	que se deben solucionar que son ortogonales a la lógica del dominio \cite{Kicz97a}.
+	Mientras que en otros paradigmas el código necesario para solucionar estos problemas 
+	se disemina por la estructura de las unidades funcionales,
+	el paradigma AOP provee herramientas para atacar estos problemas sin modificar el código del dominio.
 
 	\bigskip
 	
-	Un aspecto es la unidad básica de construcción en la POA, debido a que permite
-	modularizar los conceptos transversales o \emph{cross-cutting concern} presentes en una aplicación.
-	
-	En palabras simples un aspecto puede ser definido como: ``La encapsulación y
-	modularización de un \emph{cross-cutting concern}''. Por ejemplo
-	\emph{Loggin}, \emph{Profiling}, entre otros.
-	
-	
+	Un \emph{aspecto} es la unidad básica de construcción en AOP, debido a que permite
+	modularizar los conceptos transversales (\emph{cross-cutting concerns}) presentes en una aplicación.
+	Por ejemplo \emph{Logging}, \emph{Profiling}, entre otros.
 	La definición de un aspecto se basa en los conceptos de: {\bf \emph{Join
 	Point}}, {\bf \emph{ Point Cut}} y {\bf \emph{ Advice}}.
 	
@@ -36,15 +23,11 @@
 		de interés en el código, como por ejemplo: la instanciación de una clase, el manejo de una
 		excepción, una llamada a un método, el retorno de un método, la asignación a variable de instancia, etc.
 		
-		\item[\emph{Point Cut}] Un \emph{Point Cut} es un predicado o condición para la aplicación de un aspecto.
-		 Contiene uno o varios \emph{Join Point} que exponen el contexto de ejecución de dichos \emph{points}.
+		\item[\emph{Point Cut}] Un \emph{Point Cut} es un predicado o condición que selecciona un conjunto 
+		de join points del programa y se utiliza cuáles son los puntos donde aplicar un aspecto.
 		
-		\item[\emph{Advices}] Y por último los \emph{Advices}, éstos pueden definirse
-		como: acciones que se ejecutan en cada \emph{Join Point} dentro de un mismo
-		\emph{Point Cut}, estas acciones se traducen en rutinas o fragmentos de
-		código.
+		\item[\emph{Advices}] Los \emph{Advices} son las acciones que se ejecutan en cada \emph{Join Point} dentro de un mismo
+		\emph{Point Cut}, estas acciones se traducen en rutinas o fragmentos de código.
 	
 	\end{description}
 	\end{quote}
-	
-	

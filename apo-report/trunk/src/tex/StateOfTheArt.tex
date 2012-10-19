@@ -26,7 +26,7 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	Esta técnica es utilizada en
 	frameworks como \emph{JFace-DataBinding}\footnote{JFace-DataBinding es un
 	Framework de presentación basado en el lenguaje Java y utilizado para la
-	construcción del conocido entorno de trabajo \emph{Eclipse}} y el Arena
+	construcción del entorno de trabajo \emph{Eclipse}} y el Arena
 	actual, que se basan en el estándar de
 	\emph{JavaBean}s \cite{sousa00formal}.
 	La figura \ref{javabeans} describe el esquema de eventos utilizado en estas
@@ -35,10 +35,9 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	\begin{itemize}
 	  \item Tener una referencia a un objeto que actúe como soporte para generar
 	  los eventos.
-	  \item Realizar una notificación cada vez que cambia una de sus propiedades
+	  \item Realizar una notificación cada vez que cambia una de sus propiedades.
 	\end{itemize} 
 
-	
 	 \begin{figure}[h]
 	 	\centering
 		\includegraphics[width=350px, height=200px]{img/javabeans}
@@ -48,7 +47,7 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 
 	La principal ventaja de esta estrategia es que
 	permite una comunicación fluida y desacoplada entre la vista y el modelo.
-	El problema es que, al disparar los eventos \\
+	El problema es que, al disparar los eventos
 	manualmente se ensucian las clases del dominio\footnote{Ensuciar el dominio es
 	agregar código que no aporta al comportamiento del objeto}. Además, implica
 	escribir mucho código repetitivo, que hace que sea muy fácil cometer errores.
@@ -63,15 +62,15 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	
 	Esta estrategia es la forma más tradicional de construcción de aplicaciones
 	web. El propio navegador de Internet es el que se ocupa de almacenar los
-	datos durante la edición de un \emph{formulario}, que luego se envía
+	datos durante la edición de un \emph{formulario} que luego se envía
 	(\emph{submit}) al servidor. 
 	Al recibir este pedido, un componente dentro del servidor se ocupa de desarmar
 	el paquete de datos que llega, y transfiere esa información al dominio en forma
 	manual.
 	
 	Una vez procesado el pedido, el servidor contesta con una nueva página que
-	el \\ navegador debe presentar al usuario, reemplazando por completo la vista
-	anterior.\\
+	el navegador debe presentar al usuario, reemplazando por completo la vista
+	anterior.
 	Durante el armado de la página se va pidiendo al dominio cada dato que se desea
 	mostrar. Dado que se reemplaza por completo la pantalla del usuario, \textbf{no
 	hay necesidad de lanzar eventos} que permitan actualizar lo que el usuario
@@ -94,6 +93,8 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	usuario. En otros casos, para poder hacer validaciones a medida que el usuario
 	edita, la UI tiene su propia implementación de las validaciones. 
 	Es decir, la lógica de validación está duplicada.
+	Finalmente, estas técnicas no proveen de ninguna estrategia para actualizar 
+	la vista en caso que el domino sea modificado por otro proceso concurrente.
 	 		
 \subsection{Manejo de transacciones en la UI}
 	Como se explicó en la sección \ref{sec:ACID}, muchas veces las interfaces de
@@ -112,8 +113,7 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	pueden ser:
 	\begin{itemize}
 	  \item Un objeto desarrollado específicamente a tal efecto, que sólo tiene los
-	  atributos necesarios y ningún comportamiento \cite{fowler2002a}
-	  \footnote{Más específicamente en la Sección Data Transfer Object}.
+	  atributos necesarios y ningún comportamiento (\cite{fowler2002a}, Sección Data Transfer Object).
 	  \item Los propios componentes de la UI (por
 	  ejemplo una instancia de la clase \texttt{TextBox}).
 	  \item En aplicaciones Web, el \emph{request} cubre ese rol.

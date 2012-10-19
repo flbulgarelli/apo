@@ -6,8 +6,7 @@ puede dejar los datos en un estado intermedio.
 
 Los objetivos de trabajar con transacciones son dos.
 En primer lugar, definir unidades de trabajo seguras, que permitan la
-recuperarse de los errores y mantener la coherencia de los datos, incluso en
-los casos de fallas en el sistema.
+recuperarse de los errores y mantener la coherencia de los datos, incluso en caso de fallas en el sistema.
 En segundo lugar, permitir el acceso concurrente, es decir, que múltiples
 usuarios utilicen la misma información al mismo tiempo sin interferir entre sí.
 
@@ -25,7 +24,8 @@ especiales para marcar su inicio y su final:
 		cambios realizados desde el inicio de la transacción. 
 		
 		\item[Rollback] es una operación que finaliza y revierte todos los cambios
-		realizados desde el inicio de la transacción.
+		realizados desde el inicio de la transacción, 
+		dejando los datos en el estado que tenían antes de comenzar.
 	\end{description}
 \end{quote}
    
@@ -33,7 +33,7 @@ especiales para marcar su inicio y su final:
 
 Muchas veces las transacciones se asocian con los sistemas de gestión de bases
 de datos, sin embargo es un concepto más general.
-En interfaces de usuario es común incluir botones de
+Por ejemplo, en interfaces de usuario es común incluir botones de
 ``aceptar'' y ``cancelar'' que podemos relacionar con las ideas de
 \emph{commit} y \emph{rollback}. 
 Si el usuario presiona el botón ``cancelar'' lo que se espera
@@ -57,7 +57,7 @@ De las propiedades ACID, este trabajo se concentra en las de \emph{Atomicidad},
 		de las sub-operaciones no se puede completar, ninguna de las sub-operaciones
 		debe ejecutarse. Si se detecta una falla después de que una de las
 		sub-operaciones ya fue realizada, se debe deshacer dicha
-		sub-operación, garantizando que el sistema vuelve al estado original antes de
+		sub-operación, garantizando que el sistema vuelva al estado original antes de
 		comenzar la operación.
 		
 	\item[Consistencia]
