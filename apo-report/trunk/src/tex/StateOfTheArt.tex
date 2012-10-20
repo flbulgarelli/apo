@@ -113,7 +113,7 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	pueden ser:
 	\begin{itemize}
 	  \item Un objeto desarrollado específicamente a tal efecto, que sólo tiene los
-	  atributos necesarios y ningún comportamiento (\cite{fowler2002a}, Sección Data Transfer Object).
+	  atributos necesarios y ningún comportamiento \citep[Sección Data Transfer Object]{fowler2002a}.
 	  \item Los propios componentes de la UI (por
 	  ejemplo una instancia de la clase \texttt{TextBox}).
 	  \item En aplicaciones Web, el \emph{request} cubre ese rol.
@@ -127,14 +127,14 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	técnicas de \emph{reflection}} e implica una duplicación de conocimiento entre
 	el objeto de dominio y el almacenamiento intermedio. Por ejemplo, en caso de
 	agregar un atributo al objeto de dominio se deberá garantizar que se mantiene
-	sincronizado con los almacenamientos intermedios.
+	consistente con los almacenamientos intermedios.
 	
 	Utilizar una copia del objeto original tiene algunas ventajas sobre las demás
 	alternativas. En primer lugar se elimina la duplicación de
 	conocimiento, al menos en parte. Por otro lado, esta estrategia permite que la
 	UI aproveche el comportamiento del propio objeto durante la edición (por
 	ejemplo: validaciones). Además, en esta estrategia hay una variante que se
-	utiliza para evitar la traspasamiento de datos, que es reemplazar el objeto de
+	utiliza para evitar la trasvasamiento de datos, que es reemplazar el objeto de
 	dominio por la copia al final de la operación. Sin embargo, en sistemas
 	complejos esta estrategia suele no ser suficiente, porque requiere que podamos
 	conocer todas las referencias al objeto que queremos reemplazar. Por otro lado,
@@ -144,5 +144,5 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	Como se ve, todas estas estrategias logran atomicidad a costa de duplicar
 	información y agregar tareas manuales que pueden ser fuente de errores de
 	programación. En general no hay una forma sistemática de
-	garantizar consistencia o aislamiento.
+	garantizar consistencia ni aislamiento.
 	

@@ -1,8 +1,7 @@
 \section{Solución propuesta}
 \label{Solucion}
 
-	Utilizamos la programación orientada a aspectos para desarrollar dos
-	conceptos independientes, {\bf Observable} y  {\bf Transaccional}.
+	Basándonos en el paradigma AOP modelamos como aspectos dos conceptos: {\bf Observable} y  {\bf Transaccional}.
 	En las secciones subsiguientes se describe el comportamiento de cada uno de
 	estos dos aspectos y en la sección \ref{sec:Union} la integración de ambos.
 
@@ -11,11 +10,9 @@
 		El aspecto Observable implementa un mecanismo transparente para que cuando un
 		objeto de dominio cambia, cualquier parte del sistema pueda recibir una
 		notificación informando ese cambio.
-		Para ello, el sistema asocia cada atributo de un objeto que se desee observar
-		con un conjunto de \emph{listeners}. 
-		El aspecto intercepta todos los accesos a los atributos
-		del objeto observado y, ante cada modificación de un atributo, notifica a todos
-		los listeners que se han registrado para observar ese atributo.
+		Para ello, el sistema permite asociar a cada propiedad de un objeto un conjunto de \emph{listeners}. 
+		El aspecto intercepta modificación a una propiedad
+		de un objeto observado y notifica a los listeners que se han registrado para observar esa propiedad.
 		
 		Este mecanismo permite asociar acciones específicas que se disparan cada vez
 		que el objeto es modificado. En particular, se utiliza para mantener
@@ -25,11 +22,21 @@
 	\label{aspectoTransaccional}
 		El aspecto transaccional permite controlar la visibilidad de las modificaciones
 		realizadas a un objeto.
-		Para ello, se define el concepto de \emph{contexto transaccional}.
+		Llamamos \emph{objeto transaccional} a los objetos a los que se les aplica este aspecto.
+		
+		Para controlar la visibilidad de las modificaciones realizadas sobre los objetos transaccionales, 
+		se define el concepto de \emph{contexto transaccional}.
 		Un contexto transaccional es un espacio de trabajo en el cual se pueden
-		hacer modificaciones a un objeto que no serán vistas fuera de ese contexto.
-		El aspecto transaccional posibilita al objeto que se le aplica el aspecto,
-		estar dentro del contexto transaccional.
+		realizar operaciones que no serán visibles fuera de ese contexto.
+		Toda acción realizada dentro del sistema es asociada con algún contexto transaccional.
+		
+		El aspecto transaccional incercepta \textbf{en forma transparente} todos los accesos al
+		estado interno de los objetos transaccionales, permitiendo la intervención del contexto.
+		Cuando se modifica el estado interno de un objeto transaccional el nuevo valor es almacenado en el contexto y 
+		el objeto permanece inalterado.
+		Cuando se desea leer el estado interno de un objeto transaccional se toma el valor del contexto, en caso de existir.
+		De esta manera las operaciones realizadas dentro del mismo contexto ven un estado del objeto que es distinto 
+		al que ven las operaciones realizadas en cualquier otro contexto.
 	
 		Los contextos transaccionales se delimitan por las
 		operaciones detalladas en la Sección \ref{ctxTransactional}
@@ -42,9 +49,9 @@
 		Al ejecutarla, todos los objetos modificados dentro del contexto regresan al
 		estado que tenían al comenzar la transacción.
 		 
-		El contexto transaccional permite el trabajo concurrente, permitiendo que
-		varios procesos puedan acceder a un mismo objeto al mismo
-		tiempo, con un aislamiento de nivel \emph{read commited}.
+		El contexto transaccional permite el trabajo concurrente, de esta forma
+		varias operaciones dentro de un mismo sistema pueden acceder a un objeto transaccional al mismo
+		tiempo con un aislamiento de nivel \emph{read commited}.
 				 
 		También se da soporte para \emph{transacciones anidadas}, es decir, la
 		posibilidad de abrir un nuevo contexto transaccional dentro de otro contexto,
@@ -60,10 +67,10 @@
 		Para atacar estos problemas se tomaron tres acciones:
 		
 		\begin{enumerate}
-		  \item Cuando la UI muestra en pantalla el valor de un
-		  atributo de un objeto de dominio, debe registrarse como listener de ese
-		  atributo.
-		  De esa forma, en caso de producirse un cambio en el valor del atributo, la
+		  \item Cuando la UI muestra en pantalla el valor de una
+		  propiedad de un objeto de dominio, debe registrarse como listener de esa
+		  propiedad.
+		  De esa forma, en caso de producirse un cambio en el valor de la propiedad, la
 		  UI podrá reflejar esa modificación en forma inmediata.
 		  
 		  \item Siempre que desde la UI el usuario tenga la posibilidad de cancelar
@@ -72,7 +79,9 @@
 		  Esto se logra incluyendo en la UI las operaciones de
 		  \emph{beginTransaction}, \emph{commit} y \emph{rollback}.
 		  
-		  La estrategia utilizada para integrar de un framework
+		  Consideramos que la decisión de cuándo comenzar o terminar una transacción 
+		  no puede ser decidida por nuestro framework de transacciones. 
+		  La estrategia utilizada para integrar un framework
 		  específico de UI con el aspecto transaccional es extender el framework
 		  elegido con herramientas que manejen los contextos transaccionales en forma
 		  automática.
@@ -80,5 +89,5 @@
 		  \item La integración de los aspectos entre sí se logra asociando a
 		  cada listener con un contexto transaccional y limitando el alcance de los
 		  eventos producidos por el aspecto observable para que sólo notifiquen a los
-		  listeners que se encuentran en la misma transacción que produjo el cambio.
+		  listeners que se encuentran en la mismo contexto transaccional que produjo el cambio.
 		\end{enumerate}

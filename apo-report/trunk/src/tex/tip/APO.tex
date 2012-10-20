@@ -1,15 +1,13 @@
 
 \subsection{Selección de un framework de aspectos}  
 		Un primer paso para la implementación de la herramienta fue la selección de una
-		tecnología que permitiera desarrollar utilizando programación orientada a
-		aspectos.
+		tecnología que permitiera desarrollar utilizando AOP.
 		Con ese objetivo, se evaluaron dos frameworks: Javassist
 		\cite{chiba00loadtime} y AspectJ \cite{KiczalesHHKPG01}.
 	
 	\medskip 
 	Encontramos que AspectJ es una herramienta de más alto nivel, que extiende
-	el lenguaje Java agregando construcciones específicas para trabajar con
-	los conceptos de la teoría de programación orientada a aspectos.
+	el lenguaje Java agregando construcciones específicas para AOP.
 	Sin embargo, AspectJ requiere que el programador que use nuestro framework
 	utilice un compilador específico, provisto por AspectJ. 
 	Consideramos que esta característica es negativa, por condicionar el
@@ -27,14 +25,14 @@
 	Elegimos Javassist porque priorizamos minimizar el impacto hacia los usuarios
 	de nuestra herramienta.
 	Para minimizar los problemas asociados a utilizar un framework de tan bajo
-	nivel, desarrollamos una herramienta que simplifica su uso agregando algunas
+	nivel, desarrollamos una herramienta que simplifica su uso, agregando algunas
 	abstracciones útiles. Esta herramienta se describe en la sección siguiente.
 
 \subsection{Desarrollo de Aspect for Pure Objects}
 	El framework Javassist permite modificar directamente el \emph{bytecode} de
 	una clase en el momento de cargarla.
-	Por ser de tan bajo nivel es uno de los frameworks de aspecto más poderosos,
-	pero a su vez el código que requiere es muy poco entendible.
+	Por ser de tan bajo nivel es uno de los frameworks de aspectos más poderosos,
+	pero, por el mismo motivo, obliga a escribir código muy poco entendible.
 	Por eso se desarrolló una herramienta llamada \emph{Aspect for Pure Objects} (APO), 
 	que permite definir aspectos utilizando conceptos de más alto nivel y
 	aplicárselo a un grupo de objetos. 
@@ -43,34 +41,37 @@
 	Una instancia de \code{AdviceWeaver} se ocupa de aplicar los cambios sobre las
 	clases.
 	Cada uno de los cambios que debe realizar el \code{AdviceWeaver} está
-	modelado por un \code{Advice}, que consiste de un \code{PointCut} y un
-	\code{JoinPoint}.
+	modelado por un \code{Advice}, que consiste de un \code{PointCut} y un conjunto de 
+	\code{Interceptor}s.
 	
 	El \code{PointCut} tiene la responsabilidad de determinar el conjunto de
 	clases sobre el que aplica el advice. Se provee algunas implementaciones básicas
-	de \code{PointCuts}, por ejemplo, \code{ClassPointCut}, \code{FieldPointCut}, 
-	\code{MethodPointCut}, entre otros. Cada uno de estos \code{PointCuts} tienen un conjunto de funciones
-	de filtro, programadas por el usuario programador que use herramienta. 
+	de point cuts, por ejemplo, \code{ClassPointCut}, \code{FieldPointCut}, 
+	\code{MethodPointCut}, entre otros. Cada uno de estos point cuts tienen un conjunto de funciones
+	de filtro, definidas por el usuario programador que use la herramienta. 
 
-	El \code{JoinPoint} será el responsable de realizar las modificaciones 
-	sobre las clases seleccionadas. Para ello, tiene una coleccion de \code{Interceptors}.
- 	Los  \code{Interceptors} son objetos que interceptan una acción específica del código,  por ejemplo
+	Los \code{Interceptor}s tienen la responsabilidad de realizar las modificaciones sobre 
+	los join points de las clases seleccionadas por el point cut. 
+ 	Cada \code{Interceptor} interepta una acción específica del código, por ejemplo
  	llamadas a métodos, acceso a los atributos, ect. La herramienta provee algunas implementaciones de interceptors,
  	por ejemplo, \code{FieldInterceptor}, \code{MethodInterceptor}, ect. 
- 	Cada \code{Interceptor} tiene un conjunto de \code{Behaviors}.
- 	Los \code{Behavior} son los objetos que tienen la modificación a realizar sobre las clases. 
- 	Estas modificaciones son configuradas como funciones por el usuario programador.
- 	Existen varias estrategias de modificación siguiendo la teoria de AOP, \code{Before}, \code{After}, \code{Arround}, \code{ReadField} y \code{WriteField}. 
+ 	Cada \code{Interceptor} tiene un conjunto de \code{Behavior}s.
+ 	Los \code{Behavior} modelan cada modificación a realizar sobre los join points. 
+ 	Estas modificaciones son modeladas como funciones por el programador.
+ 	Existen varios tipos de behavior, siguiendo la teoria de AOP: 
+ 	\code{Before}, \code{After}, \code{Arround}, \code{ReadField} y \code{WriteField}. 
 	 
 	Finalmente una instancia de \code{APOClassLoader}, instalada como \emph{class
 	loader} del sistema permite que antes de utilizar cualquier clase, esta pueda
 	ser procesada por el \code{AdviceWeaver}.
 	
 	Todas las modificaciones configuradas están expresadas en un
-	lenguaje de alto nivel y las traduce al lenguaje de bajo nivel que requiere el
+	lenguaje de alto nivel, que luego el framework APO traduce al lenguaje de bajo nivel que requiere el
 	framework Javassist.
 	La Figura \ref{pooCode} muestra un ejemplo de código de este lenguaje de alto nivel,
 	tomado del framework POO, que se describe en la Sección \ref{poo}.
+	A su vez, la Tabla \ref{table} describe las expresiones más importantes de este lenguaje, 
+	su traducción al lenguaje de expresiones de Javassist y su significado.
 	
 	\begin{figure}[h]
 		\centering
@@ -79,10 +80,6 @@
 		\label{aopImage}
 	\end{figure}	 
 	
-	
-	A su vez, la Tabla \ref{table} describe las expresiones propias del lenguaje
-	definido por APO, su traducción al lenguaje de expresiones de
-	Javassist y su significado.
 	
 	\begin{figure}[h]
 		\begin{lstlisting}
@@ -122,5 +119,6 @@ $this.firePropertyChange('$fieldName', oldValue, $newValue);
 		\label{table}
 	\end{table*}
 	
-	APO es una herramienta abstracta, es decir, por si sola no modifica las clases, hay que configurarlo adecuadamente
-	para optener el resultado deceado. POO y POT se contruyeron siguiendo esta filosofia de creacion de aspectos.
+	APO es una herramienta abstracta, es decir, por sí sola no define ninguna modificación sobre las clases.
+	En cambio, hay que configurarlo adecuadamente para obtener el resultado deseado. 
+	POO y POT se contruyeron siguiendo esta filosofía de creación de aspectos.
