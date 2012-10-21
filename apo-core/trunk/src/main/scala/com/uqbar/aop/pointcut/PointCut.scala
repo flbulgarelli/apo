@@ -18,7 +18,7 @@ trait InterceptMatchPointCut[T] extends PointCut {
 
   override def hasIntercept(any: Any): Boolean = {
     super.hasIntercept(any) || (any match {
-      case t:T => !matchersIntercept.exists(f => !f(t))
+      case t: T => !matchersIntercept.exists(f => !f(t))
       case _ => false;
     })
   }
@@ -31,6 +31,7 @@ trait FieldPointCut extends PointCut with InterceptMatchPointCut[FieldAccess] {
 
   def matchFieldName(fun: (String) => Boolean) = matchIntercept(field => fun(field.getFieldName()))
   def matchField(fun: (FieldAccess) => Boolean) = matchIntercept(field => fun(field))
+  def matchFieldType[T: Manifest] = matchIntercept(_.getField().getType().getName() == manifest[T].erasure.getName())
 }
 
 trait MethodPointCut extends MatchPointCut with InterceptMatchPointCut[CtMethod] {

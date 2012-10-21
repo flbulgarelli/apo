@@ -30,7 +30,6 @@ abstract class AdviceWeaver {
   }
 
   def configureAdvices() {}
-  def configureJoinPoint(joinPoint: JoinPoint) {}
   
   def doApplyAdviceToCtClass(ctClass:CtClass, advice: Advice) {
   }
@@ -39,7 +38,6 @@ abstract class AdviceWeaver {
     if (!ctClass.isFrozen()) {
       this.advices.foreach(advice => {
         if (advice.pointCut.evaluate(ctClass)) {
-          advice.joinPoint.pointCut = advice.pointCut
           applyAdviceToCtClass(ctClass, advice);
         }
       })
