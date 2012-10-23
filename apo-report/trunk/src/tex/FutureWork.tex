@@ -5,8 +5,8 @@
 
 	\item[Estrategias de resolución de conflictos en las Transacciones]
 		Actualmente el aspecto transaccional no cuenta con una estrategia de
-		resolución de conflictos en	 el momento que dos o más transacciones
-		confirman sus cambios sobre los mismos atributos de un objeto.
+		resolución de conflictos en	el momento que dos o más transacciones
+		confirman cambios sobre los mismos atributos de un objeto.
 		Una estrategia posible es que se notifique al usuario que ese
 		objeto esta siendo modificado por otra transacción.
 		Otra estrategia podría ser que se bloquee el caso de uso cuando otra
@@ -14,10 +14,10 @@
 		
 	\item[Niveles de Aislamiento en las Transacciones]
 		Actualmente solo soporta el nivel \emph{Read committed}, sería conveniente
-		implementar los demás niveles de aislamiento \ref{isolation}.
-	
+		implementar otros niveles de aislamiento \ref{isolation}.
+	 
 	\item[Aplicación de aspecto observable en las Colecciones]
-		Actualmente, a los cambios realizados en las propiedades de los objetos
+		En la versión actual a los cambios realizados en las propiedades de los objetos
 		como \lstinline|Arrays|, \lstinline|Listas|, \lstinline|Mapas|, etc no se les
 		aplica el aspecto observable cuando se opera con ellos. Por ejemplo, las
 		operaciones de \emph{add} o \emph{remove} de una colección no producen
@@ -29,5 +29,4 @@
 		\lstinline|TransactionalObservableValue| que extiende de
 		\lstinline|AbstractObservableValue|. \emph{AbstractObservableValue} es una
 		clase del framework que utiliza Arena para realizar el \emph{binding}.
-
 \end{description}

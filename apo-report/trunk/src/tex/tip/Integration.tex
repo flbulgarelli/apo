@@ -1,13 +1,12 @@
 \subsection{Integración de POT, POO y Arena}
 La integración entre Arena y POO se realizó construyendo una implementación de
-\lstinline|PropertySupport| que dispara los eventos de acuerdo a los esperado
+\lstinline|PropertySupport| que dispara los eventos de acuerdo a los esperados
 por el framework Arena.
 
 \medskip
 Por otro lado, la clase \lstinline|TransactionalDialog| permite integrar Arena y
-POT.
-Definir una ventana como una subclase de
-\lstinline|TransactionalDialog| asocia automáticamente a esa ventana con un
+POT, dado que al definir una ventana como una subclase de
+\lstinline|TransactionalDialog|, esta se asocia automáticamente con un
 contexto transaccional.
 Al abrirse la ventana se efectúa la operación de \emph{beginTransaction}.
 Luego, botones \emph{Aceptar} y \emph{Cancelar} (que por defecto son agregados
@@ -53,12 +52,12 @@ o bien utilizar \emph{TransactionalAndObservable} que es una unión de ambas.
 	  \item[Bindings anidados] Como se vio en la Sección \ref{binding},
 		  el \emph{binding} es una conección de propiedades entre dos objetos. Con
 		  esta idea se desarrolló un tipo de binding que permite conectar propiedades
-		  anidadas entre dos objetos, por ejemplo,  la figura \ref{bindAnidado}
+		  anidadas entre dos objetos. La figura \ref{bindAnidado} muestra un ejemplo de binding anidado.
 
 			\begin{figure}[h]
 			\centering
 					\begin{lstlisting}
-						bindProperty("source.owner.name	") 
+						bindProperty("source.owner.name") 
 					\end{lstlisting}
 			\caption{Ejemplo de binding de con la Clase Transaction}
 			\label{bindAnidado}

@@ -1,11 +1,10 @@
 \section{Conclusiones}
 \label{Conclusions}
 Hoy en día existe gran cantidad de herramientas para el
-desarrollo de UI. Sin embargo algunos problemas que
-aparecen con frecuencia en los desarrollos industriales no son resueltos
-adecuadamente por dichas herramientas.
- Cuando esto sucede, los programadores deben recurrir a soluciones
-\emph{ad-hoc},  que con frecuencia implican atacar problemas generales de forma
+desarrollo de UI. Sin embargo algunos problemas que son muy habituales en los desarrollos
+industriales no son resueltos adecuadamente por dichas herramientas.
+Cuando esto sucede, los programadores deben recurrir a soluciones
+\emph{ad-hoc},  que muchas veces implican atacar problemas generales de forma
 manual y escribiendo grandes cantidades de código rutinario, que con
 frecuencia resulta propenso a errores.
 
@@ -22,9 +21,9 @@ dado que es aplicable a un gran conjunto de posibles dominios.
 %pruebas, cómo nos convencemos de que lo que hicimos sirve
 \medskip
 
-Para poner a prueba el aspecto transaccional se lo utilizó en una aplicación de
-mayor envergadura a los ejemplos mostrados en este trabajo.
-Para eso se desarrolló la aplicación de un Kiosco, escrita en su totalidad en
+Para poner a prueba el aspecto transaccional, se lo utilizó en una aplicación de mayor 
+tamaño que los ejemplos mostrados en este trabajo.
+Para eso se desarrolló la aplicación de un kiosco, escrita en su totalidad en
 scala y utilizando el framework Swing de Java para la UI.
 Este desarrollo además nos permite comprobar que los aspectos están desacoplados
 entre sí y pueden ser utilizados independientemente del framework Arena.
@@ -32,16 +31,21 @@ entre sí y pueden ser utilizados independientemente del framework Arena.
 % otras cosas útiles
 %Apo
 
-Por otro lado, se desarrolló un sistema de monitoreo para las transacciones.
-Este sistema permite debuggear las transacciones, proveyendo una interfaz que muestra los
+Por otro lado, para dar soporte al desarrollo aprovechando el aspecto transaccional, 
+se desarrolló un sistema de monitoreo para las transacciones.
+Este sistema permite visualizar las transacciones, proveyendo una interfaz que muestra los
 objetos afectados por la transacción.
 
+\medskip
 
 %utilidad en la docencia.
-Las mejoras que se realizaron en el Arena simplifican el aprendizaje.
+Finalmente, los aspectos transaccional y observable fueron integrados al framework Arena, 
+favoreciendo su uso para la enseñanza de construcción de interfaces de usuario.
 En las versiones previas los estudiantes tenían que disparar los eventos en forma
 manual, y eso implicaba explicar conceptos complejos, distrayendo la atención de
-los conceptos fundamentales de la materia.
-A partir de estas modificaciones, el framework Arena será utilizado no
+los temas fundamentales de la materia.
+
+Como resultado adicional de este trabajo, se extendió el framework agregando nuevos componentes y ejemplos. 
+A partir de estas modificaciones, el framework Arena está siendo utilizado no
 sólo en la Universidad Nacional de Quilmes, sino también en la Universidad
-Tecnológica Nacional (UTN) y en la Universidad Nacional De San Martín (UNSAM).
+Tecnológica Nacional (UTN) y en la Universidad Nacional de San Martín (UNSAM).

@@ -2,9 +2,9 @@
 \label{Example}
 Para ilustrar el uso de las herramientas desarrolladas utilizaremos como ejemplo
 una aplicación bancaria, en la que los clientes de un banco pueden transferir
-dinero de una cuenta a otra. 
-Realizar una transferencia implica extraer de una cuenta el
-monto indicado, y depositarlo en otra. 
+dinero de sus cuentas a otras cuentas propias o de terceros. 
+Realizar una transferencia implica elegir dos cuentas, extraer el
+monto indicado de la primera y depositarlo en la segunda. 
 En cualquiera de los dos pasos de la transferencia (extraer y depositar) se
 pueden producir errores.
 Por ejemplo, el saldo puede ser insuficiente o el depósito puede superar el
@@ -27,13 +27,13 @@ nuestra herramienta.
 
 	\item[Pantalla de Transferencia Simple]
 		Esta primera pantalla permite elegir una de las cuentas propias, otra cuenta
-		de cualquier otro cliente del sistema y realizar una transferencia de la
+		de cualquier cliente del sistema y realizar una transferencia de la
 		primera hacia la segunda con el monto indicado. Esta pantalla se
 		muestra en la figura \ref{trasferenciaSimple}.
 		
 		\begin{figure}[h]
 			\centering
-			\includegraphics[width=320px, height=280px]{img/simple-transferencia}
+			\includegraphics[scale=0.5]{img/simple-transferencia}
 			\caption{Pantalla de transferencia simple}
 			\label{trasferenciaSimple}
 		\end{figure}
@@ -42,9 +42,10 @@ nuestra herramienta.
 		solo se concentre en lo importante, que es debitar y extraer el monto. 
 		La figura \ref{executeTransaction} muestra el método  \lstinline|execute| de la
 		clase \lstinline|Transaction|. 
-		Dado que código de dominio es limpio, no hay comportamiento fuera de la lógica
-		de negocio que pueda provocar un error. Otra cosa que se puede apreciar del el
-		código es que no tiene ningún manejo de excepciones.
+		Se puede ver que el código es limpio, no hay ningún comportamiento fuera de la lógica
+		de negocio. 
+		Además, no es necesario ningún manejo de excepciones. En caso de producirse un error, 
+		la transacción en forma automática va a producir el \emph{rollback} de los cambios realizados.
 
 		\begin{figure}[h]
 			\begin{lstlisting}
@@ -61,14 +62,17 @@ nuestra herramienta.
 	\item[Pantalla de Transferencias Múltiples]
 		Esta segunda pantalla nos permite realizar múltiples transferencias
 		simultáneamente.
-		Estas transferencias pueden ser confirmadas o canceladas en su totalidad en
-		cualquier momento.
 		A diferencia de la transferencia simple, se agrega una
 		lista con las transferencias que se llevan a cabo.
+		Aquí se puede apreciar la utilidad de las transacciones anidadas, dado que
+		las transferencias pueden ser confirmadas o canceladas en su totalidad en
+		cualquier momento. 
+		La totalidad de las transacciones quedan firmes recién en el momento en el 
+		que se acepta la operación principal.
 	
 		\begin{figure}[h]
 			\centering
-			\includegraphics[width=300px, height=300px]{img/multTransferencias}
+			\includegraphics[scale=0.5]{img/multTransferencias}
 			\caption{Pantalla de múltiples transferencias }
 			\label{trasferenciaMultiple}
 		\end{figure}
