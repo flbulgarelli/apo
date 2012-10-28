@@ -11,24 +11,11 @@ import javassist.ClassPool
 import org.junit.runner.RunWith
 import javassist.expr.FieldAccess
 
-/**
- * Nuestro classloader, que al cargar una clase, le hace weaving para meterle la magia de aspectos.
- *
- *
- * -Djava.system.class.loader=com.uqbar.aop.TestFieldInterceptorClassLoader
- *
- */
-class TestFieldInterceptorClassLoader(parent: ClassLoader) extends APOClassLoader(parent) {
-  def createAdviceWeaver(cp: ClassPool): AdviceWeaver = {
-    return new FieldTestAdviceWeaver(cp);
-  }
-}
-
 class PrintFieldInterceptor extends FieldInterceptor {
   write((statement, fieldAccess) => statement.append("$this.dispatch($argument1);"))
 }
 
-class FieldTestAdviceWeaver(pool: ClassPool) extends TestAdviceWeaver(pool) {
+class FieldTestConfiguration extends TestConfiguration {
   def createPointcut: ClassPointCut = new PointCut with MatchPointCut with ClassPointCut with FieldPointCut {
     matchFieldType[String]
   }
@@ -37,5 +24,5 @@ class FieldTestAdviceWeaver(pool: ClassPool) extends TestAdviceWeaver(pool) {
 }
 
 @RunWith(classOf[JUnitRunner])
-class FieldInterceptorTest extends InterceptorTest {
+class FieldInterceptorTest extends InterceptorTest with App{
 } 

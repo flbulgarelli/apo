@@ -8,22 +8,21 @@ import javassist.ClassPool
 import com.uqbar.aop.pointcut.ClassPointCut
 import com.uqbar.aop.pointcut.MethodPointCut
 
-
-abstract class TestAdviceWeaver(pool: ClassPool) extends AdviceWeaver(pool) {
+abstract class TestConfiguration extends Configuration {
   val methodInterceptor = new PrintMethodInterceptor()
 
   def createPointcut: ClassPointCut
-  def adInterceptor(advice:Advice)
+  def adInterceptor(advice: Advice)
 
-  override def configureAdvices() {
+  override def createAdvices(): List[Advice] = {
     val testPoincut = createPointcut
     testPoincut.matchClassName(_.equals("TestObject"))
     testPoincut.matchPackage(_.contains("com.uqbar.aop.entities"))
-    
+
     val advice = new Advice(testPoincut)
     this.adInterceptor(advice)
 
-    advices.append(advice)
+    List(advice)
   }
 }
 

@@ -15,10 +15,11 @@ import org.uqbar.commons.utils.ReflectionUtils
  *
  */
 
-abstract class AdviceWeaver {
+class AdviceWeaver {
+  val configurationProperties = "framework.adviceConfiguration"
   
   var classPool: ClassPool =_
-  val advices = Buffer[Advice]()
+  var advices:List[Advice] = _
 
   def this(cp: ClassPool) {
     this()
@@ -26,14 +27,11 @@ abstract class AdviceWeaver {
   }
   
   def init(){
-	  this.configureAdvices()
+	  val configurationClass:Class[Configuration] =  Class.forName(AopConfig.getProperty(configurationProperties)).asInstanceOf[Class[Configuration]]
+	  val adviceConfiguration = configurationClass.newInstance()
+	  this.advices = adviceConfiguration.createAdvices();
   }
 
-  def configureAdvices() {}
-  
-  def doApplyAdviceToCtClass(ctClass:CtClass, advice: Advice) {
-  }
-  
   def applyAdvice(ctClass: CtClass) {
     if (!ctClass.isFrozen()) {
       this.advices.foreach(advice => {
@@ -45,7 +43,6 @@ abstract class AdviceWeaver {
   }
 
   def applyAdviceToCtClass(ctClass: CtClass, advice: Advice) {
-    doApplyAdviceToCtClass(ctClass, advice);
     advice.apply(ctClass)
   }
 }
