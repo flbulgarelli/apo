@@ -16,8 +16,6 @@ import org.uqbar.commons.utils.ReflectionUtils
  */
 
 class AdviceWeaver {
-  val configurationProperties = "framework.adviceConfiguration"
-  
   var classPool: ClassPool =_
   var advices:List[Advice] = _
 
@@ -27,7 +25,7 @@ class AdviceWeaver {
   }
   
   def init(){
-	  val configurationClass:Class[Configuration] =  Class.forName(AopConfig.getProperty(configurationProperties)).asInstanceOf[Class[Configuration]]
+	  val configurationClass:Class[Configuration] =  Class.forName(AopConfig.getAOPConfigClass()).asInstanceOf[Class[Configuration]]
 	  val adviceConfiguration = configurationClass.newInstance()
 	  this.advices = adviceConfiguration.createAdvices();
   }
