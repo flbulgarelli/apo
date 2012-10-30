@@ -5,9 +5,7 @@
 \usepackage{booktabs}
 
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
-%\usepackage[spanish]{babel}
-%\usepackage[utf8]{inputenc}
-
+%\usepac
 \input{macros}
 
 \begin{document}
@@ -19,7 +17,9 @@ Con Monitoreo de transacciones}
 \input{tex/Title}
 
 \tableofcontents{}
+\newpage
 
+\listoffigures{} % indice de figuras
 \newpage
 
 \input{tex/Abstract}
@@ -33,12 +33,13 @@ Con Monitoreo de transacciones}
 \input{tex/FutureWork}
 \input{tex/Thanks}
 
+\appendix
+\input{tex/Configuration}
+
 \newpage
 
 \bibliographystyle{alpha}
 \bibliography{bibliography}
 
-\appendix
-\input{tex/Configuration}
 
 \end{document}

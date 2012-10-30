@@ -22,6 +22,7 @@
 \usepackage{longtable}
 \usepackage{acronym}
 \usepackage{listings}
+\usepackage{url}
 
 \usepackage{natbib}
 \usepackage{makeidx}  % allows for indexgeneration
@@ -180,3 +181,11 @@
 \setlength{\textfloatsep}{20pt plus 2pt minus 4pt}
 \setlength{\intextsep}{10pt plus 2pt minus 3pt}
 
+
+%% Define a new 'leo' style for the package that will use a smaller font.
+\makeatletter
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
+\makeatother
+%% Now actually use the newly defined style.
+\urlstyle{leo}

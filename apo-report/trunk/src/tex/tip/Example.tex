@@ -1,5 +1,3 @@
-\section{Aplicación de ejemplo}
-\label{Example}
 Para ilustrar el uso de las herramientas desarrolladas utilizaremos como ejemplo
 una aplicación bancaria, en la que los clientes de un banco pueden transferir
 dinero de sus cuentas a otras cuentas propias o de terceros. 
@@ -12,7 +10,7 @@ máximo permitido.
 La figura \ref{example} muestra las clases que implementan la lógica del
 dominio.
 
-	\begin{figure}[h!]
+	\begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.5]{img/transaccion}
 		\caption{Diagrama UML de la aplicación de ejemplo}
@@ -31,9 +29,9 @@ nuestra herramienta.
 		primera hacia la segunda con el monto indicado. Esta pantalla se
 		muestra en la figura \ref{trasferenciaSimple}.
 		
-		\begin{figure}[h]
+		\begin{figure}[!h]
 			\centering
-			\includegraphics[scale=0.5]{img/simple-transferencia}
+			\includegraphics[scale=0.45]{img/simple-transferencia}
 			\caption{Pantalla de transferencia simple}
 			\label{trasferenciaSimple}
 		\end{figure}
@@ -47,7 +45,7 @@ nuestra herramienta.
 		Además, no es necesario ningún manejo de excepciones. En caso de producirse un error, 
 		la transacción en forma automática va a producir el \emph{rollback} de los cambios realizados.
 
-		\begin{figure}[h]
+		\begin{figure}[!h]
 			\begin{lstlisting}
 				public void execute(){
 					this.source.withdraw(this.amount);
@@ -68,9 +66,10 @@ nuestra herramienta.
 		las transferencias pueden ser confirmadas o canceladas en su totalidad en
 		cualquier momento. 
 		La totalidad de las transacciones quedan firmes recién en el momento en el 
-		que se acepta la operación principal.
+		que se acepta la operación principal. Esta pantalla se
+		muestra en la figura \ref{trasferenciaMultiple}.
 	
-		\begin{figure}[h]
+		\begin{figure}[!h]
 			\centering
 			\includegraphics[scale=0.5]{img/multTransferencias}
 			\caption{Pantalla de múltiples transferencias }

@@ -1,16 +1,9 @@
-\subsection{Pure Observable Objects}
-	\label{poo}
 	\emph{Pure Observable Objects} (POO) es la herramienta que implementa el
 	aspecto Observable planteado en la Sección \ref{aspectoObservable}.
 	Los objetos cuyos atributos se desea poder observar deben ser marcados con
 	la \emph{Annotation} \lstinline|Observable|, como
 	se muestra en la siguiente fracción de código:
 	
-	\begin{lstlisting} 
-		@Observable
-		public class Client{
-		}
-	\end{lstlisting}
 	
 	La implementación interna del aspecto agrega a las clases observables un
 	atributo llamado \lstinline|changeSupport| del tipo
@@ -22,11 +15,12 @@
 	\lstinline|removePropertyChangeListener| que permiten agregar 
 	y remover observadores respectivamente, y \lstinline|firePropertyChange|
 	que notifica a los observadores que un atributo ha cambiado.
-	La figura \ref{fig:poo} muestra esquemáticamente el diseño de la herramienta.
+	La figura \ref{umlpoo} muestra esquemáticamente el diseño de la herramienta.
 	
-	\begin{figure}[h]
+	\begin{figure}[!htbp]
+		\centering
 		\includegraphics[scale=0.45]{img/poo}
-	 	\label{fig:poo}
 	 	\caption{Esquema de la herramienta POO}
+	 	\label{umlpoo}
 	\end{figure}
 	
