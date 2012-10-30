@@ -76,11 +76,11 @@ trait AnnotationPointCut extends MatchPointCut {
 }
 
 class OrPointCut extends PointCut {
-  var components = Buffer[PointCut]();
+  var components = List[PointCut]();
 
   def this(predicate: PointCut*) {
     this()
-    this.components = predicate.toBuffer
+    this.components = predicate.toList
   }
 
   override def evaluate(ctClass: CtClass) = this.components.foldLeft(false)((c, point) => c || point.evaluate(ctClass))
