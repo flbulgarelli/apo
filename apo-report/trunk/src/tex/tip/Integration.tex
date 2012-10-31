@@ -34,13 +34,18 @@ Finalmente, el framework se puede configurar para utilizar uno, otro o ambos
 aspectos, según se requiera.
 Los objetos pueden ser anotados con \emph{Observable} y
 \emph{Transactional} como vimos previamente, 
-o bien utilizar \emph{TransactionalAndObservable} que es una unión de ambas.
+o bien utilizar \emph{TransactionalAndObservable} que es una unión de ambas como se muestra en la Figura \ref{taov}.
 
-	\begin{lstlisting} 
-		@TransactionalAndObservable
-		public class Client{
-		}
-	\end{lstlisting}
+	\begin{figure}[!h]
+		\begin{lstlisting} 
+			@TransactionalAndObservable
+			public class Client{
+			}
+		\end{lstlisting}
+		\caption{Annotation para los aspectos Observable y Transaccional}
+		\label{taov}
+	\end{figure}
+
 
 \subsection{Otras mejoras al Arena}
 	La integración se realizo con el lenguaje de programación Scala
@@ -51,9 +56,11 @@ o bien utilizar \emph{TransactionalAndObservable} que es una unión de ambas.
 	  \item[Bindings anidados] Como se vio en la Sección \ref{binding},
 		  el \emph{binding} es una conección de propiedades entre dos objetos. Con
 		  esta idea se desarrolló un tipo de binding que permite conectar propiedades
-		  anidadas entre dos objetos. La figura \ref{bindAnidado} muestra un ejemplo de binding anidado.
+		  anidadas entre dos objetos. 
+		  
+		  La figura \ref{bindAnidado} muestra un ejemplo de binding anidado.
 
-			\begin{figure}[h]
+		\begin{figure}[!h]
 			\centering
 					\begin{lstlisting}
 						bindProperty("source.owner.name") 
@@ -72,11 +79,10 @@ o bien utilizar \emph{TransactionalAndObservable} que es una unión de ambas.
 		 modificaron.
 		La figura \ref{monitor} muestra la pantalla del monitor de transacciones.
 		
-		\begin{figure}[h]
+		\begin{figure}[!h]
 			\centering
 			\includegraphics[scale=0.5]{img/monitorTransacciones.png}
 			\caption{Monitor de transacciones}
 			\label{monitor}
 		\end{figure}	
-	  \item[]
 	\end{description}

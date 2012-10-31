@@ -15,14 +15,18 @@ modificados durante la transacción en una estructura de la forma
 \code{[objeto, [nombre del atributo, valor]]}.
 Cada contexto transaccional esta asociado a un \emph{thread}. Esto
 permite manejar la concurrencia en el acceso a la información de los objetos.
-Para aplicarle este aspecto a una clase se utiliza la \emph{annotation}.
+Para aplicarle este aspecto a una clase se utiliza la \emph{annotation} \lstinline|Transactional| como
+se muestra en la Figura \ref{annoTransactional}.
 
-\lstinline|Transactional|
+\begin{figure}[!hp]
 	\begin{lstlisting} 
 		@Transactional
 		public class Client {
 		}
 	\end{lstlisting}
+	\caption{Annotation para aplicar el aspecto transaccional.}
+	\label{annoTransactional}
+\end{figure}
 	
 \medskip
  
@@ -47,7 +51,7 @@ automática las colecciones del lenguaje Java por
 implementaciones propias de las mismas interfaces.
 La figura \ref{potuml} muestra esquemáticamente el diseño de la herramienta.
 
-\begin{figure}[!htbp]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.4]{img/pot}
  	\caption{Esquema de la herramienta POT}
