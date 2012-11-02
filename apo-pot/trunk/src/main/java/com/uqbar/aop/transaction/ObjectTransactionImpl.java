@@ -1,5 +1,6 @@
 package com.uqbar.aop.transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -11,7 +12,7 @@ import org.uqbar.commons.utils.ReflectionUtils;
 
 import com.uqbar.common.transaction.ObjectTransaction;
 import com.uqbar.common.transaction.TaskOwner;
-import com.uqbar.common.transaction.Collection.STransacionalList;
+import com.uqbar.common.transaction.Collection.TransacionalList;
 import com.uqbar.common.transaction.Collection.TransactionalMap;
 import com.uqbar.common.transaction.Collection.TransactionalSet;
 import com.uqbar.commons.collections.CollectionFactory;
@@ -43,6 +44,7 @@ public class ObjectTransactionImpl implements ObjectTransaction {
     /** Holds the state (fields) for all objects belonging to (and modified during) this transaction  */
     // TODO: use a java.util.IdentityHashMap instance instead of this
     private Map<IdentityWrapper, Map<String, Object>> attributeMap = CollectionFactory.createMap();
+    private List<ObjectTransactionImpl> children = new ArrayList<ObjectTransactionImpl>();
     private TaskOwner owner;
     private Long id;
     private String state;
@@ -52,6 +54,7 @@ public class ObjectTransactionImpl implements ObjectTransaction {
     	this.owner = owner;
     	this.id = id;
     	this.state = STATE_NEW;
+    	this.addParentChild();
     }
 
     // ******************************
@@ -81,7 +84,7 @@ public class ObjectTransactionImpl implements ObjectTransaction {
     }
     
     public List fieldWrite(Object owner, String fieldName, List newValue, List oldValue) {
-    	return ((List) this.fieldWrite(owner, fieldName, (Object)new STransacionalList(newValue), (Object)oldValue));
+    	return ((List) this.fieldWrite(owner, fieldName, (Object)new TransacionalList(newValue), (Object)oldValue));
     }
     
 	public Map fieldWrite(Object owner, String fieldName, Map newValue, Map oldValue) {
@@ -176,6 +179,7 @@ public class ObjectTransactionImpl implements ObjectTransaction {
 //    	else {
     		this.populateValuesToObjects();
 //    	}
+    	this.removeFromParent();
     	this.getLogger().debug("Commiting Object Transaction id[" + this.getId() + "]");
     	return this.transitionateToParentTransaction(STATE_COMMITED);
     }
@@ -195,6 +199,7 @@ public class ObjectTransactionImpl implements ObjectTransaction {
      */
     protected ObjectTransaction rollback() {
     	this.getLogger().debug("Rollbacking Object Transaction id[" + this.getId() + "]");
+    	removeFromParent();
     	return this.transitionateToParentTransaction(STATE_ROLLBACKED);
     }
 
@@ -259,6 +264,22 @@ public class ObjectTransactionImpl implements ObjectTransaction {
     		this.attributeMap.put(key, valueMap);
     	}
     	return valueMap;
+    }
+    
+    protected void addParentChild(){
+    	this.parent.addChild(this);
+    }
+    
+    protected void removeFromParent(){
+    	this.parent.removeChild(this);
+    }
+    
+    public void addChild(ObjectTransactionImpl child){
+    	this.getChildren().add(child);
+    }
+    
+    public void removeChild(ObjectTransactionImpl child){
+    	this.getChildren().remove(child);
     }
 
     // ***************************
@@ -331,5 +352,13 @@ public class ObjectTransactionImpl implements ObjectTransaction {
     public String getState() {
     	return this.state;
     }
+
+	public List<ObjectTransactionImpl> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<ObjectTransactionImpl> children) {
+		this.children = children;
+	}
     
 }

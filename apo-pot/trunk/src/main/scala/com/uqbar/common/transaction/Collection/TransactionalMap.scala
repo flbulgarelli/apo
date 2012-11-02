@@ -8,6 +8,9 @@ import java.util.Map
 import java.util.Set;
 import java.util.HashMap
 
+/**
+ * @param map
+ */
 class TransactionalMap[K, V] extends TransactionalData[Map[K, V]] with Map[K, V]{
 	
 	def this(map:Map[K, V]) {

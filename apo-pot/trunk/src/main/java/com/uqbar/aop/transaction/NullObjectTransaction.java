@@ -62,4 +62,8 @@ public class NullObjectTransaction extends ObjectTransactionImpl {
 	public void cloneAttributes(Object sourceObject, Object targetObject) {
 		// nothing to be done.
 	}
+	
+	@Override
+	protected void addParentChild() {
+	}
 }

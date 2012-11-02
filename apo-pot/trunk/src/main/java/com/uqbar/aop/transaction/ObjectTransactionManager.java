@@ -1,5 +1,6 @@
 package com.uqbar.aop.transaction;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.uqbar.aop.transaction.utils.BasicTaskOwner;
@@ -36,9 +37,6 @@ public class ObjectTransactionManager {
      */
     public static void begin(TaskOwner owner) {
     	ObjectTransactionImpl transaction = (ObjectTransactionImpl) getTransaction();
-    	if(transaction == null){
-    		transaction = createObjectNullTransaction(new BasicTaskOwner("null-transacion"), null);
-    	}
     	transaction = owner.isTransactional() ? createObjectTransaction(owner, transaction) : createObjectNullTransaction(owner, transaction);
     	transaction.getLogger().debug("Starting Transaction id=[" + transaction.getId() + "]...");
     	setTransaction(transaction);
@@ -59,7 +57,7 @@ public class ObjectTransactionManager {
     	transaction.getLogger().debug("Performing COMMIT on transaction id=[" + transaction.getId() + "]...");
     	setTransaction(transaction.getParent());
 		transaction.commit();
-    	unregisterTransaction(getTransaction());
+    	unregisterTransaction(transaction);
     	transaction.getLogger().debug("Transaction COMMITED id=[" + transaction.getId() + "] next transaction is id=[" + transaction.getId() + "]");
     }
 
@@ -219,10 +217,11 @@ public class ObjectTransactionManager {
 
     // registration
     protected static void registerTransaction(ObjectTransaction transaction) {
-    	Map<Long, ObjectTransaction> transactionMap = getTransactionRegistry();
-    	if (transactionMap != null) {
-    		transactionMap.put(transaction.getId(), transaction);
+    	if (getTransactionRegistry() == null) {
+    		setTransactionRegistry(new HashMap<Long, ObjectTransaction>());
     	}
+    	Map<Long, ObjectTransaction> transactionMap = getTransactionRegistry();
+    	transactionMap.put(transaction.getId(), transaction);
     }
 
     protected static void unregisterTransaction(ObjectTransaction transaction) {

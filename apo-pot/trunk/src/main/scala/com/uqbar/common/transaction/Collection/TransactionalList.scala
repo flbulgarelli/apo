@@ -7,7 +7,7 @@ import java.util.List
 import org.uqbar.commons.utils.Transactional
 
 @Transactional
-class STransacionalList[E] extends TransactionalCollection[List[E], E] with List[E]{
+class TransacionalList[E] extends TransactionalCollection[List[E], E] with List[E]{
 	
 	def this(list:List[E]) {
 	  this()

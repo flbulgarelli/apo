@@ -3,7 +3,7 @@ package com.uqbar.common.transaction.Collection;
 import java.util.Collection
 
 /**
- * @author ?
+ * @author nnydjesus
  * @param <D>
  * @param <E>
  */
