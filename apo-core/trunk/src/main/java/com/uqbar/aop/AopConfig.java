@@ -11,6 +11,7 @@ public abstract class AopConfig {
 	private static final String FILE_PREFIX = "framework.aop";
 	private static final String FILE_SUFFIX = "enable";
 	private static final String AOP_ENABLE_KEY = "classloader";
+	private static final String AOP_CONFIG_CLASS = "framework.adviceConfiguration";
 
 	private static Properties properties;
 
@@ -52,6 +53,10 @@ public abstract class AopConfig {
 
 	public static Boolean isAOPEnable() {
 		return isEnable(AOP_ENABLE_KEY);
+	}
+	
+	public static String getAOPConfigClass() {
+		return AopConfig.getProperties().getProperty(AOP_CONFIG_CLASS);
 	}
 
 	/**

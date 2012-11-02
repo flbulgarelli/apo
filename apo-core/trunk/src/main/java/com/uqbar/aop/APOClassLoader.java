@@ -15,13 +15,13 @@ import javassist.NotFoundException;
  * 
  * Parametro para correr tests con este ClassLoader.
  * 
- * -Djava.system.class.loader=com.uqbar.renascent.framework.aop.FrameworkClassLoader
+ * -Djava.system.class.loader=com.uqbar.aop.APOClassLoader
  * 
  * @author nny
  * @author jfernandes
  * @author npasserini
  */
-public abstract class APOClassLoader extends ClassLoader {
+public class APOClassLoader extends ClassLoader {
 	private Vector<String> notDefinedHere; // must be atomic.
 	private Vector<String> notDefinedPackages; // must be atomic.
 	private ClassPool classPool;
@@ -64,11 +64,10 @@ public abstract class APOClassLoader extends ClassLoader {
 			"com.jprofiler"));
 		
 		this.classPool = cp;
-		this.adviceWeaver = createAdviceWeaver(cp);
+		this.adviceWeaver = new AdviceWeaver(cp);
 		adviceWeaver.init();
 	}
 
-	protected abstract AdviceWeaver createAdviceWeaver(ClassPool cp);
 
 	// ***************************
 	// ** Metodos

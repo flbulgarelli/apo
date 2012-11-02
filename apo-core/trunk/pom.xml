@@ -33,14 +33,14 @@
 			<version>${arena-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>uqbar</groupId>
+			<groupId>com.uqbar</groupId>
 			<artifactId>uqbar-commons-collections</artifactId>
-			<version>1.1-SNAPSHOT</version>
+			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>uqbar</groupId>
+			<groupId>com.uqbar</groupId>
 			<artifactId>uqbar-commons-exceptions</artifactId>
-			<version>1.6-SNAPSHOT</version>
+			<version>1.5-SNAPSHOT</version>
 		</dependency>
 		<!-- /UQBAR DEPENDENCIES -->
 		
