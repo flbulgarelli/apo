@@ -1,12 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+	http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>poo</artifactId>
+	<artifactId>pot</artifactId>
 	<version>${arena-version}</version>
-	<packaging>jar</packaging>
-	<name>Pure Obervable Object</name>
-
-	<url>http://maven.apache.org</url>
+	<name>Uqbar Pure Object Transactions Project</name>
 
 	<parent>
 		<groupId>uqbar</groupId>
@@ -17,13 +15,13 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<scm-xpdev-apo>projects/apo</scm-xpdev-apo>
-		<scm.svnPath>${scm-xpdev-apo}/apo-poo/trunk</scm.svnPath>
+		<scm.svnPath>${scm-xpdev-apo}/apo-pot/trunk</scm.svnPath>
 	</properties>
 
 	<scm>
-		<connection>scm:svn:http://xp-dev.com/svn/uqbar/projects/apo/apo-poo/trunk</connection>
-		<developerConnection>scm:svn:http://xp-dev.com/svn/uqbar/projects/apo/apo-poo/trunk</developerConnection>
-		<url>http://xp-dev.com/svn/uqbar/projects/apo/apo-poo/trunk</url>
+		<connection>scm:svn:http://xp-dev.com/svn/uqbar/projects/apo/apo-pot/trunk</connection>
+		<developerConnection>scm:svn:http://xp-dev.com/svn/uqbar/projects/apo/apo-pot/trunk</developerConnection>
+		<url>http://xp-dev.com/svn/uqbar/projects/apo/apo-pot/trunk</url>
 	</scm>
 
 	<dependencies>
@@ -46,5 +44,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
