@@ -12,7 +12,7 @@ import com.uqbar.aop.Interceptor
  */
 class ObservableFieldInterceptor extends FieldInterceptor {
 
-  write((statement: StringBuffer, fieldAccess: FieldAccess) => {
+  write((statement, fieldAccess) => {
 
     if (!Modifier.isTransient(fieldAccess.getField().getModifiers())) {
       var newStatement =
