@@ -134,12 +134,12 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	conocimiento, al menos en parte. Por otro lado, esta estrategia permite que la
 	UI aproveche el comportamiento del propio objeto durante la edición (por
 	ejemplo: validaciones). Además, en esta estrategia hay una variante que se
-	utiliza para evitar la traspasamiento de datos, que es reemplazar el objeto de
+	utiliza para evitar el traspasamiento de datos, que es reemplazar el objeto de
 	dominio por la copia al final de la operación. Sin embargo, en sistemas
 	complejos esta estrategia suele no ser suficiente, porque requiere que podamos
 	conocer todas las referencias al objeto que queremos reemplazar. Por otro lado,
-	el reemplazo puede muy complejo si la operación modifica múltiples objetos de
-	dominio.
+	el reemplazo puede ser muy complejo si la operación modifica múltiples objetos
+	de dominio.
 
 	Como se ve, todas estas estrategias logran atomicidad a costa de duplicar
 	información y agregar tareas manuales que pueden ser fuente de errores de

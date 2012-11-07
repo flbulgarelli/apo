@@ -18,10 +18,10 @@ permite manejar la concurrencia en el acceso a la información de los objetos.
 Para aplicarle este aspecto a una clase se utiliza la \emph{annotation} \lstinline|Transactional| como
 se muestra en la Figura \ref{annoTransactional}.
 
-\begin{figure}[!hp]
+\begin{figure}[hbt]
 	\begin{lstlisting} 
 		@Transactional
-		public class Client {
+		public class Account {
 		}
 	\end{lstlisting}
 	\caption{Annotation para aplicar el aspecto transaccional.}
@@ -51,7 +51,7 @@ automática las colecciones del lenguaje Java por
 implementaciones propias de las mismas interfaces.
 La figura \ref{potuml} muestra esquemáticamente el diseño de la herramienta.
 
-\begin{figure}[!h]
+\begin{figure}[hbt]
 	\centering
 	\includegraphics[scale=0.4]{img/pot}
  	\caption{Esquema de la herramienta POT}

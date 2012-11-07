@@ -44,6 +44,14 @@ Cada uno de los cambios que debe realizar el \code{AdviceWeaver} está
 modelado por un \code{Advice}, que consiste de un \code{PointCut} y un conjunto de 
 \code{Interceptor}s.
 
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=0.4]{img/apo}
+	\caption{Diagrama UML de la herramienta APO}
+	\label{aopImage}
+\end{figure}	 
+
+
 El \code{PointCut} tiene la responsabilidad de determinar el conjunto de
 clases sobre el que aplica el advice. Se provee algunas implementaciones básicas
 de point cuts, por ejemplo, \code{ClassPointCut}, \code{FieldPointCut}, 
@@ -72,13 +80,6 @@ La Figura \ref{pooCode} muestra un ejemplo de código de este lenguaje de alto n
 tomado del framework POO, que se describe en la Sección \ref{poo}.
 A su vez, la Tabla \ref{table} describe las expresiones más importantes de este lenguaje, 
 su traducción al lenguaje de expresiones de Javassist y su significado.
-
-\begin{figure}[!hp]
-	\centering
-	\includegraphics[scale=0.4]{img/apo}
-	\caption{Diagrama UML de la herramienta APO}
-	\label{aopImage}
-\end{figure}	 
 
 
 \begin{figure}[!hp]
