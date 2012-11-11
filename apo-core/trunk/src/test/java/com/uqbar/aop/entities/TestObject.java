@@ -3,7 +3,7 @@ package com.uqbar.aop.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.uqbar.aop.Listener;
+import com.uqbar.apo.Listener;
 
 public class TestObject {
 	
