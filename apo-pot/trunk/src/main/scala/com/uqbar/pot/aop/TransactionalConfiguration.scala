@@ -1,13 +1,14 @@
 package com.uqbar.pot.aop
 
+import com.uqbar.apo.pointcut.AnnotationPointCut
+import com.uqbar.apo.pointcut.FieldPointCut
+import javassist.CtClass
+import com.uqbar.apo.pointcut.PointCut
+import com.uqbar.apo.Advice
+import com.uqbar.apo.Configuration
 import org.uqbar.commons.utils.Transactional
-import com.uqbar.aop.Advice
-import com.uqbar.aop.AdviceWeaver
-import javassist.ClassPool
-import com.uqbar.aop.pointcut.PointCut
-import com.uqbar.aop.pointcut.AnnotationPointCut
-import com.uqbar.aop.pointcut.FieldPointCut
-import com.uqbar.aop.Configuration
+
+
 
 /**
  *
@@ -23,3 +24,5 @@ trait TransactionalConfiguration extends Configuration {
   }
 
 }
+
+class TransactionalConfigurationImpl extends TransactionalConfiguration

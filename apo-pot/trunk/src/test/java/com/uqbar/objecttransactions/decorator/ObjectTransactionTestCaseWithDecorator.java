@@ -14,7 +14,7 @@ import com.uqbar.objecttransactions.ObjectTransactionTestCase;
 import com.uqbar.objecttransactions.Person;
 
 /**
- * -Djava.system.class.loader=com.uqbar.pot.aop.ObjectTransactionClassLoader
+ * -Djava.system.class.loader=com.uqbar.pot.aop.TransactionalConfigurationImpl
  * 
  * @author jfernandes
  */
