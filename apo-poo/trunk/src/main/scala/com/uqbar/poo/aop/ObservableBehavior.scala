@@ -1,8 +1,6 @@
 package com.uqbar.poo.aop;
 
 import java.lang.Object
-import com.uqbar.aop.javassit.builder.CtMethodBuilder
-import com.uqbar.aop.AopConfig
 import javassist.CtClass
 import javassist.CtField
 import javassist.CtMethod
@@ -12,6 +10,8 @@ import javassist.bytecode.AnnotationsAttribute
 import javassist.bytecode.annotation.Annotation
 import java.lang.reflect.Field
 import org.uqbar.commons.utils.ReflectionUtils
+import com.uqbar.apo.builder.CtMethodBuilder
+import com.uqbar.apo.APOConfig
 
 /**
  * @author nnydjesus
@@ -19,7 +19,7 @@ import org.uqbar.commons.utils.ReflectionUtils
  */
 class ObservableBehavior {
 
-  val eventListenerClass = java.lang.Class.forName(AopConfig.getProperty("framework.aop.poo.propertyListener"))
+  val eventListenerClass = java.lang.Class.forName(APOConfig.getProperty("framework.apo.poo.propertyListener"))
 
   def addBehavior(ctClass: CtClass) {
     addFieldChangeSupport(ctClass);
@@ -120,7 +120,7 @@ class ObservableBehavior {
     classPool.importPackage(classOf[PropertySupport].getPackage().getName());
     classPool.importPackage(classOf[Field].getPackage().getName());
     classPool.importPackage(classOf[ReflectionUtils].getPackage().getName());
-    var changeSupport = AopConfig.getProperty("framework.aop.poo.changeSupport")
+    var changeSupport = APOConfig.getProperty("framework.apo.poo.changeSupport")
 
     val getChangeSupportBody =
       "{" +

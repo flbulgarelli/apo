@@ -1,13 +1,12 @@
 package com.uqbar.poo.aop
-
-import org.uqbar.commons.utils.Observable
-import com.uqbar.aop.Advice
-import javassist.ClassPool
+import com.uqbar.apo.pointcut.AnnotationPointCut
+import com.uqbar.apo.pointcut.FieldPointCut
 import javassist.CtClass
-import com.uqbar.aop.pointcut.PointCut
-import com.uqbar.aop.pointcut.AnnotationPointCut
-import com.uqbar.aop.pointcut.FieldPointCut
-import com.uqbar.aop.Configuration
+import com.uqbar.apo.pointcut.PointCut
+import com.uqbar.apo.Advice
+import com.uqbar.apo.Configuration
+import org.uqbar.commons.utils.Observable
+
 
 /**
  *

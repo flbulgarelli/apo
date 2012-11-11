@@ -1,10 +1,7 @@
 package com.uqbar.poo.aop
 
 import javassist.Modifier
-import javassist.NotFoundException
-import javassist.expr.FieldAccess
-import com.uqbar.aop.FieldInterceptor
-import com.uqbar.aop.Interceptor
+import com.uqbar.apo.FieldInterceptor
 
 /**
  * @author nny
@@ -13,21 +10,17 @@ import com.uqbar.aop.Interceptor
 class ObservableFieldInterceptor extends FieldInterceptor {
 
   write((statement, fieldAccess) => {
-
     if (!Modifier.isTransient(fieldAccess.getField().getModifiers())) {
       var newStatement =
-    	"""
+        """
 		  $fieldTypeName oldValue = $oldValue;
 		  $originalAsigment;
-		  $this.firePropertyChange('$fieldName', $coerceToObject(oldValue), $coerceToObject($newValue));
+		  $this.firePropertyChange($S$fieldName$S, $coerceToObject(oldValue), $coerceToObject($newValue));
     	"""
-
-      statement.replace(0, statement.length(), newStatement)
+      statement.replace(newStatement)
     }
   })
 
-  override def getSpecificPropertyKey(): String = {
-    return "ObservableFieldAccessInterceptor";
-  }
+  override def getSpecificPropertyKey() = "ObservableFieldAccessInterceptor";
 
 }
