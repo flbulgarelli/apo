@@ -78,7 +78,7 @@
 	Normalmente la implementación no será una variable de instancia, sino un mecanismo de más alto nivel.
 	Por ejemplo, en el lenguaje Java las propiedades siguiendo el contrato denominado JavaBeans, 
 	que especifica que un objeto que tenga la propiedad \code{nombre} 
-	debe proveer implementaciones para los mensajes \code{getNombre()} y (opcionalmente) \code{setNombre()}.
+	debe proveer implementaciones para los mensajes \code{getNombre} y (opcionalmente) \code{setNombre}.
 	
 	En la construcción de interfaces de usuario es habitual utilizar el concepto de
 	binding para sincronizar los datos que está viendo o modificando el usuario
@@ -114,11 +114,14 @@
 	Para que esto sea posible tanto el modelo como la vista deben disparar eventos 
 	cada vez que cambie el valor de alguna de sus propiedades.
 	
-	La necesidad de que objetos de dominio disparen eventos plantea un problema si (como en muchos casos) 
-	no tenemos soporte del lenguaje para eso.
+	La necesidad de que los objetos de dominio disparen eventos plantea un problema
+	si (como en muchos casos) no tenemos soporte del lenguaje para eso.
 	La implementación de eventos más habitual mediante un patrón observer (\ref{Eventos}), 
-	implica modificar los objetos del dominio para adaptarlos a una necesidad de la vista y
-	esto es indeseable si seguimos los principios del patrón MVC.
+	implica agregarle responsabilidades a los objetos de dominio que no tienen que ver con
+	el dominio en sí. Genera más burocracia, ensucia la interfaz y obliga a meter
+	lógica para disparar eventos, mezclado con la ejecución de la acción de
+	negocio. En definitiva violar el MVC por sí mismo no es algo malo, lo malo son
+	las consecuencias que eso trae.
 	
 	Otro problema que aparece frecuentemente es que el binding modifica los objetos
 	directamente, al menos en su versión más sencilla. 
