@@ -24,7 +24,7 @@ public class ObjectTransactionTestCase  {
 	/**
 	 * 
 	 */
-	@Test
+//	@Test
 	public void testDifferentTransactionsSameObjectAccess() {
 		TaskOwner testCaseOwner = new BasicTaskOwner("testCaseOwner");
 		ObjectTransactionManager.begin(testCaseOwner);

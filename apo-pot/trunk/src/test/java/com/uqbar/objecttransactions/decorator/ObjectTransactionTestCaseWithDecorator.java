@@ -26,7 +26,7 @@ public class ObjectTransactionTestCaseWithDecorator {
 	 * the isolation between parent & child transaction.
 	 * With a commit at the end of the nested transaction.
 	 */
-	@Test
+//	@Test
 	public void testWithJustOneDoorKeeper() {
 		TaskOwner testCaseOwner = new BasicTaskOwner("testCaseOwner");
 		House house = new House();
@@ -52,7 +52,7 @@ public class ObjectTransactionTestCaseWithDecorator {
 	 * the isolation between parent & child transaction.
 	 * With a commit at the end of the nested transaction.
 	 */
-//	@Test
+	@Test
 	public void testOneDoorKeeperChangingCollectionAttribute() {
 		TaskOwner testCaseOwner = new BasicTaskOwner("testCaseOwner");
 		ObjectTransactionManager.begin(testCaseOwner);
