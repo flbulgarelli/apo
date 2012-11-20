@@ -7,9 +7,10 @@
 	
 	La Figura \ref{transactionalModel} muestra esquemáticamente como se ve el
 	los contextos transaccionales a medida que el objeto recibe mensajes de
-	modificación.
+	modificación y  en la Figura \ref{transactionalNestedModel} se muestra el
+	funcionamiento del modelo transaccional anidado.
 
-	\begin{figure}
+	\begin{figure}[hbt]
 		\begin{tabular}{cc}
 		\centering
 			\subfloat[Se crean dos transacciones simultaneas]{
@@ -27,7 +28,15 @@
 			impactando los mismos en el objeto; el segundo contexto se entera de esa
 			modificación.]{
 	    		\includegraphics[scale=0.4]{img/contextoAninado4}
-	    	}\\
+	    	}
+    		\end{tabular}
+		\caption{Ejemplo del modelo transaccional}
+		\label{transactionalModel}
+	\end{figure}
+	    	
+	\begin{figure}[hbt]
+		\begin{tabular}{cc}
+		\centering
 			\subfloat[Se crea una nueva transacción anidada a la segunda.]{
 	    		\includegraphics[scale=0.35]{img/contextoAninado5}
 			}&
@@ -43,6 +52,6 @@
 	    		\includegraphics[scale=0.4]{img/contextoAninado8}
 	    	}
 			\end{tabular}
-		\caption{Ejemplo del modelo transaccional}
-		\label{transactionalModel}
+		\caption{Ejemplo del modelo transaccional anidado}
+		\label{transactionalNestedModel}
 	\end{figure}
