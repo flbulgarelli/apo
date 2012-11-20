@@ -15,7 +15,7 @@ import javassist.NotFoundException;
  * 
  * Parametro para correr tests con este ClassLoader.
  * 
- * -Djava.system.class.loader=com.uqbar.aop.APOClassLoader
+ * -Djava.system.class.loader=com.uqbar.apo.APOClassLoader
  * 
  * @author nny
  * @author jfernandes

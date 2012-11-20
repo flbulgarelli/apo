@@ -11,7 +11,7 @@ import com.uqbar.common.transaction.TaskOwner;
 /**
  * Run with this jvm parameter!
  * 
- * -Djava.system.class.loader=com.uqbar.renascent.framework.aop.FrameworkClassLoader
+ * -Djava.system.class.loader=com.uqbar.apo.APOClassLoader
  * 
  * @author jfernandes
  * @author npasserini

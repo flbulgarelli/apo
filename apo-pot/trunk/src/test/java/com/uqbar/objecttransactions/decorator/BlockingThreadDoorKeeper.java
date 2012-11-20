@@ -93,10 +93,10 @@ public class BlockingThreadDoorKeeper implements DoorKeeper {
 	// *******************************************************************
 	
 	protected void execute(String methodName, Runnable runnable) {
-		logger.trace("executing '" + methodName + "' in thread '" + this.thread + "'...");
+		logger.debug("executing '" + methodName + "' in thread '" + this.thread + "'...");
 		this.thread.nextRunnable(runnable);
 		this.waitForTheOtherThread();
-		logger.trace("woke up from '" + methodName + "' in thread '" + this.thread + "'...");
+		logger.debug("woke up from '" + methodName + "' in thread '" + this.thread + "'...");
 	}
 	
 	protected void waitForTheOtherThread() {
@@ -169,7 +169,7 @@ public class BlockingThreadDoorKeeper implements DoorKeeper {
 			String message = "\t[ Tx: " + ObjectTransactionManager.getTransaction().getId() + " ] " + "front="
 				+ (house.isFrontDoorClosed() ? "CLOSED" : "OPENED") + " back="
 				+ (house.isBackDoorClosed() ? "CLOSED" : "OPENED")
-				+ " people=" + house.getPeople();
+				+ " people=" + house.getPersons();
 			logger.debug(message);
 		}
 		

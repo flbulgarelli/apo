@@ -1,9 +1,8 @@
 package com.uqbar.objecttransactions;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.uqbar.commons.utils.Transactional;
 
 /**
@@ -13,7 +12,7 @@ import org.uqbar.commons.utils.Transactional;
 public class House {
 	private Boolean frontDoorClosed = true;
 	private Boolean backDoorClosed = true;
-	private Person[] persons = new Person[] {};
+	private List<Person> persons = new ArrayList<Person>();
 	
 	public void closeFrontDoor() {
 		this.frontDoorClosed = true;
@@ -31,38 +30,32 @@ public class House {
 		this.backDoorClosed = false;
 	}
 	
-	public boolean isBackDoorClosed() {
-		return backDoorClosed;
-	}
-	
-	public boolean isFrontDoorClosed() {
-		return frontDoorClosed;
-	}
-	
-	public List<Person> getPeople() {
-		return Arrays.asList(this.persons);
+	public List<Person> getPersons() {
+		return this.persons;
 	}
 	
 	public void addPerson(Person person) {
-		this.persons = (Person[]) ArrayUtils.add(this.persons, person);
+		this.getPersons().add(person);
+	}
+
+	public void setPersons(List<Person> persons) {
+		this.persons = persons;
+	}
+
+	public Boolean isBackDoorClosed() {
+		return backDoorClosed;
 	}
 
 	public void setBackDoorClosed(Boolean backDoorClosed) {
 		this.backDoorClosed = backDoorClosed;
 	}
 
+	public Boolean isFrontDoorClosed() {
+		return frontDoorClosed;
+	}
 
 	public void setFrontDoorClosed(Boolean frontDoorClosed) {
 		this.frontDoorClosed = frontDoorClosed;
 	}
-
-	public Person[] getPersons() {
-		return persons;
-	}
-
-	public void setPersons(Person[] persons) {
-		this.persons = persons;
-	}
-
 }
 

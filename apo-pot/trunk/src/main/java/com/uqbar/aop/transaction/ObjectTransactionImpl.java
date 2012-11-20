@@ -267,11 +267,15 @@ public class ObjectTransactionImpl implements ObjectTransaction {
     }
     
     protected void addParentChild(){
-    	this.parent.addChild(this);
+    	if(parent != null){
+    		this.parent.addChild(this);
+    	}
     }
     
     protected void removeFromParent(){
-    	this.parent.removeChild(this);
+    	if(parent != null){
+    		this.parent.removeChild(this);
+    	}
     }
     
     public void addChild(ObjectTransactionImpl child){

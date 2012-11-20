@@ -1,4 +1,5 @@
 package com.uqbar.poo.aop
+
 import com.uqbar.apo.pointcut.AnnotationPointCut
 import com.uqbar.apo.pointcut.FieldPointCut
 import javassist.CtClass
@@ -31,3 +32,5 @@ trait ObservableConfiguration extends Configuration {
     super.createAdvices().::(observableAdvice.addInterceptor(observableFieldInterceptor))
   }
 }
+
+class ObservableConfigurationImpl extends ObservableConfiguration
