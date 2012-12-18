@@ -11,16 +11,16 @@
 			responsabilidad última de llevar a cabo el comportamiento del sistema.
 			
 		\item {\bf Vista}
-			La vista tiene la responsabilidad de interactuar con el usuario, es la
+			La vista tiene la responsabilidad de interactuar con el usuario. Es la
 			parte más fácil de identificar ya que es la que vemos en pantalla.
 			La comunicación con el usuario es bidireccional:
-			por un lado le muestra información proveniente del modelo y por el otro lado
+			por un lado muestra información proveniente del modelo y por el otro lado
 			recibe acciones de parte del usuario, que representa internamente como eventos.
 			
 		\item {\bf Controlador}
 			Es el intermediario entre el modelo y la vista.
-			Captura los eventos emanados de ambos y coordina la interacción entre los
-			dos.
+			Captura los eventos que produce cada uno de ellos y coordina la
+			interacción entre los dos.
 	\end {itemize}
 	 
 	La idea principal de MVC, y que influyó a la mayoría de los frameworks de
@@ -33,7 +33,7 @@
 	
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=300px, height=300px]{img/mvc} 
+		\includegraphics[scale=0.35]{img/mvc} 
 		\caption{Esquema MVC}
 		\label{mvc}
 	\end{figure}  
@@ -41,13 +41,17 @@
 \subsubsection{Eventos}
 \label{Eventos}
 
-		Un evento es un suceso en el sistema, como una interacción del usuario con
-	la máquina, o un cambio en el estado interno de un objeto.
+	Un evento es un suceso en el sistema, por ejemplo, una acción del usuario que
+	requiere una reacción por parte del programa, o un cambio en el estado interno
+	de un objeto que podría ser interesante para otros componentes.
 	En un sistema orientado a eventos, existen fuentes que producen eventos y
 	\emph{listeners} que se registran para ser notificados de esos eventos y poder
-	actuar en consecuencia.	
-	El patrón \emph{Observer} \cite{Gamma1995} es una forma común de implementar la
+	actuar en consecuencia.
+
+	El patrón \emph{Observer} es una forma común de implementar la
 	idea de evento en lenguajes orientados a objetos.
+	Gamma \emph{et al.} \cite{Gamma1995} definen el patrón Observer de la siguiente
+	manera:
 	
 	\begin{quote}
 	
@@ -65,20 +69,25 @@
 	\end{description}
 	\end{quote}
 	
-\subsubsection{Binding}
+\subsubsection{\emph{Binding}}
 \label{binding}
 
-	El \emph{binding} es una conexión entre dos \emph{propiedades} de dos objetos, que
-	permite mantener sincronizado el valor de una propiedad en el primer
-	objeto con el valor de alguna propiedad en el segundo objeto.
+	El \emph{binding} es una conexión entre dos \emph{propiedades} de dos
+	objetos\footnote{Los términos \emph{binding} y \emph{propiedad} se utilizan
+	con diferentes significados en otros contextos. En este trabajo se consideran
+	según su interpretación habitual en la construcción de interfaces de usuario.}, que
+	permite mantener sincronizado el valor de una propiedad en el primer objeto
+	con el valor de alguna propiedad en el segundo objeto.
 	Habitualmente esto se logra a través del uso de eventos.
 	
 	Una \emph{propiedad} es una característica que el objeto exhibe hacia su exterior, 
 	permite consultar su valor y en algunos casos también actualizarlo.
-	Normalmente la implementación no será una variable de instancia, sino un mecanismo de más alto nivel.
-	Por ejemplo, en el lenguaje Java las propiedades siguiendo el contrato denominado JavaBeans, 
-	que especifica que un objeto que tenga la propiedad \code{nombre} 
-	debe proveer implementaciones para los mensajes \code{getNombre} y (opcionalmente) \code{setNombre}.
+	Normalmente la implementación no será una variable de instancia, sino un
+	mecanismo de más alto nivel que dependerá de tecnología que se este utilizando.
+	Por ejemplo, en el lenguaje Java las propiedades siguiendo el contrato
+	denominado JavaBeans, que especifica que un objeto que tenga la propiedad
+	\code{nombre} debe proveer implementaciones para los mensajes \code{getNombre}
+	y (opcionalmente) \code{setNombre}.
 	
 	En la construcción de interfaces de usuario es habitual utilizar el concepto de
 	binding para sincronizar los datos que está viendo o modificando el usuario
@@ -116,10 +125,10 @@
 	
 	La necesidad de que los objetos de dominio disparen eventos plantea un problema
 	si (como en muchos casos) no tenemos soporte del lenguaje para eso.
-	La implementación de eventos más habitual mediante un patrón observer (\ref{Eventos}), 
+	La implementación de eventos más habitual mediante un patrón Observer (\ref{Eventos}), 
 	implica agregarle responsabilidades a los objetos de dominio que no tienen que ver con
-	el dominio en sí. Genera más burocracia, ensucia la interfaz y obliga a meter
-	lógica para disparar eventos, mezclado con la ejecución de la acción de
+	el dominio en sí. De esta manera, genera más burocracia, ensucia la interfaz y
+	obliga a meter lógica para disparar eventos, mezclado con la ejecución de la acción de
 	negocio. En definitiva violar el MVC por sí mismo no es algo malo, lo malo son
 	las consecuencias que eso trae.
 	
@@ -136,8 +145,7 @@
 \subsubsection{Framework Arena}
 	Arena es un framework para la construcción de interfaces de usuario. 
 	Esta creado con fines educativos y por lo tanto se focaliza en la puesta en
-	práctica de algunos principios de diseño y organización de
-	interfaces de usuario.
+	práctica de los principios de diseño y organización de interfaces de usuario.
 	El framework fue diseñado e implementado por el equipo docente de la materia de
 	Construcción de Interfaces de Usuario de la Tecnicatura Universitaria en Programación
 	Informática de la Universidad Nacional de Quilmes, en conjunto con docentes de

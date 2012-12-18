@@ -1,7 +1,25 @@
 \section{Introducción}
 
+En la construcción de aplicaciones de software, habitualmente se propone
+aislar las tareas relacionadas con la interacción con el usuario y construir
+componentes específicos que resuelvan esta problemática. 
+De ésta manera, se diferencian en la aplicación componentes que se ocupan de la
+interfaz de usuario (UI) y otros que modelan la lógica del dominio. 
+Esto se hace con el objetivo de minimizar el impacto de la UI sobre estos
+últimos, para lograr una mayor flexibilidad y mantenibilidad del sistema.
+
+Existen múltiples estrategias para resolver la comunicación entre los componentes
+responsables de la UI y los que modelan la lógica del dominio, sin embargo
+muchas de estas estrategias se basan en tareas realizadas manualmente por
+parte del programador. Si bien estas tareas son simples, requieren de grandes
+cantidades de código repetitivo que suelen ser una fuente de errores e
+incrementan los costos del mantenimiento del sistema.
+
+\medskip
+
 Este trabajo tiene por objetivo automatizar dos tareas comunes en el
-desarrollo de aplicaciones orientadas a objetos.
+desarrollo de interfaces de usuario, focalizando en aplicaciones construidas
+siguiendo el paradigma orientado a objetos.
 
 La primera de estas tareas es el traspaso de datos entre los objetos del dominio
 y los componentes de la vista, en el contexto de la creación de interfaces de
@@ -21,27 +39,27 @@ tenían antes de comenzar la operación inconclusa.
 
 En este trabajo se propone una posible solución a estos problemas, basada en
 \emph{programación orientada a aspectos}.
-Un primer aspecto, llamado \emph{Observable} (POO), permite que, en forma
+Un primer aspecto, llamado \emph{Observable}, permite que, en forma
 transparente, los objetos de dominio disparen eventos al ser modificados.
 De esta forma la interfaz de usuario puede actualizarse y reflejar esos
 cambios en forma automática.
 
-Un segundo aspecto, llamado \emph{Transaccional} (POT), automatiza la
+Un segundo aspecto, llamado \emph{Transaccional}, automatiza la
 cancelación de una operación, garantizando que todos los objetos quedan en el
 mismo estado en el que estaban antes de comenzar. 
 Esto permite que las modificaciones a los objetos del dominio se realicen
-en forma \emph{transaccional}, en particular las propiedades de
+en forma \emph{transaccional}, en particular respetando las propiedades de
 \emph{atomicidad}, \emph{consistencia} y \emph{aislamiento}.
 
-Para desarrollar POT y POO se construyó una herramienta llamada
-\emph{Aspects for Pure Objects} (APO).
-APO es una herramienta para programación orientada a aspectos que abstrae
-conceptos fundamentales y complejos del framework \emph{Javassist}. 
-APO es independiente de POT y POO, se puede utilizar
-para la creación de otros aspectos.
+Para desarrollar los aspectos Observable y Transaccional, se construyó una
+herramienta llamada \emph{Aspects for Pure Objects} (APO).
+APO es una herramienta que permite crear aspectos fácilmente siguiendo los
+conceptos de la programación orientada a aspectos. APO fue creado para abstraer
+los conceptos fundamentales y complejos del framework \emph{Javassist}
+\cite{chiba00loadtime}.
 
-Para mostrar la posibilidad de componer los aspectos POO y POT se los integró en
-una extensión del framework \emph{Arena}.
+Para mostrar la posibilidad de componer los aspectos Observable y Transaccional
+se los integró en una extensión del framework \emph{Arena}.
 Arena es un framework educativo para la creación de interfaces de usuario.
 Las extensiones desarrolladas en el marco de este trabajo han sido incorporadas
 a la última versión del Arena que ya está siendo utilizada en la materia de
@@ -50,16 +68,14 @@ entre otras.
 
 \bigskip
 
-\subsection{Estructura de este trabajo}
-\noindent Este trabajo consta de las siguientes secciones:
-
+\noindent \textbf{Este trabajo consta de las siguientes secciones:}
 \begin{itemize}
 	\item \textbf{Contexto}\\
 		En la Sección \ref{Context} se introducen algunos de los conceptos básicos que
 		son necesarios para la compresión del trabajo.
 	\item \textbf{Estado del Arte}\\
 		En la Sección \ref{StateOfTheArt} se describen las estrategias más comunes
-		utilizadas actualmente en la industria para solucionar los problemas atacados
+		utilizadas actualmente en la industria para solucionar los problemas abordados
 		en este trabajo.
 	\item \textbf{Objetivo y Solución}\\
 		La Sección \ref{Objective} detalla el objetivo de este trabajo y la Sección

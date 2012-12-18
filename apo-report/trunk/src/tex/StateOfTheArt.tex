@@ -17,11 +17,12 @@ Como se explicó en la Sección \ref{Eventos}, los eventos
 permiten formas de comunicación con un muy bajo acoplamiento. 
 Sin embargo, son pocos los lenguajes que incorporan un manejo automático de
 eventos, por eso se requiere utilizar herramientas tecnológicas adicionales.
-A continuación detallaremos las estrategias más utilizadas para atacar este problema.
+A continuación detallaremos las estrategias más utilizadas para abordar este
+problema.
 
 \subsubsection{\emph{Binding} con eventos manuales}
-	En algunas tecnologías que no tienen manejo automático de eventos es necesario que los objetos de dominio disparen eventos 
-	\emph{explícitamente} cada vez que cambia el valor de una de sus propiedades.
+	En las tecnologías que no tienen manejo automático de eventos es necesario que
+	los objetos de dominio disparen eventos \emph{explícitamente} cada vez que cambia el valor de una de sus propiedades.
 	
 	Esta técnica es utilizada en
 	frameworks como \emph{JFace-DataBinding}\footnote{JFace-DataBinding es un
@@ -40,17 +41,17 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 
 	 \begin{figure}[h]
 	 	\centering
-		\includegraphics[width=350px, height=200px]{img/javabeans}
+		\includegraphics[scale=0.4]{img/javabeans}
 		\caption{Esquema de eventos definido por el estándar de \emph{Javabeans}}
 		\label{javabeans}
 	\end{figure}
 
-	La principal ventaja de esta estrategia es que
-	permite una comunicación fluida y desacoplada entre la vista y el modelo.
-	El problema es que, al disparar los eventos
-	manualmente se ensucian las clases del dominio\footnote{Ensuciar el dominio es
-	agregar código que no aporta al comportamiento del objeto}. Además, implica
-	escribir mucho código repetitivo, que hace que sea muy fácil cometer errores.
+	La principal ventaja de esta estrategia es que permite una comunicación fluida
+	y desacoplada entre la vista y el modelo.
+	El problema es que, para disparar los eventos manualmente se necesita modificar
+	las clases del dominio, agregando código que no se corresponde con el objetivo
+	principal de dichas clases.
+	Además, implica escribir mucho código repetitivo, que hace que sea muy fácil cometer errores.
 
 \subsubsection{Formularios}
 
@@ -141,7 +142,7 @@ A continuación detallaremos las estrategias más utilizadas para atacar este pr
 	el reemplazo puede ser muy complejo si la operación modifica múltiples objetos
 	de dominio.
 
-	Como se ve, todas estas estrategias logran atomicidad a costa de duplicar
+	Como se observa, todas estas estrategias logran atomicidad a costa de duplicar
 	información y agregar tareas manuales que pueden ser fuente de errores de
 	programación. En general no hay una forma sistemática de
 	garantizar consistencia ni aislamiento.

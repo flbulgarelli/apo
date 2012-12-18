@@ -1,7 +1,6 @@
 Un primer paso para la implementación de la herramienta fue la selección de una
 tecnología que permitiera desarrollar utilizando AOP.
-Con ese objetivo, se evaluaron dos frameworks: Javassist
-\cite{chiba00loadtime} y AspectJ \cite{KiczalesHHKPG01}.
+Con ese objetivo, se evaluaron dos frameworks: Javassist y AspectJ \cite{KiczalesHHKPG01}.
 
 \medskip 
 Encontramos que AspectJ es una herramienta de más alto nivel, que extiende
@@ -70,7 +69,7 @@ Existen varios tipos de behavior, siguiendo la teoría de AOP:
 \code{Before}, \code{After}, \code{Arround}, \code{ReadField} y \code{WriteField}. 
  
 Finalmente una instancia de \code{APOClassLoader}, instalada como \emph{class
-loader} del sistema permite que antes de utilizar cualquier clase, esta pueda
+loader} del sistema permite que antes de utilizar cualquier clase, ésta pueda
 ser procesada por el \code{AdviceWeaver}.
 
 Todas las modificaciones configuradas están expresadas en un

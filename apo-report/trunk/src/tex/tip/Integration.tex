@@ -5,7 +5,7 @@ por el framework Arena.
 \medskip
 Por otro lado, la clase \lstinline|TransactionalDialog| permite integrar Arena y
 POT, dado que al definir una ventana como una subclase de
-\lstinline|TransactionalDialog|, esta se asocia automáticamente con un
+\lstinline|TransactionalDialog|, ésta se asocia automáticamente con un
 contexto transaccional.
 Al abrirse la ventana se efectúa la operación de \emph{beginTransaction}.
 Luego, botones \emph{Aceptar} y \emph{Cancelar} (que por defecto son agregados
@@ -19,14 +19,14 @@ limitándolos a las ventanas que se encuentran dentro del mismo contexto
 transaccional. 
 Se implementaron tres niveles de aislamiento de los eventos:
 \begin{description}
-	\item[\emph{Fire All}] Todos los eventos disparados por el dominio son
+	\item[\emph{Fire all}] Todos los eventos disparados por el dominio son
 	escuchados, sin importar si están en un transacción.
 
-	\item[\emph{Fire Committed}] Solo se escucha los eventos de las transacciones
+	\item[\emph{Fire committed}] Sólo se escucha los eventos de las transacciones
 		comiteadas
 	
-	\item[\emph{Fire only in my transaction}] solo se escucha los eventos que
-		ocurren dentro de su translación.
+	\item[\emph{Fire only in my transaction}] sólo se escucha los eventos que
+		ocurren dentro de su transacción.
  \end{description}
  
 \medskip
@@ -48,9 +48,9 @@ o bien utilizar \emph{TransactionalAndObservable} que es una unión de ambas com
 
 
 \subsection{Otras mejoras al Arena}
-	La integración se realizo con el lenguaje de programación Scala
-	\cite{OderskySpoonVenners08}. Para llevar a cabo la integración fue necesario agregar algunas
-	mejoras en Arena:
+	La integración se realizó con el lenguaje de programación Scala
+	\cite{OderskySpoonVenners08}. Para llevar a cabo la integración fue necesario
+	agregar las siguientes mejoras en el framework Arena:
 	\begin{description}
 
 	  \item[Bindings anidados] Como se vio en la Sección \ref{binding},
@@ -69,10 +69,9 @@ o bien utilizar \emph{TransactionalAndObservable} que es una unión de ambas com
 			\label{bindAnidado}
 		\end{figure}	
 
-	  \item[Nuevos componentes] Se agregaron algunas estructuras visuales como
-	  arboles y listas.
+	  \item[Nuevos componentes] Se agregaron estructuras visuales como árboles y listas.
 
-  	  \item[Monitor de Transacciones]
+  	  \item[Monitor de transacciones]
 		 Se desarrolló un \emph{Monitor de Transacciones}, que permite
 		 \emph{debuggear} las transacciones abiertas actualmente, mostrando
 		 los objetos afectados por la transacción y los atributos que se

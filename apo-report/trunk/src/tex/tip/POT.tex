@@ -13,7 +13,7 @@ A su vez, el administrador de transacciones asocia el pedido con un contexto
 transaccional, que guarda los valores de los atributos de un objeto que fueron
 modificados durante la transacción en una estructura de la forma
 \code{[objeto, [nombre del atributo, valor]]}.
-Cada contexto transaccional esta asociado a un \emph{thread}. Esto
+Cada contexto transaccional está asociado a un \emph{thread}. Esto
 permite manejar la concurrencia en el acceso a la información de los objetos.
 Para aplicarle este aspecto a una clase se utiliza la \emph{annotation} \lstinline|Transactional| como
 se muestra en la Figura \ref{annoTransactional}.
@@ -37,7 +37,7 @@ padre.
 En caso de tratarse de una transacción de primer nivel, los cambios se impactan
 en los objetos de dominio usando \emph{reflection}.
 Esta forma de implementación permite que la identidad del objeto se
-mantenga, ya que el objeto no se modifica ni se clona, solo se intercepta el
+mantenga, ya que el objeto no se modifica ni se clona, sólo se intercepta el
 acceso a sus atributos.
 
 Otro agregado a la versión original es la intersección de las modificaciones 
