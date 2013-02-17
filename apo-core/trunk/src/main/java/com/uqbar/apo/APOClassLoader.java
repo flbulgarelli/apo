@@ -144,6 +144,9 @@ public class APOClassLoader extends ClassLoader {
 	 */
 	protected Class<?> findClass(String name) throws ClassNotFoundException {
 		byte[] classfile;
+		if(notAdviceable(name)) {
+			return null;
+		}
 		try {
 			if (this.classPool != null) {
 				try {
@@ -187,6 +190,16 @@ public class APOClassLoader extends ClassLoader {
 		}
 
 		return this.defineClass(name, classfile, 0, classfile.length);
+	}
+
+	private boolean notAdviceable(String name) {
+		for(String packageName : Arrays.asList(
+				"groovy.lang", 
+				"org.codehaus.groovy"
+				)) 
+			if(name.startsWith(packageName))
+				return true;
+		return false;
 	}
 
 	/**
